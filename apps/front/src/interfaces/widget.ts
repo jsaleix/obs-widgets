@@ -14,6 +14,7 @@ export interface WidgetRowSettings {
 }
 
 export interface Widget {
+    name: string;
     id: string;
     owner: string;
     secret: string;
