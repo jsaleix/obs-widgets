@@ -1,15 +1,15 @@
 export interface WidgetGeneralSettings {
     bgColor: string;
     iconsColor: string;
-    optionalText: string | null;
-    optionalTextColor: string | null;
+    optionalText: string;
+    optionalTextColor: string;
 }
 
 export interface WidgetRowSettings {
     id: string;
     icon: string;
     fontColor: string;
-    label: string | null;
+    label: string;
     value: number;
 }
 

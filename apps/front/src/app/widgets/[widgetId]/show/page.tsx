@@ -1,3 +1,4 @@
+import RenderedWidget from "@/components/widgets/rendered-item";
 import widgetService from "@/lib/services/widget.service";
 import { redirect } from "next/navigation";
 
@@ -20,6 +21,7 @@ export default async function Page({ params: { widgetId } }: PageProps) {
             </div>
             <p>{data.secret}</p>
             <p>{data.owner}</p>
+            <RenderedWidget widget={data} />
         </div>
     );
 }
