@@ -38,7 +38,8 @@ export async function findOne(collectionName: COLLECTIONS_TYPE, id: string) {
     let docRef = doc(db, collectionName, id);
     try {
         let result = await getDoc(docRef);
-        return result.data();
+        if (result.exists()) return result.data();
+        throw new Error("Document not found");
     } catch (e: any) {
         if (e instanceof Error) throw e;
         else throw new Error("Error while fetching data");
@@ -59,7 +60,7 @@ export async function findMany(
     try {
         const q = query(col, where(cond.field, cond.op, cond.value));
         let result = await getDocs(q);
-        return result.docs.map((doc) => doc.data());
+        return result.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (e: any) {
         if (e instanceof Error) throw e;
         else throw new Error("Error while fetching data");
@@ -70,7 +71,7 @@ export async function findAll(collectionName: COLLECTIONS_TYPE) {
     const col = collection(db, collectionName);
     try {
         const result = await getDocs(col);
-        return result.docs.map((doc) => doc.data());
+        return result.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (e: any) {
         if (e instanceof Error) throw e;
         else throw new Error("Error while fetching data");

@@ -4,7 +4,7 @@ import {
     WidgetGeneralSettings,
     WidgetRowSettings,
 } from "@/interfaces/widget";
-import { addOne, findAll, findMany } from "../firebase";
+import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/config/firestore";
 
 const MOCK_WIDGET: Widget = {
@@ -38,8 +38,12 @@ const DefaultRow: WidgetRowSettings = {
 
 class WidgetService {
     async findOne(id: string): Promise<Widget | null> {
-        if (id == MOCK_WIDGET.id) return MOCK_WIDGET;
-        else return null;
+        try {
+            return (await findOne(Collections.widgets, id)) as Widget;
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     async findAll() {
@@ -47,11 +51,11 @@ class WidgetService {
     }
 
     async findAllByOwner(owner: string) {
-        return await findMany(Collections.widgets, {
+        return (await findMany(Collections.widgets, {
             field: "owner",
             op: "==",
             value: owner,
-        }) as Widget[]
+        })) as Widget[];
     }
 
     async create(name: string, owner: string) {
