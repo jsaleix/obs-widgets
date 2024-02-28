@@ -1,13 +1,13 @@
 "server only";
 import {
-    Widget,
-    WidgetGeneralSettings,
-    WidgetRowSettings,
+    CounterI,
+    CounterGeneralSettings,
+    CounterRowSettings,
 } from "@/lib/interfaces/widget";
 import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/lib/config/firestore";
 
-const MOCK_WIDGET: Widget = {
+const MOCK_WIDGET: CounterI = {
     name: "My widget",
     id: "WIDGET_1",
     owner: "noOne",
@@ -21,14 +21,14 @@ const MOCK_WIDGET: Widget = {
     rows: [],
 };
 
-const DefaultGeneralSettings: WidgetGeneralSettings = {
+const DefaultGeneralSettings: CounterGeneralSettings = {
     bgColor: "#000000",
     iconsColor: "#FFFFFF",
     optionalText: "",
     optionalTextColor: "",
 };
 
-const DefaultRow: WidgetRowSettings = {
+const DefaultRow: CounterRowSettings = {
     id: crypto.randomUUID(),
     icon: "icon",
     fontColor: "#000000",
@@ -36,10 +36,10 @@ const DefaultRow: WidgetRowSettings = {
     value: 0,
 };
 
-class WidgetService {
-    async findOne(id: string): Promise<Widget | null> {
+class CounterService {
+    async findOne(id: string): Promise<CounterI | null> {
         try {
-            return (await findOne(Collections.widgets, id)) as Widget;
+            return (await findOne(Collections.counter, id)) as CounterI;
         } catch (e) {
             console.error(e);
             return null;
@@ -47,15 +47,15 @@ class WidgetService {
     }
 
     async findAll() {
-        return await findAll(Collections.widgets);
+        return await findAll(Collections.counter);
     }
 
     async findAllByOwner(owner: string) {
-        return (await findMany(Collections.widgets, {
+        return (await findMany(Collections.counter, {
             field: "owner",
             op: "==",
             value: owner,
-        })) as Widget[];
+        })) as CounterI[];
     }
 
     async create(name: string, owner: string) {
@@ -67,7 +67,7 @@ class WidgetService {
             rows: [DefaultRow],
             general: DefaultGeneralSettings,
         };
-        const res = await addOne(Collections.widgets, id, data);
+        const res = await addOne(Collections.counter, id, data);
         return res;
     }
 
@@ -77,4 +77,4 @@ class WidgetService {
     }
 }
 
-export default new WidgetService();
+export default new CounterService();

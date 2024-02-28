@@ -1,8 +1,8 @@
-import { WidgetRowSettings } from "@/lib/interfaces/widget";
+import { CounterRowSettings } from "@/lib/interfaces/widget";
 import { classNames } from "@/lib/utils";
 
 interface Props {
-    data: WidgetRowSettings;
+    data: CounterRowSettings;
 }
 
 export default function RowItem({ data }: Props) {

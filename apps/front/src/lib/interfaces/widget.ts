@@ -1,11 +1,10 @@
-export interface WidgetGeneralSettings {
+export interface CounterGeneralSettings {
     bgColor: string;
     iconsColor: string;
     optionalText: string;
     optionalTextColor: string;
 }
-
-export interface WidgetRowSettings {
+export interface CounterRowSettings {
     id: string;
     icon: string;
     fontColor: string;
@@ -13,13 +12,13 @@ export interface WidgetRowSettings {
     value: number;
 }
 
-export interface Widget {
+export interface CounterI {
     name: string;
     id: string;
     owner: string;
     secret: string;
-    general: WidgetGeneralSettings;
-    rows: WidgetRowSettings[];
+    general: CounterGeneralSettings;
+    rows: CounterRowSettings[];
 }
 
 export const RowMutation = {
