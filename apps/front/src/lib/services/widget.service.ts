@@ -15,8 +15,8 @@ const MOCK_WIDGET: Widget = {
     general: {
         bgColor: "#123456",
         iconsColor: "#000000",
-        optionalText: null,
-        optionalTextColor: null,
+        optionalText: "",
+        optionalTextColor: "",
     },
     rows: [],
 };
@@ -69,6 +69,11 @@ class WidgetService {
         };
         const res = await addOne(Collections.widgets, id, data);
         return res;
+    }
+
+    async isAllowedToEdit(widgetId: string, user: string) {
+        const widget = await this.findOne(widgetId);
+        return widget?.owner === user;
     }
 }
 
