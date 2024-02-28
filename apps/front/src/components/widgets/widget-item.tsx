@@ -19,7 +19,7 @@ export default function WidgetItem({ widget }: { widget: Widget }) {
                 <Link
                     target="_blank"
                     className="bg-white text-black p-2 rounded-md w-full"
-                    href={`/widgets/${widget.id}/show`}
+                    href={`/viewer/widget/${widget.id}`}
                 >
                     Show (out)
                 </Link>

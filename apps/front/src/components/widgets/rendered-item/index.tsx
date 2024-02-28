@@ -8,7 +8,7 @@ interface Props {
 
 export default function RenderedWidget({ widget }: Props) {
     return (
-        <div className="flex flex-col bg-neutral-900/85 h-5rem w-full rounded-l opacity-90">
+        <div className="flex flex-col bg-neutral-900/85 h-5rem w-fit rounded-l opacity-90">
             <div className="flex flex-col items-start gap-4 p-5 w-90">
                 {widget.rows.length > 0 &&
                     widget.rows.map((r, idx) => <RowItem data={r} key={idx} />)}
