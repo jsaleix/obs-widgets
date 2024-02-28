@@ -14,7 +14,7 @@ import {
     where,
 } from "firebase/firestore";
 import { firebase_app } from ".";
-import { COLLECTIONS_TYPE } from "@/config/firestore";
+import { COLLECTIONS_TYPE } from "@/lib/config/firestore";
 
 const db = getFirestore(firebase_app);
 

@@ -3,9 +3,9 @@ import {
     Widget,
     WidgetGeneralSettings,
     WidgetRowSettings,
-} from "@/interfaces/widget";
+} from "@/lib/interfaces/widget";
 import { addOne, findAll, findMany, findOne } from "../firebase";
-import { Collections } from "@/config/firestore";
+import { Collections } from "@/lib/config/firestore";
 
 const MOCK_WIDGET: Widget = {
     name: "My widget",

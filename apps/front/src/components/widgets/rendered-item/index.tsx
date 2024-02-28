@@ -1,4 +1,4 @@
-import { Widget } from "@/interfaces/widget";
+import { Widget } from "@/lib/interfaces/widget";
 import RowItem from "./row-item";
 import OptionalText from "./optional-text";
 

@@ -5,7 +5,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     return (
         <React.Fragment>
             <Header />
-            {children}
+            <main className="w-full h-full">{children}</main>
         </React.Fragment>
     );
 }

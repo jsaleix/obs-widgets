@@ -1,4 +1,4 @@
-import { Widget } from "@/interfaces/widget";
+import { Widget } from "@/lib/interfaces/widget";
 import Link from "next/link";
 
 export default function WidgetItem({ widget }: { widget: Widget }) {

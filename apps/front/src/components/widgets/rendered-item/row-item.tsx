@@ -1,4 +1,4 @@
-import { WidgetRowSettings } from "@/interfaces/widget";
+import { WidgetRowSettings } from "@/lib/interfaces/widget";
 import { classNames } from "@/lib/utils";
 
 interface Props {
