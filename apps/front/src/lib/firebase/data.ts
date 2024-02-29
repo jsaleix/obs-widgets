@@ -8,6 +8,7 @@ import {
     getDoc,
     getDocs,
     getFirestore,
+    onSnapshot,
     query,
     setDoc,
     updateDoc,
@@ -38,7 +39,7 @@ export async function findOne(collectionName: COLLECTIONS_TYPE, id: string) {
     let docRef = doc(db, collectionName, id);
     try {
         let result = await getDoc(docRef);
-        if (result.exists()) return result.data();
+        if (result.exists()) return { id: result.id, ...result.data() };
         throw new Error("Document not found");
     } catch (e: any) {
         if (e instanceof Error) throw e;
@@ -91,4 +92,16 @@ export async function updateOne(
         if (e instanceof Error) throw e;
         else throw new Error("Error while updating data");
     }
+}
+
+export async function subscribeToRealtime(
+    collectionName: COLLECTIONS_TYPE,
+    id: string,
+    cb: (data: any) => void
+) {
+    const docRef = doc(db, collectionName, id);
+    const unsubscribe = onSnapshot(docRef, (doc) => {
+        cb({ ...doc.data(), id: doc.id });
+    });
+    return unsubscribe;
 }

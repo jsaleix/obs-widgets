@@ -6,6 +6,7 @@ import {
 } from "@/lib/interfaces/counter";
 import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/lib/config/firestore";
+import { subscribeToRealtime } from "../firebase/data";
 
 const MOCK_WIDGET: CounterI = {
     name: "My widget",
@@ -78,8 +79,18 @@ class CounterService {
     }
 
     async isAllowedToEditLocal(counter: CounterI, user: string) {
-        if(!counter) return false;
+        if (!counter) return false;
         return counter.owner === user;
+    }
+
+    async getRealtimeCounter(
+        counterId: string,
+        cb: (counter: CounterI) => void
+    ) {
+        const counter = await this.findOne(counterId);
+        if (!counter) throw new Error("Counter not found");
+        const unsub = subscribeToRealtime(Collections.counter, counterId, cb);
+        return unsub;
     }
 }
 

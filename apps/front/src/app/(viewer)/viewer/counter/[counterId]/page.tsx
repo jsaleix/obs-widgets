@@ -1,6 +1,6 @@
-import RenderedWidget from "@/components/widgets/counter";
+import RealtimeCounterWrapper from "@/components/widgets/realtime-wrapper";
 import counterService from "@/lib/services/counter.service";
-import { notFound, redirect } from "next/navigation";
+import { notFound, } from "next/navigation";
 
 interface PageProps {
     params: {
@@ -9,8 +9,8 @@ interface PageProps {
 }
 
 export default async function Page({ params: { counterId } }: PageProps) {
-    const data = await counterService.findOne(counterId);
-
+    let data = await counterService.findOne(counterId);
+    
     if (!data) notFound();
-    return <RenderedWidget counter={data} />;
+    return <RealtimeCounterWrapper initData={data} />;
 }

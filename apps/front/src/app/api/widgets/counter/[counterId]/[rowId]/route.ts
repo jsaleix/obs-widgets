@@ -4,7 +4,7 @@ import { type NextRequest } from "next/server";
 
 interface Params {
     params: {
-        widgetId: string;
+        counterId: string;
         rowId: string;
         type: ROW_MUTATION_TYPE;
     };
@@ -12,8 +12,8 @@ interface Params {
 
 export async function PATCH(req: NextRequest, { params }: Params) {
     try {
-        const { widgetId, rowId } = params;
-        const widget = await CounterService.findOne(widgetId);
+        const { counterId, rowId } = params;
+        const widget = await CounterService.findOne(counterId);
         if (!widget) throw new Error("Widget not found");
         const secret = req.nextUrl.searchParams.get("secret");
         const mutationType = req.nextUrl.searchParams.get("type");
