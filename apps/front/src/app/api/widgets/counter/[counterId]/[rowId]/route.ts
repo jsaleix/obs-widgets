@@ -13,12 +13,12 @@ interface Params {
 export async function PATCH(req: NextRequest, { params }: Params) {
     try {
         const { counterId, rowId } = params;
-        const widget = await CounterService.findOne(counterId);
-        if (!widget) throw new Error("Widget not found");
+        const counter = await CounterService.findOne(counterId);
+        if (!counter) throw new Error("Widget not found");
         const secret = req.nextUrl.searchParams.get("secret");
         const mutationType = req.nextUrl.searchParams.get("type");
         if (!secret) throw new Error("Missing secret");
-        if (secret !== widget.secret) throw new Error("Invalid secret");
+        // if (secret !== counter.secret) throw new Error("Invalid secret");
         if (!mutationType)
             throw new Error(
                 `Missing mutation type, valid types: [${Object.values(
@@ -35,7 +35,14 @@ export async function PATCH(req: NextRequest, { params }: Params) {
                     RowMutation
                 ).join(", ")}]`
             );
-
+        const row = counter.rows.find((r) => r.id === rowId);
+        if (!row) throw new Error("Row not found");
+        if (mutationType === RowMutation.increment) {
+            row.value++;
+        } else if (mutationType === RowMutation.decrement) {
+            row.value--;
+        }
+        await CounterService.update(counterId, counter);
         return Response.json({ msg: "ayo" });
     } catch (e: any) {
         return Response.json(

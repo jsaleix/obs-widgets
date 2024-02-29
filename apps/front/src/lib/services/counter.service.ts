@@ -6,7 +6,7 @@ import {
 } from "@/lib/interfaces/counter";
 import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/lib/config/firestore";
-import { subscribeToRealtime } from "../firebase/data";
+import { subscribeToRealtime, updateOne } from "../firebase/data";
 
 const MOCK_WIDGET: CounterI = {
     name: "My widget",
@@ -71,6 +71,15 @@ class CounterService {
         };
         const res = await addOne(Collections.counter, id, data);
         return res;
+    }
+
+    async update(id: string, data: CounterI) {
+        try {
+            return updateOne(Collections.counter, id, data);
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     async isAllowedToEdit(counterId: string, user: string) {
