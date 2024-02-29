@@ -3,7 +3,7 @@ import {
     CounterI,
     CounterGeneralSettings,
     CounterRowSettings,
-} from "@/lib/interfaces/widget";
+} from "@/lib/interfaces/counter";
 import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/lib/config/firestore";
 
@@ -39,6 +39,7 @@ const DefaultRow: CounterRowSettings = {
 class CounterService {
     async findOne(id: string): Promise<CounterI | null> {
         try {
+            console.log("findOne", id);
             return (await findOne(Collections.counter, id)) as CounterI;
         } catch (e) {
             console.error(e);
@@ -71,9 +72,14 @@ class CounterService {
         return res;
     }
 
-    async isAllowedToEdit(widgetId: string, user: string) {
-        const widget = await this.findOne(widgetId);
-        return widget?.owner === user;
+    async isAllowedToEdit(counterId: string, user: string) {
+        const counter = await this.findOne(counterId);
+        return counter?.owner === user;
+    }
+
+    async isAllowedToEditLocal(counter: CounterI, user: string) {
+        if(!counter) return false;
+        return counter.owner === user;
     }
 }
 

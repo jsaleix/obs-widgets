@@ -14,3 +14,7 @@ export const navLinks: Array<NavLinkI> = [
         path: "/widgets",
     },
 ];
+
+export const protectedPaths = [
+    "/widgets", "/account"
+]

@@ -1,6 +1,6 @@
 import RenderedWidget from "@/components/widgets/counter";
 import counterService from "@/lib/services/counter.service";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface PageProps {
     params: {
@@ -11,6 +11,6 @@ interface PageProps {
 export default async function Page({ params: { counterId } }: PageProps) {
     const data = await counterService.findOne(counterId);
 
-    if (!data) return redirect("/widgets?not-found");
+    if (!data) notFound();
     return <RenderedWidget counter={data} />;
 }

@@ -1,4 +1,4 @@
-import { CounterRowSettings } from "@/lib/interfaces/widget";
+import { CounterRowSettings } from "@/lib/interfaces/counter";
 import { classNames } from "@/lib/utils";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { CounterI } from "@/lib/interfaces/widget";
+import { CounterI } from "@/lib/interfaces/counter";
 import Link from "next/link";
 
 export default function CounterListItem({ item }: { item: CounterI }) {
@@ -12,7 +12,7 @@ export default function CounterListItem({ item }: { item: CounterI }) {
             <div className="w-full flex justify-between gap-4">
                 <Link
                     className="bg-white text-black p-2 rounded-md w-full"
-                    href={`/widgets/${item.id}/edit`}
+                    href={`/widgets/counter/${item.id}/edit`}
                 >
                     Edit
                 </Link>

@@ -1,4 +1,4 @@
-import { ROW_MUTATION_TYPE, RowMutation } from "@/lib/interfaces/widget";
+import { ROW_MUTATION_TYPE, RowMutation } from "@/lib/interfaces/counter";
 import CounterService from "@/lib/services/counter.service";
 import { type NextRequest } from "next/server";
 
