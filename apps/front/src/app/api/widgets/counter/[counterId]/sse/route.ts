@@ -10,13 +10,10 @@ interface Params {
 }
 
 export async function GET(req: NextRequest, { params }: Params) {
-    console.log(params);
     const { counterId } = params;
-    console.log("counterId", counterId);
     if (!counterId) {
         return new Response("Invalid counterId", { status: 400 });
     }
-
     let responseStream = new TransformStream();
     const writer = responseStream.writable.getWriter();
     let unsub: undefined | (() => void);
