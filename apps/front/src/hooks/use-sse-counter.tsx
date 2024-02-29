@@ -1,7 +1,7 @@
 import { CounterI } from "@/lib/interfaces/counter";
 import { useEffect, useRef, useState } from "react";
 
-export default function useSSE({ initData }: { initData: CounterI }) {
+export default function useSSECounter({ initData }: { initData: CounterI }) {
     const [data, setData] = useState<CounterI>(initData);
     const eventSourceRef = useRef<EventSource | null>(null);
 

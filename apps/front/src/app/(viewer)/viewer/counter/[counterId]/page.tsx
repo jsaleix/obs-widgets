@@ -1,4 +1,4 @@
-import RealtimeCounterWrapper from "@/components/widgets/realtime-wrapper";
+import RealtimeCounterWrapper from "@/components/widgets/counter/realtime-wrapper";
 import counterService from "@/lib/services/counter.service";
 import { notFound, } from "next/navigation";
 

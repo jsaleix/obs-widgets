@@ -1,5 +1,5 @@
 "use server";
-import CounterListItem from "@/components/widgets/counter-list-item";
+import CounterListItem from "@/components/widgets/counter/counter-list-item";
 import counterService from "@/lib/services/counter.service";
 
 export default async function Page() {
