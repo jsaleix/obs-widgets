@@ -1,7 +1,13 @@
+import { classNames } from "@/lib/utils";
+
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export default function Button({ children, className, ...rest }: Props) {
-    const classes = `bg-blue-500 text-white p-2 rounded-md ${className}`;
+    const classes = classNames(
+        "bg-blue-500 text-white p-2 rounded-md w-full disabled:opacity-50 disabled:cursor-not-allowed",
+        className ?? ""
+    );
+
     return (
         <button className={classes} {...rest}>
             {children}
