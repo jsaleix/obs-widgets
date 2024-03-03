@@ -1,3 +1,5 @@
+import { ICONS_TYPE } from "../config/counter";
+
 export interface CounterGeneralSettings {
     bgColor: string;
     iconsColor: string;
@@ -6,7 +8,7 @@ export interface CounterGeneralSettings {
 }
 export interface CounterRowSettings {
     id: string;
-    icon: string;
+    icon: ICONS_TYPE;
     fontColor: string;
     label: string;
     value: number;

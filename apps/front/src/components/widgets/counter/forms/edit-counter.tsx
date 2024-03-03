@@ -21,7 +21,6 @@ export default function EditCounter({ initValues, submitAction }: Props) {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!hasChanged) return;
-        console.log("called");
         submitAction(localData);
     };
 
@@ -48,32 +47,42 @@ export default function EditCounter({ initValues, submitAction }: Props) {
     useEffect(() => console.log(localData.general.optionalText), [localData]);
     return (
         <React.Fragment>
-            <div className="w-full flex flex-col gap-10">
-                <div className={"flex flex-col w-full"}>
-                    <GeneralForm
-                        submitAction={handleGeneralChange}
-                        initValues={localData.general}
-                        formMode="edit"
-                    />
+            <div className="w-full flex flex-row gap-5">
+                <div className="w-1/2 flex flex-col gap-10">
+                    <div className={"flex flex-col w-full"}>
+                        <GeneralForm
+                            submitAction={handleGeneralChange}
+                            initValues={localData.general}
+                            formMode="edit"
+                        />
+                    </div>
+                    <div className={"flex flex-col w-full"}>
+                        {localData.rows.length > 0 &&
+                            localData.rows.map((row, idx) => (
+                                <RowForm
+                                    submitAction={(d) =>
+                                        handleRowChange(idx, d)
+                                    }
+                                    key={idx}
+                                    initValues={row}
+                                    formMode="edit"
+                                />
+                            ))}
+                    </div>
+                    <form className={"w-full"} onSubmit={handleSubmit}>
+                        <Button type="submit" disabled={!hasChanged}>
+                            SAVE
+                        </Button>
+                    </form>
                 </div>
-                <div className={"flex flex-col w-full"}>
-                    {localData.rows.length > 0 &&
-                        localData.rows.map((row, idx) => (
-                            <RowForm
-                                submitAction={(d) => handleRowChange(idx, d)}
-                                key={idx}
-                                initValues={row}
-                                formMode="edit"
-                            />
-                        ))}
-                </div>
-                <form className={"w-full"} onSubmit={handleSubmit}>
-                    <Button type="submit" disabled={!hasChanged}>
-                        SAVE
-                    </Button>
-                </form>
-                <div id="preview" className="w-full">
+
+                <div id="preview" className="w-1/2">
                     <Counter counter={localData} />
+                    {JSON.stringify(
+                        Object.keys(localData).sort((a, b) =>
+                            a.localeCompare(b)
+                        )
+                    )}
                 </div>
             </div>
         </React.Fragment>

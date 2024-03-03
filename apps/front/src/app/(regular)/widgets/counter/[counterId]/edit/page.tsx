@@ -10,13 +10,19 @@ interface Props {
     };
 }
 
+let newRow = {id: crypto.randomUUID(),
+    icon: "icon",
+    fontColor: "#000000",
+    label: "",
+    value: 0,}
+
 export default async function Page({ params: { counterId } }: Props) {
     const counter = await counterService.findOne(counterId);
 
     async function handleSubmit(data: any) {
         "use server";
-        console.log("Ayo");
         const r = await counterService.update(counterId, data);
+        return r??false;
     }
 
     if (!counter) notFound();
