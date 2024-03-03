@@ -11,5 +11,5 @@ async function authorizationCheck() {
 
 export default async function Template({ children }: Props) {
     await authorizationCheck();
-    return <div className="py-5 container mx-auto">{children}</div>;
+    return <div className="container mx-auto">{children}</div>;
 }

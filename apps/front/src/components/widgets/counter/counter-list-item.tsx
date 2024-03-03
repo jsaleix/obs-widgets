@@ -1,3 +1,4 @@
+import Button from "@/components/common/button";
 import { CounterI } from "@/lib/interfaces/counter";
 import Link from "next/link";
 
@@ -11,17 +12,15 @@ export default function CounterListItem({ item }: { item: CounterI }) {
             <h2>{item.name}</h2>
             <div className="w-full flex justify-between gap-4">
                 <Link
-                    className="bg-white text-black p-2 rounded-md w-full"
-                    href={`/widgets/counter/${item.id}/edit`}
+                    href={`/widgets/counter/${item.id}/overview`}
                 >
-                    Edit
+                    <Button>Overview</Button>
                 </Link>
                 <Link
                     target="_blank"
-                    className="bg-white text-black p-2 rounded-md w-full"
                     href={`/viewer/counter/${item.id}`}
                 >
-                    Show (out)
+                    <Button>Show</Button>
                 </Link>
             </div>
         </article>

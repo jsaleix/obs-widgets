@@ -4,7 +4,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export default function Button({ children, className, ...rest }: Props) {
     const classes = classNames(
-        "bg-blue-500 text-white p-2 rounded-md w-full disabled:opacity-50 disabled:cursor-not-allowed",
+        "flex justify-center items-center bg-blue-500 text-white p-2 rounded-md w-full disabled:opacity-50 disabled:cursor-not-allowed",
         className ?? ""
     );
 

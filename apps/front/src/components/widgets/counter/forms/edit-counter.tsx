@@ -5,23 +5,29 @@ import RowForm, { RowFormInputs } from "./row-form";
 import { CounterI } from "@/lib/interfaces/counter";
 import Counter from "../rendered";
 import Button from "@/components/common/button";
+import Loader from "@/components/misc/loader";
 
 interface Props {
     initValues: null | CounterI;
-    submitAction: (data: any) => void;
+    submitAction: (data: any) => Promise<any>;
 }
 
 export default function EditCounter({ initValues, submitAction }: Props) {
+    const [savedData, setSavedData] = useState<null | CounterI>(initValues);
     const [localData, setLocalData] = useState<null | CounterI>(initValues);
     const hasChanged = useMemo(
-        () => JSON.stringify(initValues) !== JSON.stringify(localData),
+        () => JSON.stringify(savedData) !== JSON.stringify(localData),
         [initValues, localData]
     );
+    const [isLoading, setLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!hasChanged) return;
-        submitAction(localData);
+        setLoading(true);
+        await submitAction(localData);
+        setSavedData(localData);
+        setLoading(false);
     };
 
     const handleGeneralChange = (data: GeneralFormInputs) => {
@@ -42,9 +48,8 @@ export default function EditCounter({ initValues, submitAction }: Props) {
         setLocalData(newData as CounterI);
     };
 
-    if (!localData) return null;
+    if (!savedData) return null;
 
-    useEffect(() => console.log(localData.general.optionalText), [localData]);
     return (
         <React.Fragment>
             <div className="w-full flex flex-row gap-5">
@@ -52,13 +57,13 @@ export default function EditCounter({ initValues, submitAction }: Props) {
                     <div className={"flex flex-col w-full"}>
                         <GeneralForm
                             submitAction={handleGeneralChange}
-                            initValues={localData.general}
+                            initValues={savedData.general}
                             formMode="edit"
                         />
                     </div>
                     <div className={"flex flex-col w-full"}>
-                        {localData.rows.length > 0 &&
-                            localData.rows.map((row, idx) => (
+                        {savedData.rows.length > 0 &&
+                            savedData.rows.map((row, idx) => (
                                 <RowForm
                                     submitAction={(d) =>
                                         handleRowChange(idx, d)
@@ -70,19 +75,25 @@ export default function EditCounter({ initValues, submitAction }: Props) {
                             ))}
                     </div>
                     <form className={"w-full"} onSubmit={handleSubmit}>
-                        <Button type="submit" disabled={!hasChanged}>
-                            SAVE
-                        </Button>
+                        {isLoading ? (
+                            <Button disabled className="uppercase">
+                                <Loader />
+                                Saving...
+                            </Button>
+                        ) : (
+                            <Button
+                                type="submit"
+                                disabled={!hasChanged}
+                                className="uppercase"
+                            >
+                                SAVE
+                            </Button>
+                        )}
                     </form>
                 </div>
 
                 <div id="preview" className="w-1/2">
-                    <Counter counter={localData} />
-                    {JSON.stringify(
-                        Object.keys(localData).sort((a, b) =>
-                            a.localeCompare(b)
-                        )
-                    )}
+                    <Counter counter={savedData} />
                 </div>
             </div>
         </React.Fragment>
