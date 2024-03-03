@@ -1,6 +1,8 @@
 "use client";
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
+import Select from "@/components/common/select";
+import { IconsValues } from "@/lib/config/counter";
 import {
     CounterGeneralSettings,
     CounterRowSettings,
@@ -42,13 +44,21 @@ export default function RowForm({
             onChange={formMode === "edit" ? handleSubmit(onSubmit) : () => null}
             className={"w-full flex flex-col gap-1"}
         >
-            <Input
+            {/* <Input
                 register={register("icon", {
                     value: initValues?.icon,
                     required: false,
                 })}
                 defaultValue={initValues?.icon}
-            />
+            /> */}
+            <Select register={register("icon", { value: initValues?.icon })}>
+                <option disabled value="null">Icon</option>
+                {Object.values(IconsValues).map((i, idx) => (
+                    <option key={idx} value={i}>
+                        {i}
+                    </option>
+                ))}
+            </Select>
             <Input
                 register={register("fontColor", {
                     value: initValues?.fontColor,
