@@ -53,7 +53,7 @@ export default function EditCounter({ initValues, submitAction }: Props) {
     return (
         <React.Fragment>
             <div className="w-full flex flex-row gap-5">
-                <div className="w-1/2 flex flex-col gap-10">
+                <div className="w-1/2 flex flex-col gap">
                     <div className={"flex flex-col w-full"}>
                         <GeneralForm
                             submitAction={handleGeneralChange}
@@ -61,7 +61,11 @@ export default function EditCounter({ initValues, submitAction }: Props) {
                             formMode="edit"
                         />
                     </div>
-                    <div className={"flex flex-col w-full"}>
+                    <div
+                        className={
+                            "w-full flex flex-col gap-3 pt-3 mt-3  border-t-2 border-gray-600"
+                        }
+                    >
                         {savedData.rows.length > 0 &&
                             savedData.rows.map((row, idx) => (
                                 <RowForm

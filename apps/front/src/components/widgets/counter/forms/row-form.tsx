@@ -74,7 +74,7 @@ export default function RowForm({
                 maxLength={7}
                 minLength={7}
             />
-            {JSON.stringify(errors)}
+            {/* {JSON.stringify(errors)} */}
             {formMode === "create" && (
                 <Button type="submit">{label ?? "Apply"}</Button>
             )}

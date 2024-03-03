@@ -7,7 +7,7 @@ export default async function Page() {
     // await counterService.create("secondOne", "noOne");
     if (!counters || counters.length === 0) return <div>No counter found</div>;
     return (
-        <div className={"w-100"}>
+        <div className={"w-100 py-5"}>
             {counters.length > 0 && (
                 <div
                     className={

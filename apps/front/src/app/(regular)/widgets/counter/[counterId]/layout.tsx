@@ -49,7 +49,7 @@ export default async function Layout({
                             href={`${baseUrl}/controls`}
                             activeClassName="underline"
                         >
-                            Control
+                            Controls
                         </ActiveLink>
                     </li>
                     <li>
