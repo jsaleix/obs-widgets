@@ -1,10 +1,6 @@
 import EditCounterPage from "@/components/widgets/counter/forms/edit-couter";
 import { defaultRow } from "@/lib/config/counter";
-import {
-    CounterI,
-    CounterRowSettings,
-    RowFormInputs,
-} from "@/lib/interfaces/counter";
+import { CounterI, RowFormInputs } from "@/lib/interfaces/counter";
 import counterService from "@/lib/services/counter.service";
 import { notFound } from "next/navigation";
 
@@ -13,14 +9,6 @@ interface Props {
         counterId: string;
     };
 }
-
-let newRow = {
-    id: crypto.randomUUID(),
-    icon: "icon",
-    fontColor: "#000000",
-    label: "",
-    value: 0,
-};
 
 export default async function Page({ params: { counterId } }: Props) {
     const counter = await counterService.findOne(counterId);
@@ -61,7 +49,6 @@ export default async function Page({ params: { counterId } }: Props) {
 
     return (
         <div className={"flex flex-col gap-3"}>
-            {/* <EditCounterOld initValues={counter} submitAction={handleSubmit} /> */}
             <EditCounterPage
                 initValues={counter}
                 fetchCounter={fetchCounter}

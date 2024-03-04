@@ -1,18 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import {
-    CounterGeneralSettings,
     CounterI,
-    CounterRowSettings,
     GeneralFormInputs,
     RowFormInputs,
 } from "@/lib/interfaces/counter";
-import { useState } from "react";
+import CounterRowModal from "@/components/modal/counter-row-modal";
 import Counter from "../../rendered";
 import RowsPart from "./rows-part";
-import CounterRowModal from "@/components/modal/counter-row-modal";
-import GeneralForm from "../general-form";
-import { COUNTER_MAX_ROWS } from "@/lib/config/counter";
+import GeneralPart from "./general-part";
 
 interface Props {
     initValues: CounterI;
@@ -64,25 +61,17 @@ export default function EditCounterPage({
     return (
         <div className="w-full flex flex-row gap-5">
             <div className="w-1/2 flex flex-col gap-3">
-                <div className="w-full flex flex-col gap-3">
-                    <h1 className="text-xl">General: </h1>
-                    <GeneralForm
-                        initValues={localData.general}
-                        onChangeAction={changeLocalGeneral}
-                        submitAction={handleGeneralSubmit}
-                    />
-                </div>
+                <GeneralPart
+                    initValues={localData.general}
+                    onChangeAction={changeLocalGeneral}
+                    submitAction={handleGeneralSubmit}
+                />
                 <hr />
-                <div className="w-full flex flex-col gap-3">
-                    <h1 className="text-xl">
-                        Rows ({localData.rows.length}/{COUNTER_MAX_ROWS}):{" "}
-                    </h1>
-                    <RowsPart
-                        rows={localData.rows}
-                        addRow={handleAddRow}
-                        selectRow={setSelectedRow}
-                    />
-                </div>
+                <RowsPart
+                    rows={localData.rows}
+                    addRow={handleAddRow}
+                    selectRow={setSelectedRow}
+                />
             </div>
             <div id="preview" className="w-1/2 flex flex-col gap-3">
                 <h1 className="text-xl">Preview: </h1>

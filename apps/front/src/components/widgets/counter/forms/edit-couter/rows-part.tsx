@@ -9,18 +9,23 @@ interface Props {
 }
 export default function RowsPart({ rows, addRow, selectRow }: Props) {
     return (
-        <div id="rows-part" className={"w-full flex flex-col gap-1"}>
-            {rows.length > 0 &&
-                rows.map((row, idx) => (
-                    <Button key={idx} onClick={() => selectRow(row.id)}>
-                        {row.id}
+        <div id="rows-part" className="w-full flex flex-col gap-3">
+            <h1 className="text-xl">
+                Rows ({rows.length}/{COUNTER_MAX_ROWS}):{" "}
+            </h1>
+            <div className={"w-full flex flex-col gap-1"}>
+                {rows.length > 0 &&
+                    rows.map((row, idx) => (
+                        <Button key={idx} onClick={() => selectRow(row.id)}>
+                            {row.id}
+                        </Button>
+                    ))}
+                {rows.length < COUNTER_MAX_ROWS && (
+                    <Button onClick={addRow} className="bg-gray-500">
+                        +
                     </Button>
-                ))}
-            {rows.length < COUNTER_MAX_ROWS && (
-                <Button onClick={addRow} className="bg-gray-500">
-                    +
-                </Button>
-            )}
+                )}
+            </div>
         </div>
     );
 }
