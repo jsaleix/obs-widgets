@@ -19,6 +19,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={classNames(inter.className, "h-screen")}>
                 {children}
+                <div id="modal-root"></div>
             </body>
         </html>
     );
