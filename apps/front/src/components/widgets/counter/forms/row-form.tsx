@@ -6,10 +6,9 @@ import { IconsValues } from "@/lib/config/counter";
 import {
     CounterGeneralSettings,
     CounterRowSettings,
+    RowFormInputs,
 } from "@/lib/interfaces/counter";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-export type RowFormInputs = Omit<CounterRowSettings, "id">;
 
 interface Props {
     submitAction: (data: RowFormInputs) => void;
@@ -52,7 +51,9 @@ export default function RowForm({
                 defaultValue={initValues?.icon}
             /> */}
             <Select register={register("icon", { value: initValues?.icon })}>
-                <option disabled value="null">Icon</option>
+                <option disabled value="null">
+                    Icon
+                </option>
                 {Object.values(IconsValues).map((i, idx) => (
                     <option key={idx} value={i}>
                         {i}

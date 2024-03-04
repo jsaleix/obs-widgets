@@ -2,11 +2,13 @@
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-interface Props {
+export interface BaseModalProps {
     children?: React.ReactNode;
+    isOpen: boolean;
+    onClose?: () => void;
 }
 
-export default function BaseModal({ children }: Props) {
+export default function BaseModal({ children, isOpen, onClose }: BaseModalProps) {
     const [hasRendered, setHasRendered] = useState(false);
 
     useEffect(() => {

@@ -14,6 +14,9 @@ export interface CounterRowSettings {
     value: number;
 }
 
+export type RowFormInputs = Omit<CounterRowSettings, "id">;
+export type GeneralFormInputs = CounterGeneralSettings;
+
 export interface CounterI {
     name: string;
     id: string;

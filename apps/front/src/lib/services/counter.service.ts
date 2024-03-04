@@ -2,11 +2,17 @@
 import {
     CounterI,
     CounterRowSettings,
+    GeneralFormInputs,
+    RowFormInputs,
 } from "@/lib/interfaces/counter";
 import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/lib/config/firestore";
 import { subscribeToRealtime, updateOne } from "../firebase/data";
-import { defaultRow, defaultGeneralSettings } from "../config/counter";
+import {
+    defaultRow,
+    defaultGeneralSettings,
+    COUNTER_MAX_ROWS,
+} from "../config/counter";
 
 class CounterService {
     async findOne(id: string): Promise<CounterI | null> {
@@ -56,6 +62,7 @@ class CounterService {
     async addRow(id: string, row: CounterRowSettings) {
         const counter = await this.findOne(id);
         if (!counter) return null;
+        if (counter.rows.length >= COUNTER_MAX_ROWS) return false;
         counter.rows.push(row);
         return this.update(id, counter);
     }
@@ -67,12 +74,19 @@ class CounterService {
         return this.update(id, counter);
     }
 
-    async updateRow(id: string, row: CounterRowSettings) {
+    async updateRow(id: string, row: RowFormInputs) {
         const counter = await this.findOne(id);
         if (!counter) return null;
         counter.rows = counter.rows.map((r) =>
-            r.id === row.id ? { ...r, ...row } : r
+            r.id === id ? { ...r, ...row } : r
         );
+        return this.update(id, counter);
+    }
+
+    async updateGeneral(id: string, general: GeneralFormInputs) {
+        const counter = await this.findOne(id);
+        if (!counter) return null;
+        counter.general = { ...counter.general, ...general };
         return this.update(id, counter);
     }
 
