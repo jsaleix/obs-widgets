@@ -18,7 +18,7 @@ interface Props {
     initValues: CounterI;
     fetchCounter: () => Promise<CounterI>;
     addRow: () => Promise<boolean>;
-    editRow: (data: RowFormInputs) => Promise<boolean>;
+    editRow: (id: string, data: RowFormInputs) => Promise<boolean>;
     editGeneral: (data: GeneralFormInputs) => Promise<boolean>;
 }
 
@@ -56,7 +56,10 @@ export default function EditCounterPage({
         });
     };
 
-    const handleRowChange = (index: number, data: RowFormInputs) => {};
+    const handleRowChange = async (data: RowFormInputs) => {
+        if (!selectedRow) return;
+        await editRow(selectedRow, data);
+    };
 
     return (
         <div className="w-full flex flex-row gap-5">
@@ -89,7 +92,7 @@ export default function EditCounterPage({
                 isOpen={!!selectedRowData}
                 onClose={() => setSelectedRow(null)}
                 rowData={selectedRowData as RowFormInputs}
-                onSubmit={(data) => editRow(data)}
+                onSubmit={handleRowChange}
             />
         </div>
     );

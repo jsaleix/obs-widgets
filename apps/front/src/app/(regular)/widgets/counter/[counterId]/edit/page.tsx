@@ -51,9 +51,9 @@ export default async function Page({ params: { counterId } }: Props) {
         return res ?? false;
     }
 
-    async function editRow(data: RowFormInputs) {
+    async function editRow(rowId: string, data: RowFormInputs) {
         "use server";
-        const res = await counterService.updateRow(counterId, data);
+        const res = await counterService.updateRow(counterId, rowId, data);
         return res ?? false;
     }
 

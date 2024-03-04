@@ -74,13 +74,13 @@ class CounterService {
         return this.update(id, counter);
     }
 
-    async updateRow(id: string, row: RowFormInputs) {
-        const counter = await this.findOne(id);
+    async updateRow(counterId: string, rowId: string, row: RowFormInputs) {
+        const counter = await this.findOne(counterId);
         if (!counter) return null;
         counter.rows = counter.rows.map((r) =>
-            r.id === id ? { ...r, ...row } : r
+            r.id === rowId ? { ...r, ...row } : r
         );
-        return this.update(id, counter);
+        return this.update(counterId, counter);
     }
 
     async updateGeneral(id: string, general: GeneralFormInputs) {
