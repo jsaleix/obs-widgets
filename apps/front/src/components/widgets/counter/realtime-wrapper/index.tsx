@@ -2,6 +2,7 @@
 import RenderedWidget from "@/components/widgets/counter/rendered";
 import useSSECounter from "@/hooks/use-sse-counter";
 import { CounterI } from "@/lib/interfaces/counter";
+import { useEffect } from "react";
 
 interface Props {
     initData: CounterI;

@@ -38,16 +38,20 @@ class CounterService {
     }
 
     async create(name: string, owner: string) {
-        const id = crypto.randomUUID();
-        const data = {
-            name: name,
-            owner: owner,
-            secret: crypto.randomUUID(),
-            rows: [defaultRow],
-            general: defaultGeneralSettings,
-        };
-        const res = await addOne(Collections.counter, id, data);
-        return res;
+        try {
+            const id = crypto.randomUUID();
+            const data = {
+                name: name,
+                owner: owner,
+                secret: crypto.randomUUID(),
+                rows: [defaultRow],
+                general: defaultGeneralSettings,
+            };
+            const res = await addOne(Collections.counter, id, data);
+            return res;
+        } catch (e) {
+            return false;
+        }
     }
 
     async update(id: string, data: CounterI) {

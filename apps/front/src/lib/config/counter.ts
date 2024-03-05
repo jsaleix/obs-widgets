@@ -27,4 +27,5 @@ export const defaultRow: CounterRowSettings = {
     value: 0,
 };
 
+export const COUNTER_MAX_QUANTITY = 5;
 export const COUNTER_MAX_ROWS = 5;
