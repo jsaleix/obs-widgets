@@ -1,4 +1,4 @@
-import { IconsValuesArray } from "@/lib/config/counter";
+import { COUNTER_MAX_ROWS, IconsValuesArray } from "@/lib/config/counter";
 import { z } from "zod";
 
 export const CounterGeneralSettingsSchema = z.object({
@@ -36,13 +36,13 @@ export const PublicRootSchema = z.object({
 export const FullCounterSchema = z.object({
     ...RootSchema.shape,
     general: CounterGeneralSettingsSchema,
-    rows: z.array(CounterRowSettingsSchema),
+    rows: z.array(CounterRowSettingsSchema).max(COUNTER_MAX_ROWS),
 });
 
 export const PublicCounterSchema = z.object({
     ...PublicRootSchema.shape,
     general: CounterGeneralSettingsSchema,
-    rows: z.array(CounterRowSettingsSchema),
+    rows: z.array(CounterRowSettingsSchema).max(COUNTER_MAX_ROWS),
 });
 
 // Request schemas

@@ -101,7 +101,9 @@ class CounterService {
         if (!counter) return null;
         if (counter.rows.length >= COUNTER_MAX_ROWS) return false;
         counter.rows.push(row);
-        return this.update(id, counter);
+        const parsed = FullCounterSchema.safeParse(counter);
+        if (parsed.success) return this.update(id, parsed.data);
+        else return null;
     }
 
     async removeRow(id: string, rowId: string) {
@@ -112,21 +114,31 @@ class CounterService {
     }
 
     async updateRow(counterId: string, rowId: string, row: RowFormInputs) {
-        const counter = await this.findOne(counterId);
-        if (!counter) return null;
-        counter.rows = counter.rows.map((r) =>
-            r.id === rowId ? { ...r, ...row } : r
-        );
-        const parsed = FullCounterSchema.safeParse(counter);
-        if (parsed.success) return this.update(counterId, parsed.data);
-        return null;
+        try {
+            const counter = await this.findOne(counterId);
+            if (!counter) throw new Error("Counter not found");
+            counter.rows = counter.rows.map((r) =>
+                r.id === rowId ? { ...r, ...row } : r
+            );
+            const parsed = FullCounterSchema.parse(counter);
+            return this.update(counterId, parsed);
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     async updateGeneral(id: string, general: GeneralFormInputs) {
-        const counter = await this.findOne(id);
-        if (!counter) return null;
-        counter.general = { ...counter.general, ...general };
-        return this.update(id, counter);
+        try {
+            const counter = await this.findOne(id);
+            if (!counter) return null;
+            counter.general = { ...counter.general, ...general };
+            const parsed = FullCounterSchema.parse(counter);
+            return this.update(id, parsed);
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     async isAllowedToEdit(counterId: string, user: string) {
@@ -134,7 +146,10 @@ class CounterService {
         return counter?.owner === user;
     }
 
-    async isAllowedToEditLocal(counter: CounterI, user: string) {
+    async isAllowedToEditLocal(
+        counter: CounterPublicI | CounterI,
+        user: string
+    ) {
         if (!counter) return false;
         return counter.owner === user;
     }
