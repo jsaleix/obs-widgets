@@ -57,6 +57,7 @@ export default function RowForm({ submitAction, initValues }: Props) {
                     register={register("fontColor", {
                         value: initValues?.fontColor,
                     })}
+                    type="color"
                     // defaultValue={initValues?.fontColor ?? "#000000"}
                     maxLength={7}
                     minLength={7}

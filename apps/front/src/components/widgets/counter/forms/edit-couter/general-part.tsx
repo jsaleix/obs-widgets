@@ -56,6 +56,7 @@ export default function GeneralPart({
                             required: true,
                             value: initValues.bgColor,
                         })}
+                        type="color"
                         defaultValue={initValues.bgColor}
                         maxLength={7}
                         minLength={7}
@@ -73,6 +74,7 @@ export default function GeneralPart({
                             required: true,
                             value: initValues.iconsColor,
                         })}
+                        type="color"
                         defaultValue={initValues.iconsColor}
                         maxLength={7}
                         minLength={7}
@@ -105,6 +107,7 @@ export default function GeneralPart({
                             required: false,
                             value: initValues.optionalTextColor,
                         })}
+                        type="color"
                         defaultValue={initValues.optionalTextColor}
                         // maxLength={7}
                         // minLength={7}
