@@ -138,6 +138,24 @@ class CounterService {
         }
     }
 
+    async reorderRows(counterId: string, rowIds: string[]) {
+        try {
+            const counter = await this.findOne(counterId);
+            if (!counter) throw new Error("Counter not found");
+            const newRows = counter.rows.sort((a, b) => {
+                const aIdx = rowIds.indexOf(a.id);
+                const bIdx = rowIds.indexOf(b.id);
+                return aIdx - bIdx;
+            });
+            counter.rows = newRows;
+            const parsed = FullCounterSchema.parse(counter);
+            return this.update(counterId, parsed);
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+    }
+
     async updateGeneral(id: string, general: GeneralFormInputs) {
         try {
             const counter = await this.findOne(id);

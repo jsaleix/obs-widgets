@@ -19,6 +19,7 @@ interface Props {
     addRow: () => Promise<boolean>;
     editRow: (id: string, data: RowFormInputs) => Promise<boolean>;
     deleteRow: (id: string) => Promise<void>;
+    reorderRows: (rows: string[]) => Promise<boolean>;
 }
 
 export default function EditCounterPage({
@@ -27,6 +28,7 @@ export default function EditCounterPage({
     addRow,
     editRow,
     deleteRow,
+    reorderRows,
 }: Props) {
     const [localData, setLocalData] = useState<CounterPublicI>(initValues);
     const [selectedRow, setSelectedRow] = useState<null | string>(null);
@@ -43,6 +45,12 @@ export default function EditCounterPage({
 
     const handleGeneralSubmit = async (data: GeneralFormInputs) => {
         await updateGeneralAction(initValues.id, data);
+    };
+
+    const handleRowReorder = async (rows: string[]) => {
+        await reorderRows(rows);
+        const newCounter = await fetchCounter();
+        setLocalData(newCounter);
     };
 
     const handleAddRow = async () => {
@@ -87,6 +95,7 @@ export default function EditCounterPage({
                     rows={localData.rows}
                     addRow={handleAddRow}
                     selectRow={setSelectedRow}
+                    reorderRows={handleRowReorder}
                 />
             </div>
             <div id="preview" className="w-1/2 flex flex-col gap-3">

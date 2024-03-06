@@ -32,6 +32,12 @@ export default async function Page({ params: { counterId } }: Props) {
         return res ?? false;
     }
 
+    async function reorderRow(rows: string[]) {
+        "use server";
+        const res = await counterService.reorderRows(counterId, rows);
+        return res;
+    }
+
     async function deleteRow(rowId: string) {
         "use server";
         await counterService.removeRow(counterId, rowId);
@@ -47,6 +53,7 @@ export default async function Page({ params: { counterId } }: Props) {
                 addRow={addRow}
                 editRow={editRow}
                 deleteRow={deleteRow}
+                reorderRows={reorderRow}
             />
         </div>
     );
