@@ -1,17 +1,27 @@
 import { COUNTER_MAX_ROWS, IconsValuesArray } from "@/lib/config/counter";
 import { z } from "zod";
 
+const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
+
 export const CounterGeneralSettingsSchema = z.object({
-    bgColor: z.string().length(7),
-    iconsColor: z.string().length(7),
+    bgColor: z.string().length(7).regex(hexColorRegex),
+    iconsColor: z.string().length(7).regex(hexColorRegex, "Invalid color"),
     optionalText: z.string().max(15),
-    optionalTextColor: z.string().length(7).default("#000000"),
+    optionalTextColor: z
+        .string()
+        .length(7)
+        .regex(hexColorRegex, "Invalid color")
+        .default("#000000"),
 });
 
 export const CounterRowSettingsSchema = z.object({
     id: z.string(),
     icon: z.enum(IconsValuesArray),
-    fontColor: z.string().length(7).min(7),
+    fontColor: z
+        .string()
+        .length(7)
+        .min(7)
+        .regex(hexColorRegex, "Invalid color"),
     label: z.string().max(10),
     value: z.number().default(0),
 });
