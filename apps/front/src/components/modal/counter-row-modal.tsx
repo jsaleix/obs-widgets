@@ -3,8 +3,9 @@ import BaseModal, { BaseModalProps } from "./base";
 import RowForm from "../widgets/counter/forms/row-form";
 
 interface Props extends BaseModalProps {
-    rowData: RowFormInputs;
+    rowData: RowFormInputs | null;
     onSubmit: (data: RowFormInputs) => void;
+    deleteAction: () => void;
 }
 
 export default function CounterRowModal({
@@ -12,14 +13,20 @@ export default function CounterRowModal({
     onClose,
     rowData,
     onSubmit,
+    deleteAction,
 }: Props) {
     return (
-        <BaseModal isOpen={isOpen} onClose={onClose}>
-            <RowForm
-                initValues={rowData}
-                submitAction={onSubmit}
-                formMode="edit"
-            />
+        <BaseModal isOpen={isOpen} onClose={onClose} title={"Editing counter row"}>
+            {rowData && (
+                <div className="flex flex-col gap-3">
+                    <RowForm
+                        initValues={rowData}
+                        submitAction={onSubmit}
+                        formMode="edit"
+                    />
+                    <button onClick={deleteAction}>Delete this row</button>
+                </div>
+            )}
         </BaseModal>
     );
 }

@@ -2,6 +2,7 @@ import EditCounterPage from "@/components/widgets/counter/forms/edit-couter";
 import { defaultRow } from "@/lib/config/counter";
 import { CounterI, RowFormInputs } from "@/lib/interfaces/counter";
 import counterService from "@/lib/services/counter.service";
+import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -27,7 +28,7 @@ export default async function Page({ params: { counterId } }: Props) {
 
     async function addRow() {
         "use server";
-        const res = await counterService.addRow(counterId, defaultRow);
+        const res = await counterService.addRow(counterId, defaultRow());
         return res ?? false;
     }
 
@@ -39,6 +40,7 @@ export default async function Page({ params: { counterId } }: Props) {
 
     async function deleteRow(rowId: string) {
         "use server";
+        await counterService.removeRow(counterId, rowId);
     }
 
     if (!counter) notFound();

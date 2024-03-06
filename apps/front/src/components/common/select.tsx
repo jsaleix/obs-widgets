@@ -12,7 +12,7 @@ export default function Select({
     ...props
 }: Props) {
     const classes = classNames(
-        "w-full p-2 border border-gray-300 rounded-md outline-none text-black",
+        "w-full p-2 border border-gray-300 rounded-md outline-none text-black bg-white",
         className ?? ""
     );
 

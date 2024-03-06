@@ -7,7 +7,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function Input({ className, register, ...props }: Props) {
     const classes = classNames(
-        "w-full p-1 border border-gray-300 rounded-md outline-none text-black",
+        "w-full p-1 border border-gray-300 rounded-md outline-none text-black bg-white",
         className ?? ""
     );
 

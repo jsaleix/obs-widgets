@@ -14,7 +14,10 @@ import {
     defaultGeneralSettings,
     COUNTER_MAX_ROWS,
 } from "../config/counter";
-import { PublicCounterSchema } from "../validator/schemas/counter.schemas";
+import {
+    FullCounterSchema,
+    PublicCounterSchema,
+} from "../validator/schemas/counter.schemas";
 
 class CounterService {
     async findOne(id: string): Promise<CounterI | null> {
@@ -69,7 +72,7 @@ class CounterService {
                 name: name,
                 owner: owner,
                 secret: crypto.randomUUID(),
-                rows: [defaultRow],
+                rows: [defaultRow()],
                 general: defaultGeneralSettings,
             };
             const res = await addOne(Collections.counter, id, data);
@@ -114,7 +117,9 @@ class CounterService {
         counter.rows = counter.rows.map((r) =>
             r.id === rowId ? { ...r, ...row } : r
         );
-        return this.update(counterId, counter);
+        const parsed = FullCounterSchema.safeParse(counter);
+        if (parsed.success) return this.update(counterId, parsed.data);
+        return null;
     }
 
     async updateGeneral(id: string, general: GeneralFormInputs) {

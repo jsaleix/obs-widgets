@@ -63,7 +63,7 @@ export async function updateGeneralTest(
 }
 
 export async function addRow(counterId: string) {
-    const res = await counterService.addRow(counterId, defaultRow);
+    const res = await counterService.addRow(counterId, defaultRow());
     return res ?? false;
 }
 

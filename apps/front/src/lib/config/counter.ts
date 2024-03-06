@@ -26,12 +26,14 @@ export const defaultGeneralSettings: CounterGeneralSettings = {
     optionalTextColor: "#FFFFFF",
 };
 
-export const defaultRow: CounterRowSettings = {
-    id: crypto.randomUUID(),
-    icon: IconsValues.crown,
-    fontColor: "#000000",
-    label: "",
-    value: 0,
+export const defaultRow: () => CounterRowSettings = () => {
+    return {
+        id: crypto.randomUUID(),
+        icon: IconsValues.crown,
+        fontColor: "#000000",
+        label: "",
+        value: 0,
+    };
 };
 
 export const COUNTER_MAX_QUANTITY = 5;

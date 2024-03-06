@@ -30,7 +30,8 @@ export default function EditCounterPage({
 }: Props) {
     const [localData, setLocalData] = useState<CounterPublicI>(initValues);
     const [selectedRow, setSelectedRow] = useState<null | string>(null);
-    const selectedRowData = localData.rows.find((r) => r.id === selectedRow);
+    const selectedRowData =
+        localData.rows.find((r) => r.id === selectedRow) || null;
 
     const changeLocalGeneral = (data: GeneralFormInputs) => {
         let newData = {
@@ -55,9 +56,22 @@ export default function EditCounterPage({
         });
     };
 
+    const handleDeleteRow = async () => {
+        if (!selectedRow) return;
+        const id = selectedRow;
+        setSelectedRow(null);
+        await deleteRow(id);
+        const newCounter = await fetchCounter();
+        setLocalData(newCounter);
+    };
+
     const handleRowChange = async (data: RowFormInputs) => {
         if (!selectedRow) return;
-        await editRow(selectedRow, data);
+        const id = selectedRow;
+        setSelectedRow(null);
+        await editRow(id, data);
+        const newCounter = await fetchCounter();
+        setLocalData(newCounter);
     };
 
     return (
@@ -82,8 +96,9 @@ export default function EditCounterPage({
             <CounterRowModal
                 isOpen={!!selectedRowData}
                 onClose={() => setSelectedRow(null)}
-                rowData={selectedRowData as RowFormInputs}
+                rowData={selectedRowData}
                 onSubmit={handleRowChange}
+                deleteAction={handleDeleteRow}
             />
         </div>
     );
