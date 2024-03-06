@@ -20,12 +20,6 @@ export default async function Page({ params: { counterId } }: Props) {
         return res as CounterI;
     }
 
-    async function handleSubmit(data: any) {
-        "use server";
-        const res = await counterService.update(counterId, data);
-        return res ?? false;
-    }
-
     async function addRow() {
         "use server";
         const res = await counterService.addRow(counterId, defaultRow());

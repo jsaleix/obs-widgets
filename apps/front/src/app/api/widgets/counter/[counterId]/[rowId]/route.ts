@@ -42,7 +42,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         } else if (mutationType === RowMutation.decrement) {
             row.value--;
         }
-        await CounterService.update(counterId, counter);
+        await CounterService.updateRow(counterId, rowId, row);
         return Response.json({ msg: "ayo" });
     } catch (e: any) {
         return Response.json(

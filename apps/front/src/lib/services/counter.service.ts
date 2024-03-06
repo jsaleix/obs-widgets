@@ -82,7 +82,8 @@ class CounterService {
         }
     }
 
-    async update(id: string, data: Partial<CounterI>) {
+    private async update(id: string, data: Partial<CounterI>) {
+        // throw new Error("Should not be used");
         try {
             return updateOne(Collections.counter, id, data);
         } catch (e) {
@@ -97,20 +98,29 @@ class CounterService {
     }
 
     async addRow(id: string, row: CounterRowSettings) {
-        const counter = await this.findOne(id);
-        if (!counter) return null;
-        if (counter.rows.length >= COUNTER_MAX_ROWS) return false;
-        counter.rows.push(row);
-        const parsed = FullCounterSchema.safeParse(counter);
-        if (parsed.success) return this.update(id, parsed.data);
-        else return null;
+        try {
+            const counter = await this.findOne(id);
+            if (!counter) throw new Error("Counter not found");
+            if (counter.rows.length >= COUNTER_MAX_ROWS)
+                throw new Error("Max rows reached");
+            counter.rows.push(row);
+            const parsed = FullCounterSchema.parse(counter);
+            return this.update(id, parsed);
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 
     async removeRow(id: string, rowId: string) {
-        const counter = await this.findOne(id);
-        if (!counter) return null;
-        counter.rows = counter.rows.filter((r) => r.id !== rowId);
-        return this.update(id, counter);
+        try {
+            const counter = await this.findOne(id);
+            if (!counter) throw new Error("Counter not found");
+            counter.rows = counter.rows.filter((r) => r.id !== rowId);
+            return this.update(id, counter);
+        } catch (e) {
+            return false;
+        }
     }
 
     async updateRow(counterId: string, rowId: string, row: RowFormInputs) {
@@ -124,7 +134,7 @@ class CounterService {
             return this.update(counterId, parsed);
         } catch (e) {
             console.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -137,7 +147,7 @@ class CounterService {
             return this.update(id, parsed);
         } catch (e) {
             console.error(e);
-            return null;
+            return false;
         }
     }
 

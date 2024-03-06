@@ -23,7 +23,8 @@ export async function fetchPublicCounter(counterId: string) {
 }
 
 export async function updatePublicCounter(counterId: string, data: any) {
-    const res = await counterService.update(counterId, data);
+    // const res = await counterService.update(counterId, data);
+    const res = false;
     return {
         status: res ? StatusValues.Success : StatusValues.Error,
     } as ActionResponse;
@@ -88,12 +89,14 @@ export async function deleteCounter(counterId: string) {
 
 export async function resetSecret(counterId: string) {
     const newSecret = crypto.randomUUID();
-    const res = await counterService.update(counterId, { secret: newSecret });
+    // const res = await counterService.update(counterId, data);
+    const res = false;
     return res ?? false;
 }
 
 export async function updateName(counterId: string, name: string) {
-    const res = await counterService.update(counterId, { name });
+    // const res = await counterService.update(counterId, data);
+    const res = false;
     return {
         status: res ? StatusValues.Success : StatusValues.Error,
     } as ActionResponse;
