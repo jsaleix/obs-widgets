@@ -36,7 +36,7 @@ export default async function Page({ params: { counterId } }: Props) {
             <hr />
             <SettingRow
                 title="Secret"
-                details="Your secret is your way to use the API to update your counter. You should keep it secret as its name says."
+                details="Your secret is your way to use the API to update your counter rows. You should keep it secret as its name says."
                 contentClassName="gap-2"
             >
                 <Secret secret={counter.secret} onSubmit={resetSecret} />
