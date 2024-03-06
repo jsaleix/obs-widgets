@@ -1,4 +1,4 @@
-import { CounterI } from "@/lib/interfaces/counter";
+import { CounterI, CounterPublicI } from "@/lib/interfaces/counter";
 import counterService from "@/lib/services/counter.service";
 import { convertMessage } from "@/lib/utils/sse";
 import { NextRequest } from "next/server";
@@ -20,12 +20,10 @@ export async function GET(req: NextRequest, { params }: Params) {
 
     try {
         const encoder = new TextEncoder();
-        const cb = async (data: CounterI) => {
-            const msg = convertMessage({ type: "counter-update", data })
-            console.log("sending", msg)
-            writer.write(
-                convertMessage({ type: "counter-update", data })
-            );
+        const cb = async (data: CounterPublicI) => {
+            const msg = convertMessage({ type: "counter-update", data });
+            console.log("sending", msg);
+            writer.write(convertMessage({ type: "counter-update", data }));
         };
 
         unsub = await counterService.getRealtimeCounter(counterId, cb);
@@ -36,7 +34,6 @@ export async function GET(req: NextRequest, { params }: Params) {
             }
             writer.close();
         });
-
     } catch (e) {
         console.error(e);
         let errorMsg = e instanceof Error ? e.message : "An error has occurred";

@@ -1,6 +1,7 @@
 "server only";
 import {
     CounterI,
+    CounterPublicI,
     CounterRowSettings,
     GeneralFormInputs,
     RowFormInputs,
@@ -13,14 +14,25 @@ import {
     defaultGeneralSettings,
     COUNTER_MAX_ROWS,
 } from "../config/counter";
+import { PublicCounterSchema } from "../validator/schemas/counter.schemas";
 
 class CounterService {
     async findOne(id: string): Promise<CounterI | null> {
         try {
-            console.log("findOne", id);
             return (await findOne(Collections.counter, id)) as CounterI;
         } catch (e) {
             console.error(e);
+            return null;
+        }
+    }
+
+    async findOnePublic(id: string): Promise<CounterPublicI | null> {
+        try {
+            const counter = await findOne(Collections.counter, id);
+            if (!counter) throw new Error("Counter not found");
+            const parsed = PublicCounterSchema.parse(counter);
+            return parsed;
+        } catch (e) {
             return null;
         }
     }
@@ -30,11 +42,24 @@ class CounterService {
     }
 
     async findAllByOwner(owner: string) {
-        return (await findMany(Collections.counter, {
-            field: "owner",
-            op: "==",
-            value: owner,
-        })) as CounterI[];
+        try {
+            const counters = (await findMany(Collections.counter, {
+                field: "owner",
+                op: "==",
+                value: owner,
+            })) as CounterI[];
+            const parsed = counters.map((c) => {
+                const p = PublicCounterSchema.safeParse(c);
+                if (p.success) return p.data;
+                return null;
+            });
+            const filtered = parsed.filter(
+                (c) => c != null
+            ) as CounterPublicI[];
+            return filtered;
+        } catch (e) {
+            return [];
+        }
     }
 
     async create(name: string, owner: string) {
@@ -59,7 +84,7 @@ class CounterService {
             return updateOne(Collections.counter, id, data);
         } catch (e) {
             console.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -111,11 +136,19 @@ class CounterService {
 
     async getRealtimeCounter(
         counterId: string,
-        cb: (counter: CounterI) => void
+        cb: (counter: CounterPublicI) => void
     ) {
         const counter = await this.findOne(counterId);
         if (!counter) throw new Error("Counter not found");
-        const unsub = subscribeToRealtime(Collections.counter, counterId, cb);
+        const cbWrapper = (data: any) => {
+            const parsed = PublicCounterSchema.safeParse(data);
+            if (parsed.success) cb(parsed.data);
+        };
+        const unsub = subscribeToRealtime(
+            Collections.counter,
+            counterId,
+            cbWrapper
+        );
         return unsub;
     }
 }

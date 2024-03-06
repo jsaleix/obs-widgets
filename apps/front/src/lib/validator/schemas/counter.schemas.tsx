@@ -12,7 +12,7 @@ export const CounterRowSettingsSchema = z.object({
     id: z.string(),
     icon: z.enum(IconsValuesArray),
     fontColor: z.string().length(7),
-    label: z.string(),
+    label: z.string().max(10),
     value: z.number(),
 });
 
@@ -20,14 +20,14 @@ export const CounterRowSettingsSchema = z.object({
 
 export const RootSchema = z.object({
     id: z.string(),
-    name: z.string().length(10),
+    name: z.string().max(10),
     owner: z.string(),
     secret: z.string(),
 });
 
 export const PublicRootSchema = z.object({
     id: z.string(),
-    name: z.string().length(10),
+    name: z.string().max(10),
     owner: z.string(),
 });
 

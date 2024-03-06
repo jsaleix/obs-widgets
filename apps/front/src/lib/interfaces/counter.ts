@@ -22,5 +22,6 @@ export const RowMutation = {
     decrement: "decrement",
 } as const;
 
+
 type ObjectValue<T> = T[keyof T];
 export type ROW_MUTATION_TYPE = ObjectValue<typeof RowMutation>;

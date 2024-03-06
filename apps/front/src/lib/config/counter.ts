@@ -22,8 +22,8 @@ export type ICONS_TYPE = ObjectType<typeof IconsValues>;
 export const defaultGeneralSettings: CounterGeneralSettings = {
     bgColor: "#000000",
     iconsColor: "#FFFFFF",
-    optionalText: "#FFFFFF",
-    optionalTextColor: "",
+    optionalText: "",
+    optionalTextColor: "#FFFFFF",
 };
 
 export const defaultRow: CounterRowSettings = {

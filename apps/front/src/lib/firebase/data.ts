@@ -61,7 +61,10 @@ export async function findMany(
     try {
         const q = query(col, where(cond.field, cond.op, cond.value));
         let result = await getDocs(q);
-        return result.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        return result.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })) as any[];
     } catch (e: any) {
         if (e instanceof Error) throw e;
         else throw new Error("Error while fetching data");

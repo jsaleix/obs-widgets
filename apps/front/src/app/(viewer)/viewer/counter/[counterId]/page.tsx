@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export default async function Page({ params: { counterId } }: PageProps) {
-    let data = await counterService.findOne(counterId);
+    let data = await counterService.findOnePublic(counterId);
     if (!data) notFound();
     return <RealtimeCounterWrapper initData={data} />;
 }
