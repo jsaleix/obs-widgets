@@ -6,8 +6,13 @@ interface Props {
 }
 
 export default function RowItem({ data }: Props) {
+    const { fontColor, label, value, icon } = data;
+
     return (
-        <div className="flex flex-row items-center h-fit gap-5">
+        <div
+            className="flex flex-row items-center h-fit gap-5"
+            style={{ color: fontColor }}
+        >
             <svg
                 width="34"
                 height="24"
@@ -24,8 +29,8 @@ export default function RowItem({ data }: Props) {
                 />
             </svg>
             <h1 className="text-6xl font-bold">
-                <span className="animate-pulse">{data.value.toString()}</span>
-                <span className={classNames("text-4xl")}>{data.label}</span>
+                <span className="animate-pulse">{value.toString()}</span>
+                <span className={classNames("text-4xl")}>{label}</span>
             </h1>
         </div>
     );
