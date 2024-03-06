@@ -30,10 +30,10 @@ export function RowItem({
                     {...provided.dragHandleProps}
                 >
                     <Button
-                        // onClick={onClick}
+                        onClick={onClick}
                         className="flex !justify-start px-5"
                     >
-                        <button
+                        <span
                             {...provided.dragHandleProps}
                             onClick={(e) => e.preventDefault()}
                         >
@@ -49,7 +49,7 @@ export function RowItem({
                                     fill="white"
                                 />
                             </svg>
-                        </button>
+                        </span>
                         <span className="ml-auto mr-auto">{rowId}</span>
                     </Button>
                 </div>
@@ -75,7 +75,11 @@ function RowsList({
     ));
 }
 
-const reorder = (list: any, startIndex: number, endIndex: number) => {
+const reorder = (
+    list: CounterRowSettings[],
+    startIndex: number,
+    endIndex: number
+) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -89,7 +93,9 @@ export default function RowsPart({
     selectRow,
     reorderRows,
 }: Props) {
+    // To avoid SSR issues
     const [winReady, setwinReady] = useState(false);
+
     useEffect(() => {
         setwinReady(true);
     }, []);
@@ -109,9 +115,7 @@ export default function RowsPart({
             result.destination.index
         );
 
-        // setState({ quotes });
-        console.log(quotes);
-        reorderRows(quotes.map((q: any) => q.id));
+        reorderRows(quotes.map((q) => q.id));
     };
 
     if (!winReady) return null;
