@@ -54,13 +54,18 @@ class CounterService {
         }
     }
 
-    async update(id: string, data: CounterI) {
+    async update(id: string, data: Partial<CounterI>) {
         try {
             return updateOne(Collections.counter, id, data);
         } catch (e) {
             console.error(e);
             return null;
         }
+    }
+
+    async delete(id: string) {
+        throw new Error("Not implemented yet");
+        return null;
     }
 
     async addRow(id: string, row: CounterRowSettings) {

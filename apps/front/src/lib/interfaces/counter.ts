@@ -1,30 +1,21 @@
-import { ICONS_TYPE } from "../config/counter";
+import { z } from "zod";
+import {
+    CounterGeneralSettingsSchema,
+    CounterRowSettingsSchema,
+    FullCounterSchema,
+    PublicCounterSchema,
+} from "../validator/schemas/counter.schemas";
 
-export interface CounterGeneralSettings {
-    bgColor: string;
-    iconsColor: string;
-    optionalText: string;
-    optionalTextColor: string;
-}
-export interface CounterRowSettings {
-    id: string;
-    icon: ICONS_TYPE;
-    fontColor: string;
-    label: string;
-    value: number;
-}
+export type CounterRowSettings = z.infer<typeof CounterRowSettingsSchema>;
+export type CounterGeneralSettings = z.infer<
+    typeof CounterGeneralSettingsSchema
+>;
 
 export type RowFormInputs = Omit<CounterRowSettings, "id">;
 export type GeneralFormInputs = CounterGeneralSettings;
 
-export interface CounterI {
-    name: string;
-    id: string;
-    owner: string;
-    secret: string;
-    general: CounterGeneralSettings;
-    rows: CounterRowSettings[];
-}
+export type CounterI = z.infer<typeof FullCounterSchema>;
+export type CounterPublicI = z.infer<typeof PublicCounterSchema>;
 
 export const RowMutation = {
     increment: "increment",
