@@ -28,12 +28,6 @@ export default async function Page({ params: { counterId } }: Props) {
         return "new secret";
     };
 
-    const deleteCounter = async (name: string) => {
-        "use server";
-        console.log("")
-        return true;
-    };
-
     return (
         <div className={"flex flex-col gap-5"}>
             <SettingRow title="Name" details={"Customize your counter name."}>

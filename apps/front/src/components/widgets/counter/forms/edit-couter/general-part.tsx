@@ -31,7 +31,6 @@ export default function GeneralPart({
     });
 
     const onSubmit: SubmitHandler<GeneralFormInputs> = async (data) => {
-        console.log(data);
         setLoading(true);
         await submitAction(data);
         setHasChanged(false);

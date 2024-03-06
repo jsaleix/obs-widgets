@@ -32,7 +32,6 @@ export default function BaseModal({
     };
 
     useEffect(() => {
-        console.log("isOpen", isOpen);
         if (!isOpen) closeDialog();
         else openDialog();
     }, [isOpen]);

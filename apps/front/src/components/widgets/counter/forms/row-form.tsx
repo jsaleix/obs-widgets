@@ -27,7 +27,6 @@ export default function RowForm({ submitAction, initValues }: Props) {
     });
 
     const onSubmit: SubmitHandler<RowFormInputs> = (data) => {
-        console.log(data);
         submitAction(data);
     };
 
