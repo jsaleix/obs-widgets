@@ -1,6 +1,6 @@
-import { CounterRowSettings } from "@/lib/interfaces/counter";
+import { CounterRowSettings, RowFormInputs } from "@/lib/interfaces/counter";
 import BaseModal, { BaseModalProps } from "./base";
-import RowForm, { RowFormInputs } from "../widgets/counter/forms/row-form";
+import RowForm from "../widgets/counter/forms/row-form";
 
 interface Props extends BaseModalProps {
     rowData: RowFormInputs;

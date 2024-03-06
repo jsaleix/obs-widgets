@@ -29,7 +29,7 @@ export async function updatePublicCounter(counterId: string, data: any) {
     } as ActionResponse;
 }
 
-export async function updateGeneral(
+export async function updateGeneralAction(
     counterId: string,
     data: GeneralFormInputs
 ) {

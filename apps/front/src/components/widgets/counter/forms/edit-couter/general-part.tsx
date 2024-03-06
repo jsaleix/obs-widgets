@@ -3,7 +3,9 @@ import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import Loader from "@/components/misc/loader";
 import { GeneralFormInputs } from "@/lib/interfaces/counter";
-import { useState } from "react";
+import { CounterGeneralSettingsSchema } from "@/lib/validator/schemas/counter.schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
@@ -24,7 +26,9 @@ export default function GeneralPart({
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<GeneralFormInputs>();
+    } = useForm<GeneralFormInputs>({
+        resolver: zodResolver(CounterGeneralSettingsSchema),
+    });
 
     const onSubmit: SubmitHandler<GeneralFormInputs> = async (data) => {
         console.log(data);
@@ -34,7 +38,7 @@ export default function GeneralPart({
         setLoading(false);
     };
 
-    watch((data) => {
+    watch(() => {
         if (!hasChanged) setHasChanged(true);
     });
 
@@ -46,44 +50,72 @@ export default function GeneralPart({
                 onChange={handleSubmit(onChangeAction)}
                 className={"w-full flex flex-col gap-1"}
             >
-                <Input
-                    placeholder="Background color"
-                    register={register("bgColor", {
-                        required: true,
-                        value: initValues.bgColor,
-                    })}
-                    defaultValue={initValues.bgColor}
-                    maxLength={7}
-                    minLength={7}
-                />
-                <Input
-                    placeholder="Icons color"
-                    register={register("iconsColor", {
-                        required: true,
-                        value: initValues.iconsColor,
-                    })}
-                    defaultValue={initValues.iconsColor}
-                    maxLength={7}
-                    minLength={7}
-                />
-                <Input
-                    placeholder="Optional text"
-                    register={register("optionalText", {
-                        required: false,
-                        value: initValues.optionalText,
-                    })}
-                    defaultValue={initValues.optionalText}
-                />
-                <Input
-                    placeholder="Optional text color"
-                    register={register("optionalTextColor", {
-                        required: false,
-                        value: initValues.optionalTextColor,
-                    })}
-                    defaultValue={initValues.optionalTextColor}
-                    maxLength={7}
-                    minLength={7}
-                />
+                <div>
+                    <Input
+                        placeholder="Background color"
+                        register={register("bgColor", {
+                            required: true,
+                            value: initValues.bgColor,
+                        })}
+                        defaultValue={initValues.bgColor}
+                        maxLength={7}
+                        minLength={7}
+                    />
+                    {errors.bgColor?.message && (
+                        <span className="text-red-500">
+                            {errors.bgColor.message}
+                        </span>
+                    )}
+                </div>
+                <div>
+                    <Input
+                        placeholder="Icons color"
+                        register={register("iconsColor", {
+                            required: true,
+                            value: initValues.iconsColor,
+                        })}
+                        defaultValue={initValues.iconsColor}
+                        maxLength={7}
+                        minLength={7}
+                    />
+                    {errors.iconsColor?.message && (
+                        <span className="text-red-500">
+                            {errors.iconsColor.message}
+                        </span>
+                    )}
+                </div>
+                <div>
+                    <Input
+                        placeholder="Optional text"
+                        register={register("optionalText", {
+                            required: false,
+                            value: initValues.optionalText,
+                        })}
+                        defaultValue={initValues.optionalText}
+                    />
+                    {errors.optionalText?.message && (
+                        <span className="text-red-500">
+                            {errors.optionalText.message}
+                        </span>
+                    )}
+                </div>
+                <div>
+                    <Input
+                        placeholder="Optional text color"
+                        register={register("optionalTextColor", {
+                            required: false,
+                            value: initValues.optionalTextColor,
+                        })}
+                        defaultValue={initValues.optionalTextColor}
+                        // maxLength={7}
+                        // minLength={7}
+                    />
+                    {errors.optionalTextColor?.message && (
+                        <span className="text-red-500">
+                            {errors.optionalTextColor.message}
+                        </span>
+                    )}
+                </div>
                 {isLoading ? (
                     <Button disabled className="uppercase">
                         <Loader />
@@ -92,7 +124,7 @@ export default function GeneralPart({
                 ) : (
                     <Button
                         type="submit"
-                        disabled={!hasChanged}
+                        disabled={!hasChanged || Object.keys(errors).length > 0}
                         className="uppercase"
                     >
                         SAVE

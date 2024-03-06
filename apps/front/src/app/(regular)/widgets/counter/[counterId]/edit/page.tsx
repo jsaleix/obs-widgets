@@ -11,25 +11,17 @@ interface Props {
 }
 
 export default async function Page({ params: { counterId } }: Props) {
-    const counter = await counterService.findOne(counterId);
+    const counter = await counterService.findOnePublic(counterId);
 
     async function fetchCounter() {
         "use server";
-        const res = await counterService.findOne(counterId);
+        const res = await counterService.findOnePublic(counterId);
         return res as CounterI;
     }
 
     async function handleSubmit(data: any) {
         "use server";
         const res = await counterService.update(counterId, data);
-        return res ?? false;
-    }
-
-    async function editGeneral(data: any) {
-        "use server";
-        console.log("page data", data);
-        const res = await counterService.updateGeneral(counterId, data);
-        console.log("page res", res);
         return res ?? false;
     }
 
@@ -45,6 +37,10 @@ export default async function Page({ params: { counterId } }: Props) {
         return res ?? false;
     }
 
+    async function deleteRow(rowId: string) {
+        "use server";
+    }
+
     if (!counter) notFound();
 
     return (
@@ -54,7 +50,7 @@ export default async function Page({ params: { counterId } }: Props) {
                 fetchCounter={fetchCounter}
                 addRow={addRow}
                 editRow={editRow}
-                editGeneral={editGeneral}
+                deleteRow={deleteRow}
             />
         </div>
     );

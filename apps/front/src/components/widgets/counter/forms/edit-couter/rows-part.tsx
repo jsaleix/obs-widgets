@@ -7,6 +7,7 @@ interface Props {
     addRow: () => void;
     selectRow: (id: string) => void;
 }
+
 export default function RowsPart({ rows, addRow, selectRow }: Props) {
     return (
         <div id="rows-part" className="w-full flex flex-col gap-3">

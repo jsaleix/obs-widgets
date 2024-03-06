@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     CounterI,
+    CounterPublicI,
     GeneralFormInputs,
     RowFormInputs,
 } from "@/lib/interfaces/counter";
@@ -10,23 +11,24 @@ import CounterRowModal from "@/components/modal/counter-row-modal";
 import Counter from "../../rendered";
 import RowsPart from "./rows-part";
 import GeneralPart from "./general-part";
+import { updateGeneralAction } from "@/actions/widget/counter";
 
 interface Props {
-    initValues: CounterI;
-    fetchCounter: () => Promise<CounterI>;
+    initValues: CounterPublicI;
+    fetchCounter: () => Promise<CounterPublicI>;
     addRow: () => Promise<boolean>;
     editRow: (id: string, data: RowFormInputs) => Promise<boolean>;
-    editGeneral: (data: GeneralFormInputs) => Promise<boolean>;
+    deleteRow: (id: string) => Promise<void>;
 }
 
 export default function EditCounterPage({
     initValues,
     fetchCounter,
     addRow,
-    editGeneral,
     editRow,
+    deleteRow,
 }: Props) {
-    const [localData, setLocalData] = useState<CounterI>(initValues);
+    const [localData, setLocalData] = useState<CounterPublicI>(initValues);
     const [selectedRow, setSelectedRow] = useState<null | string>(null);
     const selectedRowData = localData.rows.find((r) => r.id === selectedRow);
 
@@ -35,11 +37,11 @@ export default function EditCounterPage({
             ...localData,
             general: { ...localData.general, ...data },
         };
-        setLocalData(newData as CounterI);
+        setLocalData(newData as CounterPublicI);
     };
 
     const handleGeneralSubmit = async (data: GeneralFormInputs) => {
-        await editGeneral(data);
+        await updateGeneralAction(initValues.id, data);
     };
 
     const handleAddRow = async () => {

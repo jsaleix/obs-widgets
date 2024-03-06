@@ -4,16 +4,16 @@ import { z } from "zod";
 export const CounterGeneralSettingsSchema = z.object({
     bgColor: z.string().length(7),
     iconsColor: z.string().length(7),
-    optionalText: z.string(),
+    optionalText: z.string().max(15),
     optionalTextColor: z.string().length(7).default("#000000"),
 });
 
 export const CounterRowSettingsSchema = z.object({
     id: z.string(),
     icon: z.enum(IconsValuesArray),
-    fontColor: z.string().length(7),
+    fontColor: z.string().length(7).min(7),
     label: z.string().max(10),
-    value: z.number(),
+    value: z.number().default(0),
 });
 
 // Root schemas
