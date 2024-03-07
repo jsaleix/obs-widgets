@@ -19,10 +19,10 @@ interface EditCounterContextType {
     data: CounterPublicI;
     fetchCounter: () => Promise<CounterPublicI>;
     updateGeneral: (data: GeneralFormInputs) => Promise<void>;
-    addRow: () => Promise<boolean>;
+    addRow: () => Promise<void>;
     editRow: (data: RowFormInputs) => Promise<void>;
     deleteRow: (id: string) => Promise<void>;
-    reorderRows: (rows: string[]) => Promise<boolean>;
+    reorderRows: (rows: string[]) => Promise<void>;
     setSelectedRow: (id: string | null) => void;
     selectedRow: string | null;
 }
@@ -64,7 +64,14 @@ export const EditCounterProvider = ({
     }
 
     async function addRow() {
-        return addRowAction(counterId);
+        await addRowAction(counterId);
+        const newCounter = await fetchCounter();
+        setData((prev) => {
+            return {
+                ...prev,
+                rows: newCounter.rows,
+            };
+        });
     }
 
     async function editRow(data: RowFormInputs) {
@@ -78,11 +85,15 @@ export const EditCounterProvider = ({
     }
 
     async function reorderRows(rows: string[]) {
-        return reorderRowsAction(counterId, rows);
+        await reorderRowsAction(counterId, rows);
+        const newCounter = await fetchCounter();
+        setData(newCounter);
     }
 
     async function deleteRow(rowId: string) {
-        return deleteRowAction(counterId, rowId);
+        await deleteRowAction(counterId, rowId);
+        const newCounter = await fetchCounter();
+        setData(newCounter);
     }
 
     return (

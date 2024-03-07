@@ -4,23 +4,16 @@ import { COUNTER_MAX_ROWS } from "@/lib/config/counter";
 import { CounterRowSettings } from "@/lib/interfaces/counter";
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useEditCounterContext } from "@/contexts/edit-counter.context";
+import Loader from "@/components/misc/loader";
 
-interface Props {
-    rows: CounterRowSettings[];
-    addRow: () => void;
-    selectRow: (id: string) => void;
-    reorderRows: (ids: string[]) => void;
-}
-
-export function RowItem({
-    rowId,
-    onClick,
-    index,
-}: {
+interface RowItemProps {
     rowId: string;
     onClick: () => void;
     index: number;
-}) {
+}
+
+export function RowItem({ rowId, onClick, index }: RowItemProps) {
     return (
         <Draggable draggableId={rowId} index={index}>
             {(provided) => (
@@ -87,69 +80,90 @@ const reorder = (
     return result;
 };
 
-export default function RowsPart({
-    rows,
-    addRow,
-    selectRow,
-    reorderRows,
-}: Props) {
-    const [localRows, setLocalRows] = useState(rows);
+interface DndListProps {
+    rows: CounterRowSettings[];
+    onClick: (id: string) => void;
+    children: React.ReactNode;
+    addRow: () => void;
+    onDragEnd: (result: any) => void;
+}
+
+export function DnDList({ rows, children, addRow, onDragEnd }: DndListProps) {
     // To avoid SSR issues
-    const [winReady, setwinReady] = useState(false);
+    // const [winReady, setwinReady] = useState(false);
+
+    // useEffect(() => {
+    //     setwinReady(true);
+    // }, []);
+
+    // if (!winReady) return <Loader />;
+
+    return (
+        <div className={"w-full flex flex-col gap-1"}>
+            {rows.length > 0 && (
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="list">
+                        {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                className="flex flex-col gap-1 w-full"
+                            >
+                                {children}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            )}
+            {rows.length < COUNTER_MAX_ROWS && (
+                <Button onClick={addRow} className="bg-gray-500">
+                    +
+                </Button>
+            )}
+        </div>
+    );
+}
+interface Props {}
+
+export default function RowsPart({}: Props) {
+    const {
+        data: { rows },
+        reorderRows,
+        addRow,
+        setSelectedRow,
+    } = useEditCounterContext();
+    const [localRows, setLocalRows] = useState(rows);
 
     useEffect(() => {
-        setwinReady(true);
-    }, []);
+        setLocalRows(rows);
+    }, [rows]);
 
     const onDragEnd = (result: any) => {
-        if (!result.destination) {
-            return;
-        }
-
-        if (result.destination.index === result.source.index) {
-            return;
-        }
-
-        const quotes = reorder(
+        if (!result.destination) return;
+        if (result.destination.index === result.source.index) return;
+        const newOrder = reorder(
             rows,
             result.source.index,
             result.destination.index
         );
-
-        setLocalRows(quotes);
-        reorderRows(quotes.map((q) => q.id));
+        setLocalRows(newOrder);
+        reorderRows(newOrder.map((q) => q.id));
     };
-
-    if (!winReady) return null;
 
     return (
         <div id="rows-part" className="w-full flex flex-col gap-3">
             <h1 className="text-xl">
                 Rows ({localRows.length}/{COUNTER_MAX_ROWS}):{" "}
             </h1>
-            <div className={"w-full flex flex-col gap-1"}>
-                {localRows.length > 0 && (
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId="list">
-                            {(provided) => (
-                                <div
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                    className="flex flex-col gap-1 w-full"
-                                >
-                                    <RowsList rows={localRows} onClick={selectRow} />
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-                )}
-                {localRows.length < COUNTER_MAX_ROWS && (
-                    <Button onClick={addRow} className="bg-gray-500">
-                        +
-                    </Button>
-                )}
-            </div>
+            <DnDList
+                rows={localRows}
+                onClick={setSelectedRow}
+                onDragEnd={onDragEnd}
+                addRow={addRow}
+            >
+                <RowsList rows={localRows} onClick={setSelectedRow} />
+            </DnDList>
         </div>
     );
 }

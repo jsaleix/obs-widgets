@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     CounterPublicI,
     GeneralFormInputs,
@@ -16,16 +16,8 @@ import { useEditCounterContext } from "@/contexts/edit-counter.context";
 interface Props {}
 
 export default function EditCounterPage({}: Props) {
-    const {
-        data,
-        fetchCounter,
-        addRow,
-        editRow,
-        deleteRow,
-        reorderRows,
-        setSelectedRow,
-        selectedRow,
-    } = useEditCounterContext();
+    const { data, editRow, deleteRow, setSelectedRow, selectedRow } =
+        useEditCounterContext();
     const [localData, setLocalData] = useState<CounterPublicI>(data);
     const selectedRowData =
         localData.rows.find((r) => r.id === selectedRow) || null;
@@ -38,45 +30,23 @@ export default function EditCounterPage({}: Props) {
         setLocalData(newData as CounterPublicI);
     };
 
-    const handleRowReorder = async (rows: string[]) => {
-        await reorderRows(rows);
-        const newCounter = await fetchCounter();
-        setLocalData(newCounter);
-    };
-
-    const handleAddRow = async () => {
-        await addRow();
-        const newCounter = await fetchCounter();
-        setLocalData((prev) => {
-            return {
-                ...prev,
-                rows: newCounter.rows,
-            };
-        });
-    };
-
     const handleDeleteRow = async () => {
         if (!selectedRow) return;
         const id = selectedRow;
         setSelectedRow(null);
         await deleteRow(id);
-        const newCounter = await fetchCounter();
-        setLocalData(newCounter);
     };
+
+    useEffect(() => {
+        setLocalData(data);
+    }, [data]);
 
     return (
         <div className="w-full flex flex-row gap-5">
             <div className="w-1/2 flex flex-col gap-3">
-                <GeneralPart
-                    onChangeAction={changeLocalGeneral}
-                />
+                <GeneralPart onChangeAction={changeLocalGeneral} />
                 <hr />
-                <RowsPart
-                    rows={localData.rows}
-                    addRow={handleAddRow}
-                    selectRow={setSelectedRow}
-                    reorderRows={handleRowReorder}
-                />
+                <RowsPart />
             </div>
             <div id="preview" className="w-1/2 flex flex-col gap-3">
                 <h1 className="text-xl">Preview: </h1>
