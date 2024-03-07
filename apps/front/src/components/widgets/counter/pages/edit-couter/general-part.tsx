@@ -2,6 +2,7 @@
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import Loader from "@/components/misc/loader";
+import { useEditCounterContext } from "@/contexts/edit-counter.context";
 import { GeneralFormInputs } from "@/lib/interfaces/counter";
 import { CounterGeneralSettingsSchema } from "@/lib/validator/schemas/counter.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,16 +10,13 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
-    submitAction: (data: GeneralFormInputs) => Promise<void>;
-    initValues: GeneralFormInputs;
+    // initValues: GeneralFormInputs;
     onChangeAction: (data: GeneralFormInputs) => void;
 }
 
-export default function GeneralPart({
-    submitAction,
-    initValues,
-    onChangeAction,
-}: Props) {
+export default function GeneralPart({ onChangeAction }: Props) {
+    const { updateGeneral, data } = useEditCounterContext();
+    const initValues = data.general;
     const [isLoading, setLoading] = useState(false);
     const [hasChanged, setHasChanged] = useState(false);
     const {
@@ -32,7 +30,7 @@ export default function GeneralPart({
 
     const onSubmit: SubmitHandler<GeneralFormInputs> = async (data) => {
         setLoading(true);
-        await submitAction(data);
+        await updateGeneral(data);
         setHasChanged(false);
         setLoading(false);
     };

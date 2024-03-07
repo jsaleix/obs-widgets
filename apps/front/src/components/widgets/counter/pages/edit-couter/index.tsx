@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-    CounterI,
     CounterPublicI,
     GeneralFormInputs,
     RowFormInputs,
@@ -12,26 +11,22 @@ import Counter from "../../rendered";
 import RowsPart from "./rows-part";
 import GeneralPart from "./general-part";
 import { updateGeneralAction } from "@/actions/widget/counter";
+import { useEditCounterContext } from "@/contexts/edit-counter.context";
 
-interface Props {
-    initValues: CounterPublicI;
-    fetchCounter: () => Promise<CounterPublicI>;
-    addRow: () => Promise<boolean>;
-    editRow: (id: string, data: RowFormInputs) => Promise<boolean>;
-    deleteRow: (id: string) => Promise<void>;
-    reorderRows: (rows: string[]) => Promise<boolean>;
-}
+interface Props {}
 
-export default function EditCounterPage({
-    initValues,
-    fetchCounter,
-    addRow,
-    editRow,
-    deleteRow,
-    reorderRows,
-}: Props) {
-    const [localData, setLocalData] = useState<CounterPublicI>(initValues);
-    const [selectedRow, setSelectedRow] = useState<null | string>(null);
+export default function EditCounterPage({}: Props) {
+    const {
+        data,
+        fetchCounter,
+        addRow,
+        editRow,
+        deleteRow,
+        reorderRows,
+        setSelectedRow,
+        selectedRow,
+    } = useEditCounterContext();
+    const [localData, setLocalData] = useState<CounterPublicI>(data);
     const selectedRowData =
         localData.rows.find((r) => r.id === selectedRow) || null;
 
@@ -41,10 +36,6 @@ export default function EditCounterPage({
             general: { ...localData.general, ...data },
         };
         setLocalData(newData as CounterPublicI);
-    };
-
-    const handleGeneralSubmit = async (data: GeneralFormInputs) => {
-        await updateGeneralAction(initValues.id, data);
     };
 
     const handleRowReorder = async (rows: string[]) => {
@@ -73,22 +64,11 @@ export default function EditCounterPage({
         setLocalData(newCounter);
     };
 
-    const handleRowChange = async (data: RowFormInputs) => {
-        if (!selectedRow) return;
-        const id = selectedRow;
-        setSelectedRow(null);
-        await editRow(id, data);
-        const newCounter = await fetchCounter();
-        setLocalData(newCounter);
-    };
-
     return (
         <div className="w-full flex flex-row gap-5">
             <div className="w-1/2 flex flex-col gap-3">
                 <GeneralPart
-                    initValues={localData.general}
                     onChangeAction={changeLocalGeneral}
-                    submitAction={handleGeneralSubmit}
                 />
                 <hr />
                 <RowsPart
@@ -106,7 +86,7 @@ export default function EditCounterPage({
                 isOpen={!!selectedRowData}
                 onClose={() => setSelectedRow(null)}
                 rowData={selectedRowData}
-                onSubmit={handleRowChange}
+                onSubmit={editRow}
                 deleteAction={handleDeleteRow}
             />
         </div>

@@ -1,6 +1,6 @@
 import { CounterRowSettings, RowFormInputs } from "@/lib/interfaces/counter";
 import BaseModal, { BaseModalProps } from "./base";
-import RowForm from "../widgets/counter/forms/row-form";
+import RowForm from "../widgets/counter/pages/row-form";
 
 interface Props extends BaseModalProps {
     rowData: RowFormInputs | null;
@@ -16,7 +16,11 @@ export default function CounterRowModal({
     deleteAction,
 }: Props) {
     return (
-        <BaseModal isOpen={isOpen} onClose={onClose} title={"Editing counter row"}>
+        <BaseModal
+            isOpen={isOpen}
+            onClose={onClose}
+            title={"Editing counter row"}
+        >
             {rowData && (
                 <div className="flex flex-col gap-3">
                     <RowForm

@@ -83,7 +83,6 @@ class CounterService {
     }
 
     private async update(id: string, data: Partial<CounterI>) {
-        // throw new Error("Should not be used");
         try {
             return updateOne(Collections.counter, id, data);
         } catch (e) {

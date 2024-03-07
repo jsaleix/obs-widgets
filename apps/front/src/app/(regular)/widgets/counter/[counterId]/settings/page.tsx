@@ -1,11 +1,9 @@
 import Button from "@/components/common/button";
 import SettingRow from "@/components/misc/setting-row";
-import SettingsForm from "@/components/widgets/counter/forms/settings-form";
-import ChangeName from "@/components/widgets/counter/forms/settings-form/name";
-import Secret from "@/components/widgets/counter/forms/settings-form/secret";
+import ChangeName from "@/components/widgets/counter/pages/settings-form/name";
+import Secret from "@/components/widgets/counter/pages/settings-form/secret";
 import counterService from "@/lib/services/counter.service";
 import { notFound } from "next/navigation";
-import { Input } from "postcss";
 
 interface Props {
     params: {
