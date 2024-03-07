@@ -6,7 +6,7 @@ const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
 export const CounterGeneralSettingsSchema = z.object({
     bgColor: z.string().length(7).regex(hexColorRegex),
     iconsColor: z.string().length(7).regex(hexColorRegex, "Invalid color"),
-    optionalText: z.string().max(15),
+    optionalText: z.string().max(20),
     optionalTextColor: z
         .string()
         .length(7)
@@ -22,7 +22,7 @@ export const CounterRowSettingsSchema = z.object({
         .length(7)
         .min(7)
         .regex(hexColorRegex, "Invalid color"),
-    label: z.string().max(10),
+    label: z.string().max(15),
     value: z.number().default(0),
 });
 

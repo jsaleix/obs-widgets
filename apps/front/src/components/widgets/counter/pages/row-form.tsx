@@ -90,8 +90,6 @@ export default function RowForm({ submitAction, initValues }: Props) {
                     type="number"
                     step={1}
                     // defaultValue={initValues?.value}
-                    maxLength={7}
-                    minLength={7}
                 />
                 {errors.value?.message && (
                     <span className="text-red-500">{errors.value.message}</span>
