@@ -93,6 +93,7 @@ export default function RowsPart({
     selectRow,
     reorderRows,
 }: Props) {
+    const [localRows, setLocalRows] = useState(rows);
     // To avoid SSR issues
     const [winReady, setwinReady] = useState(false);
 
@@ -115,6 +116,7 @@ export default function RowsPart({
             result.destination.index
         );
 
+        setLocalRows(quotes);
         reorderRows(quotes.map((q) => q.id));
     };
 
@@ -123,10 +125,10 @@ export default function RowsPart({
     return (
         <div id="rows-part" className="w-full flex flex-col gap-3">
             <h1 className="text-xl">
-                Rows ({rows.length}/{COUNTER_MAX_ROWS}):{" "}
+                Rows ({localRows.length}/{COUNTER_MAX_ROWS}):{" "}
             </h1>
             <div className={"w-full flex flex-col gap-1"}>
-                {rows.length > 0 && (
+                {localRows.length > 0 && (
                     <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable droppableId="list">
                             {(provided) => (
@@ -135,14 +137,14 @@ export default function RowsPart({
                                     {...provided.droppableProps}
                                     className="flex flex-col gap-1 w-full"
                                 >
-                                    <RowsList rows={rows} onClick={selectRow} />
-                                    {/* {provided.placeholder} */}
+                                    <RowsList rows={localRows} onClick={selectRow} />
+                                    {provided.placeholder}
                                 </div>
                             )}
                         </Droppable>
                     </DragDropContext>
                 )}
-                {rows.length < COUNTER_MAX_ROWS && (
+                {localRows.length < COUNTER_MAX_ROWS && (
                     <Button onClick={addRow} className="bg-gray-500">
                         +
                     </Button>
