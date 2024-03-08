@@ -1,18 +1,45 @@
 "use client";
+import { resetSecretAction } from "@/actions/widget/settings-counter";
 import Button from "@/components/common/button";
 import Loader from "@/components/misc/loader";
+import { StatusValues } from "@/lib/interfaces/actions";
 import { copyToClipboard } from "@/lib/utils";
-import React, { FormEvent } from "react";
+import { displayMsg } from "@/lib/utils/toasts";
+import React, { FormEvent, useEffect } from "react";
 import { useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+
+interface FormContentProps {
+    id: string;
+}
+
+const FormContent = ({ id }: FormContentProps) => {
+    const { pending } = useFormStatus();
+    return (
+        <>
+            <input type="hidden" value={id} name="id" />
+            {pending ? (
+                <Button disabled className="!w-fit px-10">
+                    <Loader />
+                    Applying...
+                </Button>
+            ) : (
+                <Button type="submit" className="!w-fit px-10">
+                    Reset
+                </Button>
+            )}
+        </>
+    );
+};
 
 interface Props {
+    id: string;
     secret: string;
 }
 
-export default function Secret({ secret }: Props) {
+export default function Secret({ id, secret }: Props) {
     const [localSecret, setLocalSecret] = useState(secret);
-    const [showSecret, setShowSecret] = useState(false);
-    const [isLoading, setLoading] = useState(false);
+    const [state, formAction] = useFormState(resetSecretAction, null);
 
     const copySecret = () => {
         copyToClipboard({
@@ -22,12 +49,14 @@ export default function Secret({ secret }: Props) {
         });
     };
 
-    const handleReset = async (e: FormEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        setLoading(true);
-        setShowSecret(false);
-        setLoading(false);
-    };
+    useEffect(() => {
+        if (state?.status === StatusValues.Success) {
+            setLocalSecret(state.value);
+            displayMsg("Secret reset", "success");
+        }
+        if (state?.status === StatusValues.Error)
+            displayMsg(state.message ?? "Could not update secret", "error");
+    }, [state]);
 
     return (
         <React.Fragment>
@@ -59,16 +88,9 @@ export default function Secret({ secret }: Props) {
                     </div>
                 </div>
             </div>
-            {isLoading ? (
-                <Button disabled className="!w-fit px-10">
-                    <Loader />
-                    Applying...
-                </Button>
-            ) : (
-                <Button onClick={handleReset} className="!w-fit px-10">
-                    Reset
-                </Button>
-            )}
+            <form action={formAction}>
+                <FormContent id={id} />
+            </form>
         </React.Fragment>
     );
 }
