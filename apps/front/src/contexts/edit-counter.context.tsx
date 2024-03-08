@@ -1,6 +1,6 @@
 "use client";
-import { updateGeneralAction } from "@/actions/widget/counter";
 import {
+    updateGeneralAction,
     addRowAction,
     deleteRowAction,
     editRowAction,
@@ -9,7 +9,6 @@ import {
 } from "@/actions/widget/edit-counter";
 import {
     CounterPublicI,
-    CounterRowSettings,
     GeneralFormInputs,
     RowFormInputs,
 } from "@/lib/interfaces/counter";

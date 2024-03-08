@@ -66,7 +66,7 @@ export default async function Layout({
                     href={`/viewer/counter/${counterId}`}
                     className="ml-auto"
                 >
-                    <Button className="px-10 ">View</Button>
+                    <Button className="px-10 ">View (live)</Button>
                 </Link>
             </div>
             {children}

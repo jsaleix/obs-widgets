@@ -158,7 +158,7 @@ class CounterService {
     async updateGeneral(id: string, general: GeneralFormInputs) {
         try {
             const counter = await this.findOne(id);
-            if (!counter) return null;
+            if (!counter) throw new Error("Counter not found");
             counter.general = { ...counter.general, ...general };
             const parsed = FullCounterSchema.parse(counter);
             return this.update(id, parsed);

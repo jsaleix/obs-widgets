@@ -7,8 +7,6 @@ import { revalidatePath } from "next/cache";
 
 export default async function Page() {
     const counters = await counterService.findAllByOwner("noOne");
-    // await counterService.create("secondOne", "noOne");
-    // if (!counters || counters.length === 0) return <div>No counter found</div>;
 
     async function addOne() {
         "use server";

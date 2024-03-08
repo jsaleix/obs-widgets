@@ -30,15 +30,7 @@ export async function updatePublicCounter(counterId: string, data: any) {
     } as ActionResponse;
 }
 
-export async function updateGeneralAction(
-    counterId: string,
-    data: GeneralFormInputs
-) {
-    const res = await counterService.updateGeneral(counterId, data);
-    return {
-        status: res ? StatusValues.Success : StatusValues.Error,
-    } as ActionResponse;
-}
+
 
 export async function updateGeneralTest(
     prevState: ActionResponse,

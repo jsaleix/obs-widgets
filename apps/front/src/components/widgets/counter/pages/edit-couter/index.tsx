@@ -10,7 +10,6 @@ import CounterRowModal from "@/components/modal/counter-row-modal";
 import Counter from "../../rendered";
 import RowsPart from "./rows-part";
 import GeneralPart from "./general-part";
-import { updateGeneralAction } from "@/actions/widget/counter";
 import { useEditCounterContext } from "@/contexts/edit-counter.context";
 
 interface Props {}
