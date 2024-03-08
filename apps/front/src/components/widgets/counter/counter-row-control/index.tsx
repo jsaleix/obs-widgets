@@ -63,7 +63,10 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
                 className="p-3 overflow-hidden"
                 style={{ backgroundColor: bgColor }}
             >
-                <RowItem data={localRowData} />
+                <RowItem
+                    data={localRowData}
+                    iconColor={counter.general.iconsColor}
+                />
             </div>
             <hr />
             <div className="flex flex-col gap-3" id="actions">

@@ -20,7 +20,11 @@ export default function Counter({ counter }: Props) {
             <div className="flex flex-col items-start gap-4 p-5 w-90">
                 {counter.rows.length > 0 &&
                     counter.rows.map((r, idx) => (
-                        <RowItem data={r} key={idx} />
+                        <RowItem
+                            data={r}
+                            key={idx}
+                            iconColor={counter.general.iconsColor}
+                        />
                     ))}
                 {counter.general.optionalText && (
                     <OptionalText

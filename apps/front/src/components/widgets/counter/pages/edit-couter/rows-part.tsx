@@ -127,12 +127,9 @@ export function DnDList({ rows, children, addRow, onDragEnd }: DndListProps) {
 interface Props {}
 
 export default function RowsPart({}: Props) {
-    const {
-        data: { rows },
-        reorderRows,
-        addRow,
-        setSelectedRow,
-    } = useEditCounterContext();
+    const { data, reorderRows, addRow, setSelectedRow } =
+        useEditCounterContext();
+    const { rows } = data;
     const [localRows, setLocalRows] = useState(rows);
 
     useEffect(() => {
