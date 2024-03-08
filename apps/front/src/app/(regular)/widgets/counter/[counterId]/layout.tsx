@@ -26,7 +26,7 @@ export default async function Layout({
 
     return (
         <div className="w-full flex flex-col gap-5">
-            <div className="w-full border-b-2 border-gray-600 flex items-center py-3 mb-5">
+            <div className="w-full border-b-2 border-gray-600 flex flex-col md:flex-row md:items-center justify-start py-3 mb-5 px-5">
                 <ul className={"flex align-center gap-5 h-fit"}>
                     <li>
                         <ActiveLink
@@ -64,12 +64,12 @@ export default async function Layout({
                 <Link
                     target="_blank"
                     href={`/viewer/counter/${counterId}`}
-                    className="ml-auto"
+                    className="ml-0 md:ml-auto"
                 >
-                    <Button className="px-10 ">View (live)</Button>
+                    <Button className="px-10 !w-fit">View (live)</Button>
                 </Link>
             </div>
-            {children}
+            <div className="p-5">{children}</div>
         </div>
     );
 }

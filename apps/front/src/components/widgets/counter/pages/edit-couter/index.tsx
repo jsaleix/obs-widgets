@@ -41,8 +41,8 @@ export default function EditCounterPage({}: Props) {
     }, [data]);
 
     return (
-        <div className="w-full flex flex-row gap-5">
-            <div className="w-1/2 flex flex-col gap-3">
+        <div className="w-full flex flex-col md:flex-row gap-5">
+            <div className="w-full md:w-1/2 flex flex-col gap-3">
                 <GeneralPart onChangeAction={changeLocalGeneral} />
                 <hr />
                 <RowsPart />

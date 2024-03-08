@@ -14,6 +14,23 @@ interface Props {
     onChangeAction: (data: GeneralFormInputs) => void;
 }
 
+const fieldClasses = "flex flex-col md:flex-row items-center";
+
+const FormField = ({
+    label,
+    children,
+}: {
+    label: string;
+    children: React.ReactNode;
+}) => {
+    return (
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <h3 className="w-full md:w-1/3">{label}:</h3>
+            {children}
+        </div>
+    );
+};
+
 export default function GeneralPart({ onChangeAction }: Props) {
     const { updateGeneral, data } = useEditCounterContext();
     const initValues = data.general;
@@ -47,8 +64,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                 onChange={handleSubmit(onChangeAction)}
                 className={"w-full flex flex-col gap-1"}
             >
-                <div className="flex items-center">
-                    <h3 className="w-1/3">Background color:</h3>
+                <FormField label="Background color">
                     <Input
                         placeholder="Background color"
                         register={register("bgColor", {
@@ -65,9 +81,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                             {errors.bgColor.message}
                         </span>
                     )}
-                </div>
-                <div className="flex items-center">
-                    <h3 className="w-1/3">Icons color:</h3>{" "}
+                </FormField>
+                <FormField label="Icons color">
                     <Input
                         placeholder="Icons color"
                         register={register("iconsColor", {
@@ -84,9 +99,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                             {errors.iconsColor.message}
                         </span>
                     )}
-                </div>
-                <div className="flex items-center">
-                    <h3 className="w-1/3">Optional text:</h3>{" "}
+                </FormField>
+                <FormField label="Optional text">
                     <Input
                         placeholder="Optional text"
                         register={register("optionalText", {
@@ -100,9 +114,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                             {errors.optionalText.message}
                         </span>
                     )}
-                </div>
-                <div className="flex items-center">
-                    <h3 className="w-1/3">Optional text color:</h3>{" "}
+                </FormField>
+                <FormField label="Optional text color">
                     <Input
                         placeholder="Optional text color"
                         register={register("optionalTextColor", {
@@ -119,7 +132,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                             {errors.optionalTextColor.message}
                         </span>
                     )}
-                </div>
+                </FormField>
+
                 {isLoading ? (
                     <Button disabled className="uppercase">
                         <Loader />
