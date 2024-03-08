@@ -3,9 +3,10 @@
 import { ActionResponse, StatusValues } from "@/lib/interfaces/actions";
 import counterService from "@/lib/services/counter.service";
 import { UpdateCounterNameRequestSchema } from "@/lib/validator/schemas/counter.schemas";
+import { revalidatePath } from "next/cache";
 
 export async function changeNameAction(
-    prevState: ActionResponse,
+    _: ActionResponse,
     payload: FormData
 ): Promise<ActionResponse> {
     try {
@@ -16,6 +17,7 @@ export async function changeNameAction(
             name: parsed.data.name,
         });
 
+        revalidatePath(`/widgets/counter/`);
         return {
             status: StatusValues.Success,
             message: "Counter name updated",
@@ -31,7 +33,7 @@ export async function changeNameAction(
 }
 
 export async function resetSecretAction(
-    prevState: ActionResponse,
+    _: ActionResponse,
     payload: FormData
 ): Promise<ActionResponse> {
     try {
@@ -61,7 +63,7 @@ export async function resetSecretAction(
 }
 
 export async function deleteCounterAction(
-    prevState: ActionResponse,
+    _: ActionResponse,
     payload: FormData
 ): Promise<ActionResponse> {
     try {
