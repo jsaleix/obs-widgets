@@ -16,15 +16,10 @@ export default async function Page({ params: { counterId } }: Props) {
 
     if (!counter) notFound();
 
-    const resetSecret = async () => {
-        "use server";
-        return "new secret";
-    };
-
     return (
         <div className={"flex flex-col gap-5"}>
             <SettingRow title="Name" details={"Customize your counter name."}>
-                <ChangeName name={counter.name} />
+                <ChangeName id={counter.id} name={counter.name} />
             </SettingRow>
             <hr />
             <SettingRow

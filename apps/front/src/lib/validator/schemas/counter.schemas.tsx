@@ -57,11 +57,13 @@ export const PublicCounterSchema = z.object({
 
 // Request schemas
 
-export const UpdateCounterGeneralSettingsSchema = z.object({
-    id: z.string(),
-    ...CounterGeneralSettingsSchema.shape,
-});
+// export const UpdateCounterGeneralSettingsSchema = z.object({
+//     id: z.string(),
+//     ...CounterGeneralSettingsSchema.shape,
+// });
 
-export const UpdateCounterRowSettingsSchema = z.object({
-    ...CounterRowSettingsSchema.shape,
-});
+// export const UpdateCounterRowSettingsSchema = z.object({
+//     ...CounterRowSettingsSchema.shape,
+// });
+
+export const UpdateCounterNameRequestSchema = RootSchema.pick({ name: true, id: true });

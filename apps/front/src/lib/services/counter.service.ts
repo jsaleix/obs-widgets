@@ -175,6 +175,10 @@ class CounterService {
         }
     }
 
+    async updateRoot(id: string, data: Partial<CounterI>) {
+        return this.update(id, data);
+    }
+
     async isAllowedToEdit(counterId: string, user: string) {
         const counter = await this.findOne(counterId);
         return counter?.owner === user;

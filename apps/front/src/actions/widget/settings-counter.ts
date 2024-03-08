@@ -2,6 +2,7 @@
 
 import { ActionResponse, StatusValues } from "@/lib/interfaces/actions";
 import counterService from "@/lib/services/counter.service";
+import { UpdateCounterNameRequestSchema } from "@/lib/validator/schemas/counter.schemas";
 
 export async function changeNameAction(
     prevState: ActionResponse,
@@ -9,7 +10,11 @@ export async function changeNameAction(
 ): Promise<ActionResponse> {
     try {
         const data = Object.fromEntries(payload.entries());
-        // const parse =
+        const parsed = UpdateCounterNameRequestSchema.safeParse(data);
+        if (!parsed.success) throw new Error("Invalid data");
+        await counterService.updateRoot(parsed.data.id, {
+            name: parsed.data.name,
+        });
 
         return {
             status: StatusValues.Success,

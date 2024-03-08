@@ -8,9 +8,6 @@ import RowItem from "../rendered/row-item";
 import Button from "@/components/common/button";
 import { copyToClipboard } from "@/lib/utils";
 import { useMemo, useState } from "react";
-import {} from "next/navigation";
-import { HOSTNAME } from "@/lib/config";
-import { revalidatePath } from "next/cache";
 
 interface Props {
     counter: CounterI;
