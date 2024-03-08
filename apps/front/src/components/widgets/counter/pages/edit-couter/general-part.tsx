@@ -47,7 +47,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                 onChange={handleSubmit(onChangeAction)}
                 className={"w-full flex flex-col gap-1"}
             >
-                <div>
+                <div className="flex items-center">
+                    <h3 className="w-1/3">Background color:</h3>
                     <Input
                         placeholder="Background color"
                         register={register("bgColor", {
@@ -65,7 +66,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                         </span>
                     )}
                 </div>
-                <div>
+                <div className="flex items-center">
+                    <h3 className="w-1/3">Icons color:</h3>{" "}
                     <Input
                         placeholder="Icons color"
                         register={register("iconsColor", {
@@ -83,7 +85,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                         </span>
                     )}
                 </div>
-                <div>
+                <div className="flex items-center">
+                    <h3 className="w-1/3">Optional text:</h3>{" "}
                     <Input
                         placeholder="Optional text"
                         register={register("optionalText", {
@@ -98,7 +101,8 @@ export default function GeneralPart({ onChangeAction }: Props) {
                         </span>
                     )}
                 </div>
-                <div>
+                <div className="flex items-center">
+                    <h3 className="w-1/3">Optional text color:</h3>{" "}
                     <Input
                         placeholder="Optional text color"
                         register={register("optionalTextColor", {
