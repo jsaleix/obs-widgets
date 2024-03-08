@@ -16,11 +16,6 @@ export default async function Page({ params: { counterId } }: Props) {
 
     if (!counter) notFound();
 
-    const updateName = async (name: string) => {
-        "use server";
-        return true;
-    };
-
     const resetSecret = async () => {
         "use server";
         return "new secret";
@@ -29,7 +24,7 @@ export default async function Page({ params: { counterId } }: Props) {
     return (
         <div className={"flex flex-col gap-5"}>
             <SettingRow title="Name" details={"Customize your counter name."}>
-                <ChangeName name={counter.name} onSubmit={updateName} />
+                <ChangeName name={counter.name} />
             </SettingRow>
             <hr />
             <SettingRow
@@ -37,7 +32,7 @@ export default async function Page({ params: { counterId } }: Props) {
                 details="Your secret is your way to use the API to update your counter rows. You should keep it secret as its name says."
                 contentClassName="gap-2"
             >
-                <Secret secret={counter.secret} onSubmit={resetSecret} />
+                <Secret secret={counter.secret} />
             </SettingRow>
             <hr />
             <SettingRow

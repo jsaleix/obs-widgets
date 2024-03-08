@@ -6,16 +6,15 @@ import { FormEvent, FormHTMLAttributes, useState } from "react";
 
 interface Props {
     name: string;
-    onSubmit: (name: string) => Promise<boolean>;
 }
 
-export default function ChangeName({ name, onSubmit }: Props) {
+export default function ChangeName({ name }: Props) {
+    const [localName, setLocalName] = useState(name);
     const [isLoading, setLoading] = useState(false);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        await onSubmit(name);
         setLoading(false);
     };
 
@@ -24,7 +23,7 @@ export default function ChangeName({ name, onSubmit }: Props) {
             <Input
                 type="text"
                 placeholder="Title"
-                value={name}
+                value={localName}
                 onChange={() => null}
             />
 

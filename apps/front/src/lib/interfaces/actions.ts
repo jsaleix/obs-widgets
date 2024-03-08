@@ -10,4 +10,5 @@ type Status = ObjectType<typeof StatusValues>;
 export type ActionResponse = {
     status: Status;
     message?: string | null;
+    value?: any;
 } | null;

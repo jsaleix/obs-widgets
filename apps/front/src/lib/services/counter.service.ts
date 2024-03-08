@@ -82,6 +82,13 @@ class CounterService {
         }
     }
 
+    async changeSecret(id: string) {
+        const secret = crypto.randomUUID();
+        const res = await this.update(id, { secret });
+        if (res) return secret;
+        return false;
+    }
+
     private async update(id: string, data: Partial<CounterI>) {
         try {
             return updateOne(Collections.counter, id, data);

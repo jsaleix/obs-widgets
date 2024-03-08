@@ -6,11 +6,10 @@ import React, { FormEvent } from "react";
 import { useState } from "react";
 
 interface Props {
-    onSubmit: () => Promise<string>;
     secret: string;
 }
 
-export default function Secret({ secret, onSubmit }: Props) {
+export default function Secret({ secret }: Props) {
     const [localSecret, setLocalSecret] = useState(secret);
     const [showSecret, setShowSecret] = useState(false);
     const [isLoading, setLoading] = useState(false);
@@ -26,8 +25,6 @@ export default function Secret({ secret, onSubmit }: Props) {
     const handleReset = async (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setLoading(true);
-        const r = await onSubmit();
-        setLocalSecret(r);
         setShowSecret(false);
         setLoading(false);
     };
