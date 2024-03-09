@@ -13,26 +13,26 @@ import {
     defaultRow,
     defaultGeneralSettings,
     COUNTER_MAX_ROWS,
+    COUNTER_MAX_QUANTITY,
 } from "../config/counter";
 import {
+    CreateCounterRequestSchema,
     FullCounterSchema,
     PublicCounterSchema,
+    RootSchema,
 } from "../validator/schemas/counter.schemas";
 
 class CounterService {
     async findOne(id: string): Promise<CounterI | null> {
-        console.log("received id", id)
         try {
             return (await findOne(Collections.counter, id)) as CounterI;
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return null;
         }
     }
 
     async findOnePublic(id: string): Promise<CounterPublicI | null> {
-        console.log("received id", id)
-
         try {
             const counter = await findOne(Collections.counter, id);
             if (!counter) throw new Error("Counter not found");
@@ -64,7 +64,7 @@ class CounterService {
             ) as CounterPublicI[];
             return filtered;
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return [];
         }
     }
@@ -79,10 +79,14 @@ class CounterService {
                 rows: [defaultRow()],
                 general: defaultGeneralSettings,
             };
-            const res = await addOne(Collections.counter, id, data);
+            const parsed = CreateCounterRequestSchema.parse(data);
+            // const alreadyCreated = await this.findAllByOwner(owner);
+            // if (alreadyCreated.length >= COUNTER_MAX_QUANTITY)
+            //     throw new Error("Max counters reached");
+            const res = await addOne(Collections.counter, id, parsed);
             return res;
         } catch (e) {
-            console.log(e)
+            // console.log(e);
             return false;
         }
     }
@@ -98,7 +102,7 @@ class CounterService {
         try {
             return updateOne(Collections.counter, id, data);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return false;
         }
     }
@@ -118,7 +122,7 @@ class CounterService {
             const parsed = FullCounterSchema.parse(counter);
             return this.update(id, parsed);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return false;
         }
     }
@@ -144,7 +148,7 @@ class CounterService {
             const parsed = FullCounterSchema.parse(counter);
             return this.update(counterId, parsed);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return false;
         }
     }
@@ -153,6 +157,13 @@ class CounterService {
         try {
             const counter = await this.findOne(counterId);
             if (!counter) throw new Error("Counter not found");
+            if(counter.rows.length !== rowIds.length) throw new Error("Invalid row id");
+
+            //Checks if all ids are valid and that there are no missing or extra ids
+            const allIds = counter.rows.map((r) => r.id);
+            const allValid = rowIds.every((id) => allIds.includes(id));
+            if (!allValid) throw new Error("Invalid row id");
+
             const newRows = counter.rows.sort((a, b) => {
                 const aIdx = rowIds.indexOf(a.id);
                 const bIdx = rowIds.indexOf(b.id);
@@ -162,7 +173,7 @@ class CounterService {
             const parsed = FullCounterSchema.parse(counter);
             return this.update(counterId, parsed);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return false;
         }
     }
@@ -175,13 +186,21 @@ class CounterService {
             const parsed = FullCounterSchema.parse(counter);
             return this.update(id, parsed);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return false;
         }
     }
 
     async updateRoot(id: string, data: Partial<CounterI>) {
-        return this.update(id, data);
+        try {
+            const root = await this.findOne(id);
+            if (!root) throw new Error("Counter not found");
+            const parsed = RootSchema.parse({ ...root, ...data });
+            return this.update(id, parsed);
+        } catch (e) {
+            // console.error(e);
+            return false;
+        }
     }
 
     async isAllowedToEdit(counterId: string, user: string) {

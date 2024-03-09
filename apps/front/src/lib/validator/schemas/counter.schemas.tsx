@@ -15,7 +15,7 @@ export const CounterGeneralSettingsSchema = z.object({
 });
 
 export const CounterRowSettingsSchema = z.object({
-    id: z.string(),
+    id: z.string().min(1),
     icon: z.enum(IconsValuesArray),
     fontColor: z
         .string()
@@ -29,17 +29,13 @@ export const CounterRowSettingsSchema = z.object({
 // Root schemas
 
 export const RootSchema = z.object({
-    id: z.string(),
-    name: z.string().max(15),
-    owner: z.string(),
-    secret: z.string(),
+    id: z.string().min(1),
+    name: z.string().max(15).min(1),
+    owner: z.string().min(1),
+    secret: z.string().min(5),
 });
 
-export const PublicRootSchema = z.object({
-    id: z.string(),
-    name: z.string().max(15),
-    owner: z.string(),
-});
+export const PublicRootSchema = RootSchema.omit({ secret: true });
 
 // Full schemas
 
@@ -66,4 +62,8 @@ export const PublicCounterSchema = z.object({
 //     ...CounterRowSettingsSchema.shape,
 // });
 
-export const UpdateCounterNameRequestSchema = RootSchema.pick({ name: true, id: true });
+export const UpdateCounterNameRequestSchema = RootSchema.pick({
+    name: true,
+    id: true,
+});
+export const CreateCounterRequestSchema = FullCounterSchema.omit({ id: true });

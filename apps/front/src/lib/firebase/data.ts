@@ -53,7 +53,7 @@ export async function findMany(
         })) as any[];
         return data;
     } catch (e: any) {
-        console.error(e);
+        // console.error(e);
         if (e instanceof Error) throw e;
         else throw new Error("Error while fetching data");
     }
