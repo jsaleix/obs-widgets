@@ -11,8 +11,9 @@ const config: Config = {
     coverageProvider: "v8",
     testEnvironment: "jsdom",
     moduleNameMapper: {
-        "^@/(.*)$": "<rootDir>/$1",
+        "^@/(.*)$": "<rootDir>/src/$1",
     },
+    setupFiles: ["<rootDir>/src/test/global.setup.ts"],
     // testTimeout: 10000,
     // Add more setup options before each test is run
     // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

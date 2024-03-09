@@ -30,14 +30,14 @@ export const CounterRowSettingsSchema = z.object({
 
 export const RootSchema = z.object({
     id: z.string(),
-    name: z.string().max(10),
+    name: z.string().max(15),
     owner: z.string(),
     secret: z.string(),
 });
 
 export const PublicRootSchema = z.object({
     id: z.string(),
-    name: z.string().max(10),
+    name: z.string().max(15),
     owner: z.string(),
 });
 

@@ -1,16 +1,8 @@
 "server only";
 
-import {
-    WhereFilterOp,
-    getFirestore,
-    Timestamp,
-    FieldValue,
-    Filter,
-} from "firebase-admin/firestore";
-import { firebase_app } from ".";
+import { WhereFilterOp } from "firebase-admin/firestore";
 import { COLLECTIONS_TYPE } from "@/lib/config/firestore";
-
-const db = getFirestore(firebase_app);
+import { firestore_db } from "./config";
 
 export async function addOne(
     collectionName: COLLECTIONS_TYPE,
@@ -21,7 +13,7 @@ export async function addOne(
         // await setDoc(doc(db, collectionName, id), data, {
         //     merge: true,
         // });
-        await db.collection(collectionName).doc(id).set(data);
+        await firestore_db.collection(collectionName).doc(id).set(data);
         return true;
     } catch (e: any) {
         if (e instanceof Error) throw e;
@@ -30,7 +22,7 @@ export async function addOne(
 }
 
 export async function findOne(collectionName: COLLECTIONS_TYPE, id: string) {
-    let docRef = db.collection(collectionName).doc(id);
+    let docRef = firestore_db.collection(collectionName).doc(id);
     try {
         let result = await docRef.get();
         if (result.exists) return { id: id, ...result.data() };
@@ -51,22 +43,24 @@ export async function findMany(
     collectionName: COLLECTIONS_TYPE,
     cond: FindManyParams
 ) {
-    const ref = db.collection(collectionName);
+    const ref = firestore_db.collection(collectionName);
     try {
         const result = await ref.where(cond.field, cond.op, cond.value).get();
         if (result.empty) throw new Error("No document found");
-        return result.docs.map((doc) => ({
+        const data = result.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
         })) as any[];
+        return data;
     } catch (e: any) {
+        console.error(e);
         if (e instanceof Error) throw e;
         else throw new Error("Error while fetching data");
     }
 }
 
 export async function findAll(collectionName: COLLECTIONS_TYPE) {
-    const ref = db.collection(collectionName);
+    const ref = firestore_db.collection(collectionName);
     try {
         const result = await ref.get();
         return result.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -81,7 +75,7 @@ export async function updateOne(
     id: string,
     data: any
 ) {
-    const ref = db.collection(collectionName).doc(id);
+    const ref = firestore_db.collection(collectionName).doc(id);
     try {
         await ref.update(data);
         return true;
@@ -96,7 +90,7 @@ export async function subscribeToRealtime(
     id: string,
     cb: (data: any) => void
 ) {
-    const doc = db.collection(collectionName).doc(id);
+    const doc = firestore_db.collection(collectionName).doc(id);
 
     const observer = doc.onSnapshot((docSnap) => {
         cb({ ...docSnap.data(), id: docSnap.id });

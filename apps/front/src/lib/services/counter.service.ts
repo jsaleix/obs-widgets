@@ -21,6 +21,7 @@ import {
 
 class CounterService {
     async findOne(id: string): Promise<CounterI | null> {
+        console.log("received id", id)
         try {
             return (await findOne(Collections.counter, id)) as CounterI;
         } catch (e) {
@@ -30,6 +31,8 @@ class CounterService {
     }
 
     async findOnePublic(id: string): Promise<CounterPublicI | null> {
+        console.log("received id", id)
+
         try {
             const counter = await findOne(Collections.counter, id);
             if (!counter) throw new Error("Counter not found");
@@ -61,6 +64,7 @@ class CounterService {
             ) as CounterPublicI[];
             return filtered;
         } catch (e) {
+            console.error(e);
             return [];
         }
     }
@@ -78,6 +82,7 @@ class CounterService {
             const res = await addOne(Collections.counter, id, data);
             return res;
         } catch (e) {
+            console.log(e)
             return false;
         }
     }
