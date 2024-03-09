@@ -6,11 +6,11 @@ import counterService from "@/lib/services/counter.service";
 import { revalidatePath } from "next/cache";
 
 export default async function Page() {
-    const counters = await counterService.findAllByOwner("noOne");
+    const counters = await counterService.findAllByOwner("noOnee");
 
     async function addOne() {
         "use server";
-        const r = await counterService.create("my counter", "noOne");
+        const r = await counterService.create("my counter", "noOnee");
         revalidatePath("/widgets");
     }
 
