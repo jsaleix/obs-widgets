@@ -19,4 +19,6 @@ jobs:
                   node-version: "18.x"
 
             - name: Build and run Docker container
-              run: docker compose -f compose.test.yml up -d --build
+              run: |
+                  docker compose -f compose.test.yml up -d --build
+                  docker run front npm run test
