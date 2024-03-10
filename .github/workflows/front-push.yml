@@ -21,4 +21,4 @@ jobs:
             - name: Build and run Docker container
               run: |
                   docker compose -f compose.test.yml up -d --build
-                  docker compose exec front npm run test
+                  docker compose -f compose.test.yml exec front npm run test
