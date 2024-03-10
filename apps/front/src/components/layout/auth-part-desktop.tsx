@@ -7,7 +7,7 @@ interface Props {
     user: Session["user"] | null | undefined;
 }
 
-export default function AuthPart({ user }: Props) {
+export default function AuthPartDesktop({ user }: Props) {
     if (user) {
         return (
             <div className="flex items-center gap-5">
