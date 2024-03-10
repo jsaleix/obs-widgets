@@ -14,9 +14,6 @@ interface Props {
 
 export default function SettingsForm({
     counter,
-    updateName,
-    resetSecret,
-    deleteCounter,
 }: Props) {
     const [isLoading, setLoading] = useState(true);
 
