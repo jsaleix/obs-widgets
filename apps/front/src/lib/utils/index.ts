@@ -1,3 +1,5 @@
+import { notify } from "./toasts";
+
 export const classNames = (...classes: string[]) =>
     classes.filter(Boolean).join(" ");
 
@@ -14,11 +16,11 @@ export const copyToClipboard = ({
 }: CopyToClipboardParams) => {
     navigator.clipboard.writeText(text);
     if (toast) {
-        // if (label) {
-        //     notify(`${label} copied to clipboard`);
-        // } else {
-        //     notify(`Copied to clipboard`);
-        // }
+        if (label) {
+            notify(`${label} copied to clipboard`);
+        } else {
+            notify(`Copied to clipboard`);
+        }
     }
 };
 

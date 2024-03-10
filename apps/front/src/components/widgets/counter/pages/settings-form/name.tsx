@@ -68,7 +68,7 @@ export default function ChangeName({ id, name }: ChangeNameProps) {
     const [state, formAction] = useFormState(changeNameAction, null);
 
     useEffect(() => {
-        if (state?.status === StatusValues.Success) displayMsg("good");
+        if (state?.status === StatusValues.Success) displayMsg("Name updated");
         if (state?.status === StatusValues.Error)
             displayMsg(state.message ?? "Could not update name", "error");
     }, [state]);
