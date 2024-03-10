@@ -12,7 +12,6 @@ export default async function Page() {
     const session = await getServerAuthSession();
     if (!session) return redirect("/auth/signin");
     const counters = await counterService.findAllByOwner(session.user.id!);
-    // const counters = await counterService.findAll() as CounterPublicI[]
 
     async function addOne() {
         "use server";
@@ -26,7 +25,7 @@ export default async function Page() {
             <div className="w-full flex flex-col gap-3">
                 <div className="w-full flex justify-between">
                     <h1 className="text-xl">
-                        Counter {counters.length}/{COUNTER_MAX_QUANTITY}:
+                        Counters {counters.length}/{COUNTER_MAX_QUANTITY}:
                     </h1>
                     <CreateCounterButton
                         disabled={counters.length >= COUNTER_MAX_QUANTITY}

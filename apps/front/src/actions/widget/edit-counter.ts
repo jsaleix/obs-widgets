@@ -1,6 +1,6 @@
 "use server";
 
-import { checkPermission, getServerAuthSession } from "@/lib/auth";
+import { checkPermission } from "@/lib/auth";
 import { defaultRow } from "@/lib/config/counter";
 import {
     CounterI,
@@ -9,8 +9,6 @@ import {
     RowFormInputs,
 } from "@/lib/interfaces/counter";
 import counterService from "@/lib/services/counter.service";
-
-
 
 export async function fetchCounterAction(counterId: string) {
     "use server";
