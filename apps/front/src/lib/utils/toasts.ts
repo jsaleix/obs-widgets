@@ -1,21 +1,42 @@
+"use client";
+import { ToastOptions, toast } from "react-toastify";
+
 type ToastType = "success" | "error" | "warning";
 
 export function displayMsg(msg: string, type: ToastType = "success") {
+    const settings: ToastOptions = {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
     switch (type) {
         case "success":
-            // to implement
+            toast.success(msg, settings);
             break;
         case "error":
-            // to implement
+            toast.error(msg, settings);
             break;
         case "warning":
-            // to implement
+            toast.warn(msg, settings);
             break;
         default:
-        // to implement
+            toast(msg, settings);
     }
 }
 
 export function notify(msg: string) {
-    // to implement
+    toast.info(msg, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
 }

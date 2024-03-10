@@ -27,7 +27,7 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
     );
 
     const handleCopy = (text: string) => {
-        copyToClipboard({ text });
+        copyToClipboard({ text, toast: true });
     };
 
     const handleValueChange = async (type: string) => {

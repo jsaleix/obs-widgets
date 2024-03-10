@@ -65,9 +65,9 @@ export async function deleteRowAction(counterId: string, rowId: string) {
     "use server";
     try {
         await checkPermission(counterId);
-        await counterService.removeRow(counterId, rowId);
+        return await counterService.removeRow(counterId, rowId);
     } catch (e) {
-        // return false
+        return false
     }
 }
 
@@ -79,5 +79,7 @@ export async function updateGeneralAction(
         await checkPermission(counterId);
         const res = await counterService.updateGeneral(counterId, data);
         return res;
-    } catch (e) {}
+    } catch (e) {
+        return false;
+    }
 }

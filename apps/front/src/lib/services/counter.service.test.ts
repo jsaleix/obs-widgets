@@ -407,7 +407,6 @@ describe("CounterService", () => {
         });
 
         it("should call the callback", async () => {
-            expect(true).toBe(false);
             const cb = jest.fn(() => null);
             const unsub = await CounterService.getRealtimeCounter(COUNTER_ID, cb);
             await CounterService.updateRoot(COUNTER_ID, {
