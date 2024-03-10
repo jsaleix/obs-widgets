@@ -10,9 +10,6 @@ export async function addOne(
     data: any
 ) {
     try {
-        // await setDoc(doc(db, collectionName, id), data, {
-        //     merge: true,
-        // });
         await firestore_db.collection(collectionName).doc(id).set(data);
         return true;
     } catch (e: any) {
