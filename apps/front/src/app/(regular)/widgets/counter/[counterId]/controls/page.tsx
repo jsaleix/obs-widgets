@@ -14,10 +14,10 @@ export default async function Page({ params: { counterId } }: Props) {
     if (!counter) notFound();
 
     return (
-        <div className={"flex flex-col gap-5"}>
+        <div className={"flex flex-col gap-5 w-full"}>
             <section className="flex flex-col gap-3">
                 <h2 className="text-2xl">Rows ({counter.rows.length})</h2>
-                <div className="w-full grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
                     {counter.rows.length > 0 &&
                         counter.rows.map((r, idx) => (
                             <CounterRowControl

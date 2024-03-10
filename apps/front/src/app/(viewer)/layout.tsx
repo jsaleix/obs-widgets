@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={classNames(inter.className, "overflow-hidden")}>
+            <body className={classNames(inter.className)}>
                 {children}
             </body>
         </html>

@@ -11,9 +11,9 @@ export default async function Header() {
     const session = await getServerAuthSession();
 
     return (
-        <>
+        <header>
             <HeaderDesktop user={session?.user} />
             <HeaderMobile user={session?.user} />
-        </>
+        </header>
     );
 }

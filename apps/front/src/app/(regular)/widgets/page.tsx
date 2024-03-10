@@ -21,7 +21,7 @@ export default async function Page() {
     }
 
     return (
-        <div className={"w-100 py-5"}>
+        <div className={"h-full w-100 py-5"}>
             <div className="w-full flex flex-col gap-3">
                 <div className="w-full flex justify-between">
                     <h1 className="text-xl">

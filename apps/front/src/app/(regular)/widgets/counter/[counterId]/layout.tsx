@@ -72,7 +72,7 @@ export default async function Layout({
                     <Button className="px-10 !w-fit">View (live)</Button>
                 </Link>
             </div>
-            <div className="p-5">{children}</div>
+            <div className="p-5 w-full">{children}</div>
         </div>
     );
 }

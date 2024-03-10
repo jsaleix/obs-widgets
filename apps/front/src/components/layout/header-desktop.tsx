@@ -10,7 +10,7 @@ interface Props {
 
 export default function HeaderDesktop({ user }: Props) {
     return (
-        <header className="hidden md:flex w-full h-fit border-b-2 border-gray-500">
+        <div className="hidden md:flex w-full h-fit border-b-2 border-gray-500">
             <div className="w-full p-3 container mx-auto flex justify-between flex items-center">
                 <div className={"flex justify-center items-center gap-6"}>
                     <div className="w-20 h-20 overflow-hidden">
@@ -38,6 +38,6 @@ export default function HeaderDesktop({ user }: Props) {
                 </div>
                 <AuthPart user={user} />
             </div>
-        </header>
+        </div>
     );
 }

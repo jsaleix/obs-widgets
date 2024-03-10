@@ -21,7 +21,7 @@ export default async function RootLayout({
 
     return (
         <html lang="en">
-            <body className={classNames(inter.className, "h-screen")}>
+            <body className={classNames(inter.className, "min-h-screen max-w-screen overflow-x-hidden")}>
                 <SessionProvider session={session} refetchOnWindowFocus={true}>
                     {children}
                 </SessionProvider>
