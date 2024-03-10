@@ -1,0 +1,22 @@
+name: Front tests
+
+on:
+    push:
+        paths:
+            - "apps/front/**"
+
+jobs:
+    test:
+        name: "Test front-end/server on push"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "18.x"
+
+            - name: Build and run Docker container
+              run: docker compose -f compose.test.yml up -d --build
