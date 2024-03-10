@@ -27,7 +27,7 @@ class CounterService {
         try {
             return (await findOne(Collections.counter, id)) as CounterI;
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             return null;
         }
     }
