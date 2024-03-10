@@ -1,5 +1,6 @@
 import ActiveLink from "@/components/common/active-link";
 import Button from "@/components/common/button";
+import { checkPermission } from "@/lib/auth";
 import counterService from "@/lib/services/counter.service";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -12,9 +13,11 @@ interface Props {
 }
 
 async function authorizationCheck(counterId: string) {
-    // TODO: verify if the user is the owner of the widget
-    const counter = await counterService.findOne(counterId);
-    // return redirect("/widgets")
+    try {
+        await checkPermission(counterId);
+    } catch (e) {
+        redirect("/widgets");
+    }
 }
 
 export default async function Layout({

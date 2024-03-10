@@ -1,16 +1,23 @@
 import Button from "@/components/common/button";
 import CounterListItem from "@/components/widgets/counter/counter-list-item";
 import CreateCounterButton from "@/components/widgets/counter/counter-new";
+import { getServerAuthSession } from "@/lib/auth";
 import { COUNTER_MAX_QUANTITY } from "@/lib/config/counter";
+import { CounterPublicI } from "@/lib/interfaces/counter";
 import counterService from "@/lib/services/counter.service";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
-    const counters = await counterService.findAllByOwner("noOne");
+    const session = await getServerAuthSession();
+    if (!session) return redirect("/auth/signin");
+    const counters = await counterService.findAllByOwner(session.user.id!);
+    // const counters = await counterService.findAll() as CounterPublicI[]
 
     async function addOne() {
         "use server";
-        const r = await counterService.create("my counter", "noOne");
+        if (!session) return redirect("/auth/signin");
+        await counterService.create("my counter", session.user.id!);
         revalidatePath("/widgets");
     }
 
