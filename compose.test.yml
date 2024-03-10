@@ -1,0 +1,19 @@
+version: "3.1"
+services:
+    front:
+        build:
+            context: ./apps/front
+            dockerfile: ../../docker/Dockerfile.front
+        command: npm run test
+        ports:
+            - "3000:3000"
+        env_file:
+            - ./docker/.env.test
+
+    firestore_emulator:
+        image: mtlynch/firestore-emulator
+        environment:
+            - FIRESTORE_PROJECT_ID=demo-impera-widgets
+            - PORT=8200
+        ports:
+            - 8200:8200
