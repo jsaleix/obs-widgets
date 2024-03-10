@@ -21,9 +21,9 @@ export default function AuthPartDesktop({ user }: Props) {
     } else {
         return (
             <div className="flex items-center gap-5">
-                <Link href="/auth/signin" onClick={() => signIn()}>
+                <button onClick={() => signIn()}>
                     Sign in / Login
-                </Link>
+                </button>
             </div>
         );
     }
