@@ -3,13 +3,6 @@ import { classNames } from "@/lib/utils";
 import { Suspense, lazy } from "react";
 import IconRenderer from "./icon-renderer";
 
-const CrownIcon = lazy(
-    () => import("@/components/widgets/counter/icons/crown")
-);
-const HeartIcon = lazy(
-    () => import("@/components/widgets/counter/icons/heart")
-);
-
 interface Props {
     data: CounterRowSettings;
     iconColor: string;
@@ -17,7 +10,6 @@ interface Props {
 
 export default function RowItem({ iconColor, data }: Props) {
     const { fontColor, label, value, icon } = data;
-    const RightIcon = icon === "crown" ? CrownIcon : HeartIcon;
 
     return (
         <div
@@ -25,10 +17,10 @@ export default function RowItem({ iconColor, data }: Props) {
             style={{ color: fontColor }}
         >
             <IconRenderer name={icon} color={iconColor} />
-            <h1 className="text-6xl font-bold">
-                <span className="animate-pulse">{value.toString()}</span>
-                <span className={classNames("text-4xl")}>{label}</span>
-            </h1>
+            <dl className="flex items-end gap-1">
+                <dt className="text-6xl font-bold">{value}</dt>
+                <dd className="text-4xl w-fit text-nowrap">{label}</dd>
+            </dl>
         </div>
     );
 }
