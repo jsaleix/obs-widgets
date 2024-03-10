@@ -4,7 +4,7 @@ import { credential } from "firebase-admin";
 import { initializeApp, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-const firebaseConfig = {
+export const firebaseConfig = {
     credential: credential.cert({
         privateKey: process.env.FIREBASE_PRIVATE_KEY,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,

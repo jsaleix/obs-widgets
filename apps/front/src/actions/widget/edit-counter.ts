@@ -1,8 +1,10 @@
 "use server";
 
+import { checkPermission } from "@/lib/auth";
 import { defaultRow } from "@/lib/config/counter";
 import {
     CounterI,
+    CounterPublicI,
     GeneralFormInputs,
     RowFormInputs,
 } from "@/lib/interfaces/counter";
@@ -10,14 +12,26 @@ import counterService from "@/lib/services/counter.service";
 
 export async function fetchCounterAction(counterId: string) {
     "use server";
-    const res = await counterService.findOnePublic(counterId);
-    return res as CounterI;
+    try {
+        // await checkPermission(counterId);
+        const res = await counterService.findOnePublic(counterId);
+        return res as CounterPublicI;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
 }
 
 export async function addRowAction(counterId: string) {
     "use server";
-    const res = await counterService.addRow(counterId, defaultRow());
-    return res ?? false;
+    try {
+        await checkPermission(counterId);
+        const res = await counterService.addRow(counterId, defaultRow());
+        return res ?? false;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
 }
 
 export async function editRowAction(
@@ -26,25 +40,44 @@ export async function editRowAction(
     data: RowFormInputs
 ) {
     "use server";
-    const res = await counterService.updateRow(counterId, rowId, data);
-    return res ?? false;
+    try {
+        await checkPermission(counterId);
+        const res = await counterService.updateRow(counterId, rowId, data);
+        return res ?? false;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
 }
 
 export async function reorderRowsAction(counterId: string, rows: string[]) {
     "use server";
-    const res = await counterService.reorderRows(counterId, rows);
-    return res;
+    try {
+        await checkPermission(counterId);
+        const res = await counterService.reorderRows(counterId, rows);
+        return res;
+    } catch (e) {
+        return false;
+    }
 }
 
 export async function deleteRowAction(counterId: string, rowId: string) {
     "use server";
-    await counterService.removeRow(counterId, rowId);
+    try {
+        await checkPermission(counterId);
+        await counterService.removeRow(counterId, rowId);
+    } catch (e) {
+        // return false
+    }
 }
 
 export async function updateGeneralAction(
     counterId: string,
     data: GeneralFormInputs
 ) {
-    const res = await counterService.updateGeneral(counterId, data);
-    return res;
+    try {
+        await checkPermission(counterId);
+        const res = await counterService.updateGeneral(counterId, data);
+        return res;
+    } catch (e) {}
 }

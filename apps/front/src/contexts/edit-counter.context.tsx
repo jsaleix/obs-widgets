@@ -16,7 +16,7 @@ import { createContext, useContext, useState } from "react";
 
 interface EditCounterContextType {
     data: CounterPublicI;
-    fetchCounter: () => Promise<CounterPublicI>;
+    fetchCounter: () => Promise<CounterPublicI | null>;
     updateGeneral: (data: GeneralFormInputs) => Promise<void>;
     addRow: () => Promise<void>;
     editRow: (data: RowFormInputs) => Promise<void>;
@@ -65,6 +65,7 @@ export const EditCounterProvider = ({
     async function addRow() {
         await addRowAction(counterId);
         const newCounter = await fetchCounter();
+        if (!newCounter) return;
         setData((prev) => {
             return {
                 ...prev,
@@ -80,18 +81,21 @@ export const EditCounterProvider = ({
         // await editRow(counterId, id, receivedData);
         await editRowAction(counterId, rowId, data);
         const newCounter = await fetchCounter();
+        if (!newCounter) return;
         setData(newCounter);
     }
 
     async function reorderRows(rows: string[]) {
         await reorderRowsAction(counterId, rows);
         const newCounter = await fetchCounter();
+        if (!newCounter) return;
         setData(newCounter);
     }
 
     async function deleteRow(rowId: string) {
         await deleteRowAction(counterId, rowId);
         const newCounter = await fetchCounter();
+        if (!newCounter) return;
         setData(newCounter);
     }
 

@@ -1,8 +1,12 @@
 import { navLinks } from "@/lib/config/routes";
 import Image from "next/image";
 import Link from "next/link";
+import AuthPart from "./auth-part";
+import { getServerAuthSession } from "@/lib/auth";
 
-export default function Header() {
+export default async function Header() {
+    const session = await getServerAuthSession()
+    
     return (
         <header className="w-full h-fit border-b-2 border-gray-500">
             <div className="w-full p-3 flex container mx-auto flex justify-center md:justify-between flex items-center justify-center">
@@ -30,6 +34,7 @@ export default function Header() {
                         ))}
                     </nav>
                 </div>
+                <AuthPart user={session?.user}/>
             </div>
         </header>
     );

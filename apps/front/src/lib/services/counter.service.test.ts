@@ -412,7 +412,6 @@ describe("CounterService", () => {
             await CounterService.updateRoot(COUNTER_ID, {
                 name: "UPDATED_NAME",
             });
-            //expect no to be 0
             expect(cb.mock.calls.length).toBeGreaterThan(0);
             unsub()
         });

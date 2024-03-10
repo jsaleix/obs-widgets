@@ -1,5 +1,6 @@
 "use server";
 
+import { checkPermission } from "@/lib/auth";
 import { ActionResponse, StatusValues } from "@/lib/interfaces/actions";
 import counterService from "@/lib/services/counter.service";
 import { UpdateCounterNameRequestSchema } from "@/lib/validator/schemas/counter.schemas";
@@ -13,6 +14,7 @@ export async function changeNameAction(
         const data = Object.fromEntries(payload.entries());
         const parsed = UpdateCounterNameRequestSchema.safeParse(data);
         if (!parsed.success) throw new Error("Invalid data");
+        await checkPermission(parsed.data.id);
         await counterService.updateRoot(parsed.data.id, {
             name: parsed.data.name,
         });
@@ -41,6 +43,7 @@ export async function resetSecretAction(
         if (!id) {
             throw new Error("Counter id not found");
         }
+        await checkPermission(id);
 
         const newSecret = await counterService.changeSecret(id);
         if (!newSecret) {
@@ -71,7 +74,7 @@ export async function deleteCounterAction(
         if (!id) {
             throw new Error("Counter id not found");
         }
-
+        await checkPermission(id as string);
         return {
             status: StatusValues.Success,
             message: "Counter deleted",
