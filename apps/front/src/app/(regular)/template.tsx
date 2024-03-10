@@ -9,7 +9,7 @@ export default async function Template({
     return (
         <React.Fragment>
             <Header />
-            <main className="w-full h-full">{children}</main>
+            <main className="w-100 h-full">{children}</main>
         </React.Fragment>
     );
 }

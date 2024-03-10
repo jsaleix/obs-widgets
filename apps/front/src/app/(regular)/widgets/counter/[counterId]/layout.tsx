@@ -28,8 +28,8 @@ export default async function Layout({
     const baseUrl = `/widgets/counter/${counterId}`;
 
     return (
-        <div className="w-full flex flex-col gap-5">
-            <div className="w-full border-b-2 border-gray-600 flex flex-col md:flex-row md:items-center justify-start py-3 mb-5 px-5">
+        <div className="w-full flex flex-col md:gap-5">
+            <div className="w-full border-b-2 border-gray-600 flex flex-col gap-3 md:gap-0 md:flex-row md:items-center justify-start py-3 mb-5 px-5">
                 <ul className={"flex align-center gap-5 h-fit"}>
                     <li>
                         <ActiveLink
@@ -72,7 +72,7 @@ export default async function Layout({
                     <Button className="px-10 !w-fit">View (live)</Button>
                 </Link>
             </div>
-            <div className="p-5">{children}</div>
+            <div className="px-5 w-full">{children}</div>
         </div>
     );
 }

@@ -58,7 +58,7 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
     };
 
     return (
-        <div className="flex flex-col gap-3 border-2 border-white p-5 rounded-xl select-none">
+        <div className="w-full flex flex-col gap-3 border-2 border-white p-5 rounded-xl select-none">
             <div
                 className="p-3 overflow-hidden"
                 style={{ backgroundColor: bgColor }}

@@ -21,9 +21,9 @@ export default async function Page() {
     }
 
     return (
-        <div className={"w-100 py-5"}>
+        <div className={"h-full w-full p-5"}>
             <div className="w-full flex flex-col gap-3">
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between items-center">
                     <h1 className="text-xl">
                         Counters {counters.length}/{COUNTER_MAX_QUANTITY}:
                     </h1>
