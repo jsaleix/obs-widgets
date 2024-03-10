@@ -29,7 +29,7 @@ export default async function Layout({
 
     return (
         <div className="w-full flex flex-col gap-5">
-            <div className="w-full border-b-2 border-gray-600 flex flex-col md:flex-row md:items-center justify-start py-3 mb-5 px-5">
+            <div className="w-full border-b-2 border-gray-600 flex flex-col gap-3 md:gap-0 md:flex-row md:items-center justify-start py-3 mb-5 px-5">
                 <ul className={"flex align-center gap-5 h-fit"}>
                     <li>
                         <ActiveLink

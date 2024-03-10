@@ -6,15 +6,22 @@ export default function CounterListItem({ item }: { item: CounterPublicI }) {
     return (
         <article
             className={
-                "flex flex-col gap-3 border-white border-2 w-full p-5 rounded-md"
+                "flex flex-col gap-3 border-white border-2 w-full p-5 rounded-md overflow-hidden"
             }
         >
             <h2>{item.name}</h2>
-            <div className="w-full flex justify-between gap-4">
-                <Link href={`/widgets/counter/${item.id}/overview`}>
+            <div className="w-full flex justify-between gap-1 lg:gap-4">
+                <Link
+                    href={`/widgets/counter/${item.id}/overview`}
+                    className="w-full"
+                >
                     <Button>Overview</Button>
                 </Link>
-                <Link target="_blank" href={`/viewer/counter/${item.id}`}>
+                <Link
+                    target="_blank"
+                    href={`/viewer/counter/${item.id}`}
+                    className="w-full"
+                >
                     <Button>Show</Button>
                 </Link>
             </div>
