@@ -2,17 +2,16 @@
 import { navLinks } from "@/lib/config/routes";
 import { classNames } from "@/lib/utils";
 import Link from "next/link";
-import { useState } from "react";
 import { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
-import { Divide } from "hamburger-react";
 
 interface Props {
+    open: boolean;
+    setOpen: (val: boolean) => void;
     user: Session["user"] | null | undefined;
 }
 
-export default function MobileMenu({ user }: Props) {
-    const [open, setOpen] = useState(false);
+export default function MobileMenu({ open, setOpen, user }: Props) {
     const baseClasses = classNames(
         "md:hidden h-screen w-screen fixed top-0 left-0 flex flex-col items-center justify-center",
         open ? "bg-black opacity-90" : "pointer-events-none"
@@ -29,25 +28,6 @@ export default function MobileMenu({ user }: Props) {
 
     return (
         <div className={baseClasses}>
-            <div
-                className="flex gap-3 items-center absolute top-6 right-5 pointer-events-auto"
-                style={{ zIndex: 10000 }}
-            >
-                {user && (
-                    <div className="flex h-10 w-10 rounded-full overflow-hidden">
-                        <img
-                            src={user.image as string}
-                            alt={user.name as string}
-                        />
-                    </div>
-                )}
-                <Divide
-                    size={32}
-                    color={"white"}
-                    toggle={(val) => setOpen(val)}
-                    toggled={open}
-                />
-            </div>
             {open && (
                 <>
                     <ul
@@ -55,11 +35,10 @@ export default function MobileMenu({ user }: Props) {
                         style={{ zIndex: 10001 }}
                     >
                         {navLinks.map((item, index) => (
-                            <li>
+                            <li key={index}>
                                 <Link
                                     className="text-3xl"
                                     onClick={closeMenu}
-                                    key={index}
                                     href={item.path}
                                     target={item?.target ?? "_self"}
                                 >

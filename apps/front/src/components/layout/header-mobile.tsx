@@ -1,30 +1,73 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./mobile-menu";
 import { Session } from "next-auth";
+import { useEffect, useRef, useState } from "react";
+import { Divide } from "hamburger-react";
+import { classNames } from "@/lib/utils";
 
 interface Props {
     user: Session["user"] | null | undefined;
 }
 
 export default function HeaderMobile({ user }: Props) {
+    const headerRef = useRef<HTMLDivElement>(null);
+    const [isScrolling, setIsScrolling] = useState(false);
+    const [openMenu, setOpenMenu] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolling(true);
+            } else {
+                setIsScrolling(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
-        <div className="flex md:hidden w-full h-fit border-b-2 border-gray-500">
-            <div className="w-full p-3 container mx-auto flex justify-between flex items-center">
-                <div className={"flex justify-center items-center gap-6"}>
-                    <div className="w-20 h-20 overflow-hidden">
-                        <Link href="/">
-                            <Image
-                                src="/logo.png"
-                                className="h-full w-full object-cover"
-                                alt="logo"
-                                width={100}
-                                height={100}
-                            />
-                        </Link>
-                    </div>
+        <div
+            ref={headerRef}
+            className={classNames(
+                "flex md:hidden w-full h-fit border-b-2 border-gray-500 z-50",
+                isScrolling ? "sticky top-0 left-0 bg-black bg-opacity-70" : ""
+            )}
+        >
+            <div className="w-full p-3 container mx-auto flex justify-between items-center">
+                <div className="w-20 h-20 overflow-hidden">
+                    <Link href="/">
+                        <Image
+                            src="/logo.png"
+                            className="relative h-full w-full object-cover z-50"
+                            alt="logo"
+                            width={100}
+                            height={100}
+                        />
+                    </Link>
                 </div>
-                <MobileMenu user={user} />
+                <div className="flex justify-end items-center z-50">
+                    {user && (
+                        <div className="flex h-10 w-10 rounded-full overflow-hidden">
+                            <img
+                                src={user.image as string}
+                                alt={user.name as string}
+                            />
+                        </div>
+                    )}
+                    <Divide
+                        size={32}
+                        color={"white"}
+                        toggle={(val) => setOpenMenu(val)}
+                        toggled={openMenu}
+                    />
+                </div>
+                <MobileMenu open={openMenu} setOpen={setOpenMenu} user={user} />
             </div>
         </div>
     );
