@@ -75,6 +75,11 @@ export async function deleteCounterAction(
             throw new Error("Counter id not found");
         }
         await checkPermission(id as string);
+        const res = await counterService.delete(id as string);
+        if (!res) {
+            throw new Error("An error has occurred");
+        }
+        revalidatePath(`/widgets`);
         return {
             status: StatusValues.Success,
             message: "Counter deleted",

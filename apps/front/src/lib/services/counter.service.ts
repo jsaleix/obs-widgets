@@ -8,7 +8,7 @@ import {
 } from "@/lib/interfaces/counter";
 import { addOne, findAll, findMany, findOne } from "../firebase";
 import { Collections } from "@/lib/config/firestore";
-import { subscribeToRealtime, updateOne } from "../firebase/data";
+import { deleteOne, subscribeToRealtime, updateOne } from "../firebase/data";
 import {
     defaultRow,
     defaultGeneralSettings,
@@ -108,8 +108,11 @@ class CounterService {
     }
 
     async delete(id: string) {
-        throw new Error("Not implemented yet");
-        return null;
+        try {
+            return await deleteOne(Collections.counter, id);
+        } catch (e) {
+            return false;
+        }
     }
 
     async addRow(id: string, row: CounterRowSettings) {
@@ -157,7 +160,8 @@ class CounterService {
         try {
             const counter = await this.findOne(counterId);
             if (!counter) throw new Error("Counter not found");
-            if(counter.rows.length !== rowIds.length) throw new Error("Invalid row id");
+            if (counter.rows.length !== rowIds.length)
+                throw new Error("Invalid row id");
 
             //Checks if all ids are valid and that there are no missing or extra ids
             const allIds = counter.rows.map((r) => r.id);

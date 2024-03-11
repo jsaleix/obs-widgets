@@ -388,11 +388,104 @@ describe("CounterService", () => {
         });
     });
 
-    describe("delete", () => {});
+    describe("delete", () => {
+        it("deletes a counter", async () => {
+            let newUser = genRandomString(10);
+            await CounterService.create("TEST_COUNTER", newUser);
 
-    describe("isAllowedtoEdit", () => {});
+            let counterId = (await CounterService.findAllByOwner(newUser))[0]
+                .id;
+            const deleted = await CounterService.delete(counterId);
 
-    describe("isAllowedToEditLocal", () => {});
+            expect(deleted).toBeDefined();
+            expect(deleted).not.toBeNull();
+            expect(deleted).toBe(true);
+
+            const counter = await CounterService.findOne(counterId);
+            expect(counter).toBeNull();
+        });
+    });
+
+    describe("isAllowedtoEdit", () => {
+        it("returns true", async () => {
+            let newUser = genRandomString(10);
+            await CounterService.create("TEST_COUNTER", newUser);
+
+            let counterId = (await CounterService.findAllByOwner(newUser))[0]
+                .id;
+
+            const allowed = await CounterService.isAllowedToEdit(
+                counterId,
+                newUser
+            );
+
+            expect(allowed).toBeDefined();
+            expect(allowed).not.toBeNull();
+            expect(allowed).toBe(true);
+        });
+
+        it("returns false: user is not owner", async () => {
+            let newUser = genRandomString(10);
+            await CounterService.create("TEST_COUNTER", newUser);
+
+            let counterId = (await CounterService.findAllByOwner(newUser))[0]
+                .id;
+
+            const allowed = await CounterService.isAllowedToEdit(
+                counterId,
+                user
+            );
+
+            expect(allowed).toBeDefined();
+            expect(allowed).not.toBeNull();
+            expect(allowed).toBe(false);
+        });
+
+        it("returns false: counter does not exist", async () => {
+            const allowed = await CounterService.isAllowedToEdit(
+                genRandomString(10),
+                user
+            );
+
+            expect(allowed).toBeDefined();
+            expect(allowed).not.toBeNull();
+            expect(allowed).toBe(false);
+        });
+    });
+
+    describe("isAllowedToEditLocal", () => {
+        it("returns true", async () => {
+            let newUser = genRandomString(10);
+            await CounterService.create("TEST_COUNTER", newUser);
+
+            let counter = (await CounterService.findAllByOwner(newUser))[0];
+
+            const allowed = await CounterService.isAllowedToEditLocal(
+                counter,
+                newUser
+            );
+
+            expect(allowed).toBeDefined();
+            expect(allowed).not.toBeNull();
+            expect(allowed).toBe(true);
+        });
+
+        it("returns false: user is not owner", async () => {
+            let newUser = genRandomString(10);
+            await CounterService.create("TEST_COUNTER", newUser);
+
+            let counter = (await CounterService.findAllByOwner(newUser))[0];
+
+            const allowed = await CounterService.isAllowedToEditLocal(
+                counter,
+                user
+            );
+
+            expect(allowed).toBeDefined();
+            expect(allowed).not.toBeNull();
+            expect(allowed).toBe(false);
+        });
+    });
 
     describe("getRealtimeCounter", () => {
         it("returns an observer", async () => {
@@ -403,18 +496,21 @@ describe("CounterService", () => {
             expect(observer).toBeDefined();
             expect(observer).not.toBeNull();
             expect(observer).toBeInstanceOf(Object);
-            observer() // It unsubscribes the observer
+            observer(); // It unsubscribes the observer
         });
 
         it("should call the callback", async () => {
             const cb = jest.fn(() => null);
-            const unsub = await CounterService.getRealtimeCounter(COUNTER_ID, cb);
+            const unsub = await CounterService.getRealtimeCounter(
+                COUNTER_ID,
+                cb
+            );
             await CounterService.updateRoot(COUNTER_ID, {
                 name: "UPDATED_NAME",
             });
             await new Promise((r) => setTimeout(r, 1000));
             expect(cb.mock.calls.length).toBeGreaterThan(0);
-            unsub()
+            unsub();
         });
     });
 });

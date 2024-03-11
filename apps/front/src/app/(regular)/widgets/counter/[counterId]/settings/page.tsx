@@ -1,5 +1,6 @@
 import Button from "@/components/common/button";
 import SettingRow from "@/components/misc/setting-row";
+import DeleteCounter from "@/components/widgets/counter/pages/settings-form/delete";
 import ChangeName from "@/components/widgets/counter/pages/settings-form/name";
 import Secret from "@/components/widgets/counter/pages/settings-form/secret";
 import counterService from "@/lib/services/counter.service";
@@ -35,9 +36,7 @@ export default async function Page({ params: { counterId } }: Props) {
                 details="Deleting your counter is irreversible"
                 contentClassName="gap-2"
             >
-                <Button disabled={false} className="!w-fit px-10">
-                    Delete
-                </Button>
+                <DeleteCounter id={counter.id} />
             </SettingRow>
         </div>
     );
