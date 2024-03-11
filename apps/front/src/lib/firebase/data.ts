@@ -82,6 +82,20 @@ export async function updateOne(
     }
 }
 
+export async function deleteOne(
+    collectionName: COLLECTIONS_TYPE,
+    id: string
+) {
+    const ref = firestore_db.collection(collectionName).doc(id);
+    try {
+        await ref.delete();
+        return true;
+    } catch (e: any) {
+        if (e instanceof Error) throw e;
+        else throw new Error("Error while deleting data");
+    }
+}
+
 export async function subscribeToRealtime(
     collectionName: COLLECTIONS_TYPE,
     id: string,
