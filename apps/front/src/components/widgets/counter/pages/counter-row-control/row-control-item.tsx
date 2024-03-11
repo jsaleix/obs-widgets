@@ -1,28 +1,33 @@
 "use client";
+
+import Button from "@/components/common/button";
+import { HOSTNAME } from "@/lib/config";
 import {
-    CounterI,
+    CounterPublicI,
     CounterRowSettings,
     RowMutation,
 } from "@/lib/interfaces/counter";
-import RowItem from "../rendered/row-item";
-import Button from "@/components/common/button";
 import { copyToClipboard } from "@/lib/utils";
-import { useMemo, useState } from "react";
+import { displayMsg } from "@/lib/utils/toasts";
+import { useState, useMemo } from "react";
+import RowItem from "../../rendered/row-item";
 
 interface Props {
-    counter: CounterI;
-    bgColor: string;
+    counter: CounterPublicI;
+    secret: string;
     row: CounterRowSettings;
 }
 
 const API_PATH = "/api/widgets/counter";
 
-export default function CounterRowControl({ counter, row, bgColor }: Props) {
-    const [localRowData, setLocalRowData] = useState<CounterRowSettings>(row);
+export default function RowControlItem({ counter, secret, row }: Props) {
+    const [loading, setLoading] = useState(false);
 
-    const curlReq = useMemo(
+    const httpURL = useMemo(
         () =>
-            `curl --location --request PATCH 'http://localhost:3000/api/widgets/counter/${counter.id}/${row.id}?secret=${counter.secret}&type=increment'`,
+            new URL(
+                `${HOSTNAME}/api/widgets/counter/${counter.id}/${row.id}?secret=${secret}&type=increment`
+            ).toString(),
         [counter, row.id]
     );
 
@@ -32,28 +37,19 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
 
     const handleValueChange = async (type: string) => {
         try {
+            setLoading(true);
             const r = await fetch(
-                `${API_PATH}/${counter.id}/${row.id}?secret=${counter.secret}&type=${type}`,
+                `${API_PATH}/${counter.id}/${row.id}?secret=${secret}&type=${type}`,
                 {
                     method: "PATCH",
                 }
             );
-            if (r.status === 200) {
-                switch (type) {
-                    case RowMutation.increment:
-                        setLocalRowData((prev) => {
-                            return { ...prev, value: prev.value + 1 };
-                        });
-                        break;
-                    case RowMutation.decrement:
-                        setLocalRowData((prev) => {
-                            return { ...prev, value: prev.value - 1 };
-                        });
-                        break;
-                }
-            } else throw new Error("Error incrementing");
-        } catch (e) {
+            if (r.status !== 200) throw new Error("Error incrementing");
+        } catch (e: any) {
             console.log(e);
+            displayMsg(e?.message ?? "Error incrementing", "error");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -61,12 +57,9 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
         <div className="w-full flex flex-col gap-3 border-2 border-white p-5 rounded-xl select-none">
             <div
                 className="p-3 overflow-hidden"
-                style={{ backgroundColor: bgColor }}
+                style={{ backgroundColor: counter.general.bgColor }}
             >
-                <RowItem
-                    data={localRowData}
-                    iconColor={counter.general.iconsColor}
-                />
+                <RowItem data={row} iconColor={counter.general.iconsColor} />
             </div>
             <hr />
             <div className="flex flex-col gap-3" id="actions">
@@ -74,18 +67,20 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
                     <Button title={row.id} onClick={() => handleCopy(row.id)}>
                         Copy id: {row.id.slice(0, 10) + "..."}
                     </Button>
-                    <Button title={row.id} onClick={() => handleCopy(curlReq)}>
-                        Copy curl request
+                    <Button title={row.id} onClick={() => handleCopy(httpURL)}>
+                        Copy request
                     </Button>
                 </div>
                 <div className="flex gap-2">
                     <Button
+                        disabled={loading}
                         className={"!w-1/2"}
                         onClick={() => handleValueChange(RowMutation.increment)}
                     >
                         Increment
                     </Button>
                     <Button
+                        disabled={loading}
                         className={"!w-1/2"}
                         onClick={() => handleValueChange(RowMutation.decrement)}
                     >
