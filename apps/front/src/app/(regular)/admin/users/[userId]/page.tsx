@@ -24,6 +24,7 @@ export default async function Page({ params: { userId } }: Props) {
                 <div>
                     <h3 className="text-xl">{user.email}</h3>
                     <h4 className="text-xl font-bold">{user.name}</h4>
+                    <p>{user.role}</p>
                 </div>
             </section>
             <section
