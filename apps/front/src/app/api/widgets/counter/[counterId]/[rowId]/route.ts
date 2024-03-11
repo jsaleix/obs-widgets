@@ -18,7 +18,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         const secret = req.nextUrl.searchParams.get("secret");
         const mutationType = req.nextUrl.searchParams.get("type");
         if (!secret) throw new Error("Missing secret");
-        // if (secret !== counter.secret) throw new Error("Invalid secret");
+        if (secret !== counter.secret) throw new Error("Invalid secret");
         if (!mutationType)
             throw new Error(
                 `Missing mutation type, valid types: [${Object.values(
