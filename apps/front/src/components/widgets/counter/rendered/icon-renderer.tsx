@@ -19,10 +19,14 @@ interface Props {
 
 export default function IconRenderer({ name, ...rest }: Props) {
     return (
-        <Suspense>
-            {name === IconsValues.crown && <CrownIcon {...rest} />}
-            {name === IconsValues.heart && <HeartIcon {...rest} />}
-            {name === IconsValues.controller && <ControllerIcon {...rest} />}
-        </Suspense>
+        <div className="w-30 h-30 flex justify-center items-center">
+            <Suspense>
+                {name === IconsValues.crown && <CrownIcon {...rest} />}
+                {name === IconsValues.heart && <HeartIcon {...rest} />}
+                {name === IconsValues.controller && (
+                    <ControllerIcon {...rest} />
+                )}
+            </Suspense>
+        </div>
     );
 }
