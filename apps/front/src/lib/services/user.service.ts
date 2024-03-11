@@ -4,7 +4,7 @@ import { findAll, updateOne } from "../firebase/data";
 import { UserI } from "../interfaces/user";
 
 class UserService {
-    async getUser(id: string) {
+    async findOne(id: string) {
         try {
             return (await findOne(Collections.user, id)) as UserI;
         } catch (e) {

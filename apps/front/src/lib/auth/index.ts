@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
         },
         async jwt({ token, user }) {
             if (user) {
-                const fullUser = await userService.getUser(user.id);
+                const fullUser = await userService.findOne(user.id);
                 if (fullUser) {
                     token.role = fullUser.role ?? Roles.user;
                 }
