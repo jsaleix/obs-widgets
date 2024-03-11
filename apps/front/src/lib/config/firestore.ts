@@ -1,5 +1,6 @@
 export const Collections = {
     counter: "counter-widgets",
+    user: "users",
 } as const;
 
 type ObjectType<t> = t[keyof t];

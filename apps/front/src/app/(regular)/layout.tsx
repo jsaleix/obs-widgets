@@ -6,6 +6,8 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/providers/session-provider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import userService from "@/lib/services/user.service";
+import { getServerAuthSession } from "@/lib/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +21,10 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const session = await getServerSession();
+    const session = await getServerAuthSession();
 
     return (
-        <html lang="en">
+        <html lang="en" data-theme="dark">
             <body
                 className={classNames(
                     inter.className,

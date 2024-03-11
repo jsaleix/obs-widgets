@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthPart from "./auth-part-desktop";
 import { Session } from "next-auth";
+import { Roles } from "@/lib/config/users";
 
 interface Props {
     user: Session["user"] | null | undefined;
@@ -34,6 +35,9 @@ export default function HeaderDesktop({ user }: Props) {
                                 {item.name}
                             </Link>
                         ))}
+                        {user?.role === Roles.admin && (
+                            <Link href="/admin">Admin</Link>
+                        )}
                     </nav>
                 </div>
                 <AuthPart user={user} />
