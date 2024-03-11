@@ -8,6 +8,7 @@ import RowItem from "../rendered/row-item";
 import Button from "@/components/common/button";
 import { copyToClipboard } from "@/lib/utils";
 import { useMemo, useState } from "react";
+import { HOSTNAME } from "@/lib/config";
 
 interface Props {
     counter: CounterI;
@@ -20,9 +21,11 @@ const API_PATH = "/api/widgets/counter";
 export default function CounterRowControl({ counter, row, bgColor }: Props) {
     const [localRowData, setLocalRowData] = useState<CounterRowSettings>(row);
 
-    const curlReq = useMemo(
+    const httpURL = useMemo(
         () =>
-            `curl --location --request PATCH 'http://localhost:3000/api/widgets/counter/${counter.id}/${row.id}?secret=${counter.secret}&type=increment'`,
+            new URL(
+                `${HOSTNAME}/api/widgets/counter/${counter.id}/${row.id}?secret=${counter.secret}&type=increment`
+            ).toString(),
         [counter, row.id]
     );
 
@@ -74,8 +77,8 @@ export default function CounterRowControl({ counter, row, bgColor }: Props) {
                     <Button title={row.id} onClick={() => handleCopy(row.id)}>
                         Copy id: {row.id.slice(0, 10) + "..."}
                     </Button>
-                    <Button title={row.id} onClick={() => handleCopy(curlReq)}>
-                        Copy curl request
+                    <Button title={row.id} onClick={() => handleCopy(httpURL)}>
+                        Copy request
                     </Button>
                 </div>
                 <div className="flex gap-2">
