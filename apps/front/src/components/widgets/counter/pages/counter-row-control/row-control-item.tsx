@@ -74,17 +74,38 @@ export default function RowControlItem({ counter, secret, row }: Props) {
                 <div className="flex gap-2">
                     <Button
                         disabled={loading}
-                        className={"!w-1/2"}
+                        className={"!w-1/2 gap-3"}
                         onClick={() => handleValueChange(RowMutation.increment)}
                     >
                         Increment
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M16 10H10V16H6V10H0V6H6V0H10V6H16V10Z"
+                                fill="white"
+                            />
+                        </svg>
                     </Button>
                     <Button
                         disabled={loading}
-                        className={"!w-1/2"}
+                        className={"!w-1/2 gap-3"}
                         onClick={() => handleValueChange(RowMutation.decrement)}
                     >
                         Decrement
+                        <svg
+                            width="16"
+                            height="4"
+                            viewBox="0 0 16 4"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <rect width="16" height="4" fill="white" />
+                        </svg>
                     </Button>
                 </div>
             </div>

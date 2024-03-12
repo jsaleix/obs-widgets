@@ -1,4 +1,5 @@
 import Button from "@/components/common/button";
+import ExternalIcon from "@/components/icons/external";
 import { CounterI, CounterPublicI } from "@/lib/interfaces/counter";
 import Link from "next/link";
 
@@ -22,7 +23,9 @@ export default function CounterListItem({ item }: { item: CounterPublicI }) {
                     href={`/viewer/counter/${item.id}`}
                     className="w-1/2"
                 >
-                    <Button>Show</Button>
+                    <Button className="gap-3">
+                        Show <ExternalIcon />
+                    </Button>
                 </Link>
             </div>
         </article>
