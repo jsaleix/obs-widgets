@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import React from "react";
 
@@ -10,6 +11,7 @@ export default async function Template({
         <React.Fragment>
             <Header />
             <main className="w-100 h-full">{children}</main>
+            <Footer/>
         </React.Fragment>
     );
 }
