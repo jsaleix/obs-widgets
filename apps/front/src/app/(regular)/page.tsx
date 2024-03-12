@@ -1,12 +1,19 @@
 "use client";
-import { useSession } from "next-auth/react";
+import Banner from "@/components/pages/home/banner";
+import DemoLosePart from "@/components/pages/home/demo-lose-part";
+import FourthPart from "@/components/pages/home/fourth-part";
+import ThirdPart from "@/components/pages/home/third-part";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 export default function Home() {
-    const { data: session } = useSession();
-
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            {session ? <p>Hello {session.user.email}</p> : <p>Hello</p>}
-        </main>
+        <ParallaxProvider>
+            <div className="flex w-full min-h-screen flex-col gap-0">
+                <Banner/>
+                <DemoLosePart />
+                <Banner/>
+                {/* <ThirdPart/> */}
+            </div>
+        </ParallaxProvider>
     );
 }

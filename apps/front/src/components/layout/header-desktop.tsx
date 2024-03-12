@@ -14,13 +14,13 @@ export default function HeaderDesktop({ user }: Props) {
         <header className="hidden md:flex w-full h-fit border-b-2 border-gray-500">
             <div className="w-full p-3 container mx-auto flex justify-between flex items-center">
                 <div className={"flex justify-center items-center gap-6"}>
-                    <div className="w-20 h-20 overflow-hidden">
+                    <div className="w-33 h-20 overflow-hidden">
                         <Link href="/">
                             <Image
                                 src="/logo.png"
-                                className="h-full w-full object-cover"
+                                className="h-full w-full object-contain"
                                 alt="logo"
-                                width={100}
+                                width={130}
                                 height={100}
                             />
                         </Link>
