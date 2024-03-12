@@ -22,10 +22,6 @@ export default async function Page({ params: { counterId } }: Props) {
                     bgColor={counter.general.bgColor}
                 />
             </section>
-            <hr />
-            <section className="flex flex-col gap-3">
-                <h2 className="text-2xl">Tutorials</h2>
-            </section>
         </div>
     );
 }

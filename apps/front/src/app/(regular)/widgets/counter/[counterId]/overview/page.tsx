@@ -13,8 +13,11 @@ export default async function Page({ params: { counterId } }: Props) {
     if (!counter) notFound();
 
     return (
-        <div className={"flex flex-col gap-3"}>
-            <p>Ayo overview here</p>
+        <div className={"w-full flex flex-col gap-5"}>
+            <section id="tutorials" className="w-full flex flex-col gap-3">
+                <h2 className="text-2xl">Tutorials</h2>
+                <p className="italic">Soon 🚀</p>
+            </section>
         </div>
     );
 }
