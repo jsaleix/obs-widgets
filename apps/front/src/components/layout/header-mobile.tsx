@@ -40,13 +40,13 @@ export default function HeaderMobile({ user }: Props) {
             )}
         >
             <div className="w-full p-3 container mx-auto flex justify-between items-center">
-                <div className="w-20 h-20 overflow-hidden">
+                <div className="w-33 h-20 overflow-hidden">
                     <Link href="/">
                         <Image
                             src="/logo.png"
                             className="relative h-full w-full object-cover z-50"
                             alt="logo"
-                            width={100}
+                            width={130}
                             height={100}
                         />
                     </Link>

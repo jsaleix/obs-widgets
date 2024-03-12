@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { classNames } from "@/lib/utils";
-import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/providers/session-provider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import userService from "@/lib/services/user.service";
 import { getServerAuthSession } from "@/lib/auth";
+import { APP_TITLE } from "@/lib/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Impera's widgets",
+    title: APP_TITLE,
     description: "Toolbox for your Twitch live stream",
 };
 
