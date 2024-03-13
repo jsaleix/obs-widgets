@@ -14,7 +14,7 @@ export default function HeaderDesktop({ user }: Props) {
         <header className="hidden md:flex w-full h-fit border-b-2 border-gray-500">
             <div className="w-full p-3 container mx-auto flex justify-between flex items-center">
                 <div className={"flex justify-center items-center gap-6"}>
-                    <div className="w-33 h-20 overflow-hidden">
+                    <div className="w-33 h-20 overflow-hidden hover:opacity-80">
                         <Link href="/">
                             <Image
                                 src="/logo.png"

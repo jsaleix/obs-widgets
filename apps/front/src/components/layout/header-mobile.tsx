@@ -35,12 +35,13 @@ export default function HeaderMobile({ user }: Props) {
         <div
             ref={headerRef}
             className={classNames(
-                "flex md:hidden w-full h-fit border-b-2 border-gray-500 z-50",
+                "flex md:hidden w-full h-fit border-b-2 border-gray-500 z-100",
                 isScrolling ? "sticky top-0 left-0 bg-black bg-opacity-70" : ""
             )}
+            style={{zIndex: 100}}
         >
             <div className="w-full p-3 container mx-auto flex justify-between items-center">
-                <div className="w-33 h-20 overflow-hidden">
+                <div className="w-33 h-20 overflow-hidden z-100" style={{zIndex: 101}}>
                     <Link href="/">
                         <Image
                             src="/logo.png"
@@ -51,7 +52,7 @@ export default function HeaderMobile({ user }: Props) {
                         />
                     </Link>
                 </div>
-                <div className="flex justify-end items-center z-50">
+                <div className="flex justify-end items-center z-100" style={{zIndex: 101}}>
                     {user && (
                         <div className="flex h-10 w-10 rounded-full overflow-hidden">
                             <img
