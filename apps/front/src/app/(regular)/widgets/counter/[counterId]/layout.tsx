@@ -1,5 +1,6 @@
 import ActiveLink from "@/components/common/active-link";
 import Button from "@/components/common/button";
+import ExternalIcon from "@/components/icons/external";
 import { checkPermission } from "@/lib/auth";
 import counterService from "@/lib/services/counter.service";
 import Link from "next/link";
@@ -69,7 +70,9 @@ export default async function Layout({
                     href={`/viewer/counter/${counterId}`}
                     className="ml-0 md:ml-auto"
                 >
-                    <Button className="px-10 !w-fit">View (live)</Button>
+                    <Button className="px-10 !w-fit flex gap-2">
+                        Overlay mode <ExternalIcon />
+                    </Button>
                 </Link>
             </div>
             <div className="px-0 w-full">{children}</div>

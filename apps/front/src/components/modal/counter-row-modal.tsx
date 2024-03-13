@@ -28,7 +28,9 @@ export default function CounterRowModal({
                         submitAction={onSubmit}
                         formMode="edit"
                     />
-                    <button onClick={deleteAction}>Delete this row</button>
+                    <button className="btn" onClick={deleteAction}>
+                        Delete this row
+                    </button>
                 </div>
             )}
         </BaseModal>

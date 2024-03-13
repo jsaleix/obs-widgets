@@ -15,15 +15,15 @@ export default function AuthPartDesktop({ user }: Props) {
                     <img src={user.image as string} alt={user.name as string} />
                 </div>
                 <h3>{user.name}</h3>
-                <button onClick={() => signOut()}>Sign out</button>
+                <button className="btn" onClick={() => signOut()}>
+                    Sign out
+                </button>
             </div>
         );
     } else {
         return (
             <div className="flex items-center gap-5">
-                <button onClick={() => signIn()}>
-                    Sign in / Login
-                </button>
+                <button onClick={() => signIn()}>Sign in / Login</button>
             </div>
         );
     }
