@@ -17,9 +17,7 @@ export default function Hero() {
                         <h1 className="text-5xl font-bold">to your audience</h1>
                     </div>
                     <div className="block md:hidden">
-                        <h1 className="text-5xl font-bold text-white">
-                            Expose your stats to your audience
-                        </h1>
+                        <h1 className="text-5xl font-bold text-white">Expose your stats to your audience</h1>
                     </div>
                     <p className="py-6">
                         I don{"'"}t know what else to add 🧐.
