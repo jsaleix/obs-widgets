@@ -21,12 +21,12 @@ const Examples = () => {
                     <div className="flex items-center justify-center">
                         <Counter4 />
                     </div>
-                    <div className="flex items-center justify-center">
+                    {/* <div className="flex items-center justify-center">
                         <Counter1 />
                     </div>
                     <div className="flex items-center justify-center">
                         <Counter1 />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
