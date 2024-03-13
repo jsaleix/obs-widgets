@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <ParallaxProvider>
             <div className="flex w-full min-h-screen flex-col gap-0 overflow-hidden">
-                <Hero />
+                {/* <Hero /> */}
                 <Examples />
             </div>
         </ParallaxProvider>
