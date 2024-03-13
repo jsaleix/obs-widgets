@@ -21,7 +21,9 @@ export default function Hero() {
                             Expose your stats to your audience
                         </h1>
                     </div>
-                    <p className="py-6">I don't know what else to add 🧐.</p>
+                    <p className="py-6">
+                        I don{"'"}t know what else to add 🧐.
+                    </p>
                 </div>
                 <div className="card shrink-0 w-fit max-w-sm shadow-2xl md:-skew-y-6">
                     <DemoCounter />
@@ -34,7 +36,6 @@ export default function Hero() {
                 style={{ zIndex: 1 }}
             >
                 <div className="z-1 blur-3xl absolute -right-40 bottom-20 h-80 w-80 bg-red-500 rounded-full opacity-100"></div>
-                {/* <div className="z-1 blur-3xl absolute -right-60 bottom-20 h-80 w-80 bg-red-300 rounded-full opacity-40"></div> */}
             </Parallax>
             <Parallax
                 className="z-1 absolute w-full h-full opacity-80"
@@ -43,7 +44,6 @@ export default function Hero() {
                 style={{ zIndex: 1 }}
             >
                 <div className="z-1 blur-3xl absolute -left-40 top-20 h-80 w-80 bg-red-800 rounded-full opacity-100"></div>
-                {/* <div className="z-1 blur-3xl absolute -right-60 bottom-20 h-80 w-80 bg-red-300 rounded-full opacity-40"></div> */}
             </Parallax>
         </div>
     );
