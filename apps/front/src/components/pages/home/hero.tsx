@@ -21,9 +21,7 @@ export default function Hero() {
                             Expose your stats to your audience
                         </h1>
                     </div>
-                    <p className="py-6">
-                        I don{"'"}t know what else to add 🧐.
-                    </p>
+                    <p className="py-6">I don{"'"}t know what else to add 🧐.</p>
                 </div>
                 <div className="card shrink-0 w-fit max-w-sm shadow-2xl md:-skew-y-6">
                     <DemoCounter />
