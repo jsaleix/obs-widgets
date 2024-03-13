@@ -16,6 +16,21 @@ interface Props {
     onChangeAction?: (data: RowFormInputs) => void;
 }
 
+const FormField = ({
+    label,
+    children,
+}: {
+    label: string;
+    children: React.ReactNode;
+}) => {
+    return (
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <h3 className="w-full md:w-1/3">{label}:</h3>
+            {children}
+        </div>
+    );
+};
+
 export default function RowForm({ submitAction, initValues }: Props) {
     const {
         register,
@@ -35,7 +50,7 @@ export default function RowForm({ submitAction, initValues }: Props) {
             onSubmit={handleSubmit(onSubmit)}
             className={"w-full flex flex-col gap-1"}
         >
-            <div>
+            <FormField label="Icon">
                 <Select
                     register={register("icon", { value: initValues?.icon })}
                 >
@@ -51,8 +66,8 @@ export default function RowForm({ submitAction, initValues }: Props) {
                 {errors.icon?.message && (
                     <span className="text-red-500">{errors.icon.message}</span>
                 )}
-            </div>
-            <div>
+            </FormField>
+            <FormField label="Font color">
                 <Input
                     register={register("fontColor", {
                         value: initValues?.fontColor,
@@ -67,8 +82,8 @@ export default function RowForm({ submitAction, initValues }: Props) {
                         {errors.fontColor.message}
                     </span>
                 )}
-            </div>
-            <div>
+            </FormField>
+            <FormField label="Label">
                 <Input
                     register={register("label", {
                         value: initValues?.label,
@@ -79,8 +94,8 @@ export default function RowForm({ submitAction, initValues }: Props) {
                 {errors.label?.message && (
                     <span className="text-red-500">{errors.label.message}</span>
                 )}
-            </div>
-            <div>
+            </FormField>
+            <FormField label="Value">
                 <Input
                     register={register("value", {
                         value: initValues?.value,
@@ -94,8 +109,8 @@ export default function RowForm({ submitAction, initValues }: Props) {
                 {errors.value?.message && (
                     <span className="text-red-500">{errors.value.message}</span>
                 )}
-            </div>
-            <Button type="submit">Apply</Button>
+            </FormField>
+            <Button type="submit" className="mt-2">Apply</Button>
         </form>
     );
 }
