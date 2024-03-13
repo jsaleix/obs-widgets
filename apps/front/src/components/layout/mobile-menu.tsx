@@ -13,7 +13,7 @@ interface Props {
 
 export default function MobileMenu({ open, setOpen, user }: Props) {
     const baseClasses = classNames(
-        "md:hidden h-screen w-screen fixed top-0 left-0 flex flex-col items-center justify-center",
+        "z-100 md:hidden h-screen w-screen fixed top-0 left-0 flex flex-col items-center justify-center",
         open ? "bg-black opacity-90" : "pointer-events-none"
     );
 
@@ -27,12 +27,12 @@ export default function MobileMenu({ open, setOpen, user }: Props) {
     };
 
     return (
-        <div className={baseClasses}>
+        <div className={baseClasses} style={{ zIndex: 100 }}>
             {open && (
                 <>
                     <ul
-                        className="relative menu menu-vertical flex flex-col items-center gap-2 text-xl text-white capitalize"
-                        style={{ zIndex: 10001 }}
+                        className="z-100 relative menu menu-vertical flex flex-col items-center gap-2 text-xl text-white capitalize"
+                        style={{ zIndex: 102 }}
                     >
                         {navLinks.map((item, index) => (
                             <li key={index}>

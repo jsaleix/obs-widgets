@@ -45,13 +45,12 @@ export default function DemoCounter() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCounter((prev) => {
-                const [row1, games, loses] = prev.rows;
-                games.value = (games.value + 1) >= 100 ? 0 : (games.value + 1);
-                loses.value = (loses.value + 1) >= 100 ? 0 : (loses.value + 1);
-                loses.label = (loses.value > 5) ? "loses 🤡" : "loses";
-                return { ...prev, rows: [row1, games, loses] };
-            });
+            const prev = counter;
+            const [row1, games, loses] = prev.rows;
+            games.value = games.value + 1 >= 100 ? 0 : games.value + 1;
+            loses.value = loses.value + 1 >= 100 ? 0 : loses.value + 1;
+            loses.label = loses.value > 5 ? "loses 🤡" : "loses";
+            setCounter({ ...prev, rows: [row1, games, loses] });
         }, 500);
 
         return () => clearInterval(interval);
