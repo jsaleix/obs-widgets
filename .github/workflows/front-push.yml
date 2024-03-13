@@ -4,9 +4,10 @@ on:
     push:
         paths:
             - "apps/front/**"
-
+env:
+    VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
 jobs:
-    test:
+    run-tests:
         name: "Test front-end/server on push"
         runs-on: ubuntu-latest
         steps:
@@ -17,3 +18,14 @@ jobs:
               run: |
                   docker compose -f compose.test.yml up -d --build
                   docker compose -f compose.test.yml exec front npm run test
+
+            - name: Try to build app
+              run: |
+                  docker compose -f compose.test.yml exec front npm run build
+    deploy:
+        needs: run-tests
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/master'
+        steps:
+            - name: Deploy to production
+              run: curl -X POST $VERCEL_DEPLOY_HOOK
