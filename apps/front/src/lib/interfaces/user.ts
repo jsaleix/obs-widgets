@@ -6,4 +6,5 @@ export interface UserI {
     email: string;
     image: string;
     role: ROLES_TYPE;
+    createdAt: string;
 }
