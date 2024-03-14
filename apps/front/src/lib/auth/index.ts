@@ -32,7 +32,8 @@ export const authOptions: NextAuthOptions = {
     events: {
         async createUser(message) {
             const { id } = message.user;
-            await userService.update(id, { role: Roles.user });
+            const createdAt = new Date().toISOString();
+            await userService.update(id, { role: Roles.user, createdAt });
         },
     },
     providers: [twitchProvider],

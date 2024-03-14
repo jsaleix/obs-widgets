@@ -1,6 +1,6 @@
 "server only";
 
-import { WhereFilterOp } from "firebase-admin/firestore";
+import { DocumentData, Query, WhereFilterOp } from "firebase-admin/firestore";
 import { COLLECTIONS_TYPE } from "@/lib/config/firestore";
 import { firestore_db } from "./config";
 
@@ -56,9 +56,25 @@ export async function findMany(
     }
 }
 
-export async function findAll(collectionName: COLLECTIONS_TYPE) {
-    const ref = firestore_db.collection(collectionName);
+interface FindAllConfig {
+    limit?: number;
+    orderBy?: Record<string, "asc" | "desc">;
+}
+
+export async function findAll(
+    collectionName: COLLECTIONS_TYPE,
+    config?: FindAllConfig
+) {
+    let ref: Query<DocumentData> = firestore_db.collection(collectionName);
     try {
+        if (config?.orderBy) {
+            for (const [field, order] of Object.entries(config.orderBy)) {
+                ref = ref.orderBy(field, order);
+            }
+        }
+        if (config?.limit) {
+            ref = ref.limit(config.limit);
+        }
         const result = await ref.get();
         return result.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (e: any) {
@@ -82,10 +98,7 @@ export async function updateOne(
     }
 }
 
-export async function deleteOne(
-    collectionName: COLLECTIONS_TYPE,
-    id: string
-) {
+export async function deleteOne(collectionName: COLLECTIONS_TYPE, id: string) {
     const ref = firestore_db.collection(collectionName).doc(id);
     try {
         await ref.delete();
