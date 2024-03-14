@@ -36,7 +36,7 @@ export default function HeaderMobile({ user }: Props) {
             ref={headerRef}
             className={classNames(
                 "flex md:hidden w-full h-fit border-b-2 border-gray-500 z-100",
-                isScrolling ? "sticky top-0 left-0 bg-black bg-opacity-70" : ""
+                isScrolling ? "sticky top-0 left-0 bg-background bg-opacity-70" : ""
             )}
             style={{zIndex: 100}}
         >

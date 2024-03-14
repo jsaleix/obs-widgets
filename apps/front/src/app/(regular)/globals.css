@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {} */
+:root {
+    --bg-color: #191c20;
+}
 
 body {
-    background-color: black;
+    background-color: var(--bg-color);
 }
 
 @layer base {

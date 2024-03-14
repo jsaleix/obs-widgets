@@ -14,7 +14,7 @@ interface Props {
 export default function MobileMenu({ open, setOpen, user }: Props) {
     const baseClasses = classNames(
         "z-100 md:hidden h-screen w-screen fixed top-0 left-0 flex flex-col items-center justify-center",
-        open ? "bg-black opacity-90" : "pointer-events-none"
+        open ? "bg-background opacity-90" : "pointer-events-none"
     );
 
     const closeMenu = () => {

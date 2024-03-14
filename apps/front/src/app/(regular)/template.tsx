@@ -10,7 +10,7 @@ export default async function Template({
     return (
         <React.Fragment>
             <Header />
-            <main className="w-100 h-full pb-10">{children}</main>
+            <main className="w-100 h-full">{children}</main>
             <Footer/>
         </React.Fragment>
     );
