@@ -3,6 +3,11 @@ import { findOne } from "../firebase";
 import { findAll, updateOne } from "../firebase/data";
 import { UserI } from "../interfaces/user";
 
+export interface FindAllParams {
+    limit?: number;
+    orderBy?: Record<string, "asc" | "desc">;
+}
+
 class UserService {
     async findOne(id: string) {
         try {
@@ -20,9 +25,9 @@ class UserService {
         }
     }
 
-    async findAll() {
+    async findAll(params?: FindAllParams) {
         try {
-            return (await findAll(Collections.user)) as UserI[];
+            return (await findAll(Collections.user, params)) as UserI[];
         } catch (e) {
             return [];
         }
