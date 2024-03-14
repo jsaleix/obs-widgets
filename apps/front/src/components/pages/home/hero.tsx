@@ -4,7 +4,7 @@ import DemoCounter from "./demo-counter";
 export default function Hero() {
     return (
         // <div className="hero min-h-screen bg-gradient-to-r from-red-950 to-black">
-        <div className="relative hero min-h-screen bg-gradient-to-r from-base-200 to-black">
+        <div className="relative hero min-h-screen">
             <div
                 className="z-2 hero-content flex-col lg:flex-row-reverse"
                 style={{ zIndex: 2 }}

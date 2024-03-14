@@ -2,7 +2,7 @@ import { SOCIAL_LINKS } from "@/lib/config";
 
 export default function Footer() {
     return (
-        <footer className="border-t-2 border-gray-500 footer footer-center p-10 bg-black text-base-content rounded">
+        <footer className="border-t-2 border-gray-500 footer footer-center p-10 bg-background text-base-content rounded">
             <nav>
                 <div className="grid grid-flow-col gap-4">
                     <a href={SOCIAL_LINKS.twitter} target="_blank">

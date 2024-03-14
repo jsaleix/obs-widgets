@@ -10,7 +10,7 @@ import Counter8 from "./counter-8";
 
 const Examples = () => {
     return (
-        <div className="flex flex-row items-center justify-evenly w-full py-10 bg-gradient-to-r from-base-200 to-black">
+        <div className="flex flex-row items-center justify-evenly w-full py-10">
             <div className="container mx-auto">
                 <div className="flex grid lg:grid-cols-3  gap-5">
                     <div className="flex items-center justify-center">
