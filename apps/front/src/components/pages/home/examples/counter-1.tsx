@@ -5,9 +5,10 @@ import { IconsValues } from "@/lib/config/counter";
 import { CounterPublicI } from "@/lib/interfaces/counter";
 import { useEffect, useState } from "react";
 
-const PRIMARY_COLOR = "#03fc41";
+const PRIMARY_COLOR = "#3480eb";
 const SECONDARY_COLOR = "#03adfc";
-const BG_COLOR = "#232329";
+const BG_COLOR = "#36526b";
+// const BG_COLOR = "#4bd1fa";
 
 const counterData = {
     id: "id",
@@ -16,8 +17,8 @@ const counterData = {
     rows: [
         {
             id: crypto.randomUUID(),
-            icon: IconsValues.crown,
-            fontColor: PRIMARY_COLOR,
+            icon: IconsValues.star,
+            fontColor: "#737aeb",
             label: "shinies",
             value: 0,
         },
@@ -30,7 +31,7 @@ const counterData = {
         },
         {
             id: crypto.randomUUID(),
-            icon: IconsValues.controller,
+            icon: IconsValues.target,
             fontColor: PRIMARY_COLOR,
             label: "legendaries",
             value: 0,
@@ -38,7 +39,7 @@ const counterData = {
     ],
     general: {
         bgColor: BG_COLOR,
-        iconsColor: PRIMARY_COLOR,
+        iconsColor: "#FFFFFF",
         optionalText: "Gotta catch 'em all! 🎮",
         optionalTextColor: "#FFFFFF",
     },

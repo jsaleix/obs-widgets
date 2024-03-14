@@ -26,7 +26,7 @@ const counterData = {
         },
         {
             id: crypto.randomUUID(),
-            icon: IconsValues.controller,
+            icon: IconsValues.cross,
             fontColor: "#a32f2f",
             label: "loses",
             value: 0,

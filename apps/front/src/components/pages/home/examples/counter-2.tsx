@@ -5,9 +5,9 @@ import { IconsValues } from "@/lib/config/counter";
 import { CounterPublicI } from "@/lib/interfaces/counter";
 import { useEffect, useState } from "react";
 
-const PRIMARY_COLOR = "#03fc41";
+const PRIMARY_COLOR = "#e36c05";
 const SECONDARY_COLOR = "#03adfc";
-const BG_COLOR = "#232329";
+const BG_COLOR = "#242323";
 
 const counterData = {
     id: "id",
@@ -17,21 +17,21 @@ const counterData = {
         {
             id: crypto.randomUUID(),
             icon: IconsValues.crown,
-            fontColor: PRIMARY_COLOR,
+            fontColor: "#e0a80d",
             label: "Top 1",
             value: 0,
         },
         {
             id: crypto.randomUUID(),
-            icon: IconsValues.controller,
-            fontColor: SECONDARY_COLOR,
+            icon: IconsValues.star,
+            fontColor: "#ab162a",
             label: "Execs",
             value: 0,
         },
         {
             id: crypto.randomUUID(),
-            icon: IconsValues.controller,
-            fontColor: PRIMARY_COLOR,
+            icon: IconsValues.skull,
+            fontColor: "#992806",
             label: "Frags",
             value: 0,
         },
@@ -41,7 +41,7 @@ const counterData = {
         iconsColor: PRIMARY_COLOR,
         // Make a Call of duty warzone reference
         optionalText: "King of BR 🎮",
-        optionalTextColor: "#FFFFFF",
+        optionalTextColor: "#ff8000",
     },
 };
 
