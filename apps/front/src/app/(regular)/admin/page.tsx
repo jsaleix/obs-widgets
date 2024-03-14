@@ -19,6 +19,8 @@ function UserRow({ user }: { user: UserI }) {
                     </div>
                 </div>
             </td>
+            <td>{user.role}</td>
+            <td>{new Date(user.createdAt).toLocaleString()}</td>
             <th>
                 <Link href={`/admin/users/${user.id}`}>
                     <button className="btn btn-ghost btn-xs">more</button>
@@ -29,7 +31,7 @@ function UserRow({ user }: { user: UserI }) {
 }
 
 export default async function Page() {
-    const users = await userService.findAll();
+    const users = await userService.findAll({ orderBy: { createdAt: "desc" } });
 
     return (
         <div className="w-full h-full">
@@ -43,6 +45,8 @@ export default async function Page() {
                                 <tr>
                                     <th>Id</th>
                                     <th>Info</th>
+                                    <th>Role</th>
+                                    <th>CreatedAt</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
