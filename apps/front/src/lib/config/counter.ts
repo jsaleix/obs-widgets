@@ -4,7 +4,7 @@ import {
     CounterRowSettings,
 } from "../interfaces/counter";
 
-export const IconsValuesArray = ["crown", "heart", "controller", "star"] as const;
+export const IconsValuesArray = ["crown", "heart", "controller", "star", "skull"] as const;
 
 type IconsValuesType<T extends readonly string[]> = {
     [K in T[number]]: K;

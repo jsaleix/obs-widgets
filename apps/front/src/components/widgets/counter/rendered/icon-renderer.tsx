@@ -14,6 +14,10 @@ const ControllerIcon = lazy(
 
 const StarIcon = lazy(() => import("@/components/widgets/counter/icons/star"));
 
+const SkullIcon = lazy(
+    () => import("@/components/widgets/counter/icons/skull")
+);
+
 interface Props {
     name: string;
     color: string;
@@ -29,6 +33,7 @@ export default function IconRenderer({ name, ...rest }: Props) {
                     <ControllerIcon {...rest} />
                 )}
                 {name === IconsValues.star && <StarIcon {...rest} />}
+                {name === IconsValues.skull && <SkullIcon {...rest} />}
             </Suspense>
         </div>
     );
