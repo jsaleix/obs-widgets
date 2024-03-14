@@ -25,26 +25,10 @@ export default function Hero() {
                         I don{"'"}t know what else to add 🧐.
                     </p>
                 </div>
-                <div className="card shrink-0 w-fit max-w-sm shadow-2xl md:-skew-y-6">
+                <div className="card shrink-0 w-fit max-w-sm shadow-2xl md:-skew-y-6 md:scale-110 md:mr-10">
                     <DemoCounter />
                 </div>
             </div>
-            <Parallax
-                className="z-1 absolute w-full h-full opacity-80"
-                speed={-5}
-                translateX={[-130, 10]}
-                style={{ zIndex: 1 }}
-            >
-                <div className="z-1 blur-3xl absolute -right-40 bottom-20 h-80 w-80 bg-red-500 rounded-full opacity-100"></div>
-            </Parallax>
-            <Parallax
-                className="z-1 absolute w-full h-full opacity-80"
-                speed={-5}
-                translateX={[130, -10]}
-                style={{ zIndex: 1 }}
-            >
-                <div className="z-1 blur-3xl absolute -left-40 top-20 h-80 w-80 bg-red-800 rounded-full opacity-100"></div>
-            </Parallax>
         </div>
     );
 }
