@@ -28,12 +28,13 @@ type ObjectType<t> = t[keyof t];
 export type ICONS_TYPE = ObjectType<typeof IconsValues>;
 
 export const defaultGeneralSettings: CounterGeneralSettings = {
-    bgColor: "#000000",
+    bgColor: "#FFFFFF",
     bgImage: "",
-    bgOpacity: 85,
-    iconsColor: "#FFFFFF",
+    bgOpacity: 100,
+    bgImageOpacity: 85,
+    iconsColor: "#000000",
     optionalText: "",
-    optionalTextColor: "#FFFFFF",
+    optionalTextColor: "#000000",
 };
 
 export const defaultRow: () => CounterRowSettings = () => {
