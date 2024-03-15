@@ -29,6 +29,8 @@ export type ICONS_TYPE = ObjectType<typeof IconsValues>;
 
 export const defaultGeneralSettings: CounterGeneralSettings = {
     bgColor: "#000000",
+    bgImage: "",
+    bgOpacity: 85,
     iconsColor: "#FFFFFF",
     optionalText: "",
     optionalTextColor: "#FFFFFF",
