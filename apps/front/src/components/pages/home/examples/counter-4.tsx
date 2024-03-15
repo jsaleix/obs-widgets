@@ -41,7 +41,8 @@ const counterData = {
         iconsColor: PRIMARY_COLOR,
         optionalText: "Game overview 🎮🔫",
         optionalTextColor: "#FFFFFF",
-        bgOpacity: 85,
+        bgOpacity: 100,
+        bgImageOpacity: 85,
         bgImage: "",
     },
 };

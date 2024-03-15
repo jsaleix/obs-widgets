@@ -37,7 +37,8 @@ const counterData = {
         iconsColor: "#FFFFFF",
         optionalText: "Road to Diamond ⚔️",
         optionalTextColor: "#FFFFFF",
-        bgOpacity: 15,
+        bgOpacity: 100,
+        bgImageOpacity: 15,
         bgImage:
             "https://displays.riotgames.com/static/content-original-championillustrations-group-slashes-9828cf13cecf88fb9f21ee17afa6874e.jpg",
     },

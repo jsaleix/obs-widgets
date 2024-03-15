@@ -9,34 +9,40 @@ interface Props {
 
 export default function Counter({ counter }: Props) {
     if (counter?.rows === undefined || counter?.id === undefined) return null;
-    const { bgColor, bgImage, bgOpacity } = counter.general;
-    const classes = classNames(
-        "relative flex flex-col h-5rem w-fit min-w-80 min-h-24 rounded-md opacity-90 select-none overflow-hidden",
-        `bg-[${bgColor}]`
-    );
+    const { bgColor, bgImage, bgImageOpacity, bgOpacity } = counter.general;
+    const bgColorToRgba = (color: string, opacity: number) => {
+        const hex = color.replace("#", "");
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
+    };
 
     return (
         <div
-            className={classes}
+            className={
+                "relative flex flex-col h-5rem w-fit min-w-80 min-h-24 rounded-md select-none overflow-hidden"
+            }
             style={{
-                backgroundColor: bgColor,
+                backgroundColor: bgColorToRgba(bgColor, bgOpacity),
             }}
         >
             <div
                 id="bg-image"
-                className={classNames(
-                    "absolute top-0 left-0 w-full h-full",
-                    ``
-                )}
+                className={classNames("absolute top-0 left-0 w-full h-full")}
                 style={{
-                    opacity: bgOpacity > 0 ? bgOpacity / 100 : 0,
+                    opacity: bgImageOpacity > 0 ? bgImageOpacity / 100 : 0,
                     backgroundImage: bgImage ? `url(${bgImage})` : "",
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
-                    zIndex: -1,
+                    zIndex: 1,
                 }}
             />
-            <div className="flex flex-col items-start gap-4 p-5 min-w-100 ">
+            <div
+                id="rows"
+                className="flex flex-col items-start gap-4 p-5 min-w-100 z-2"
+                style={{ zIndex: 2 }}
+            >
                 {counter.rows.length > 0 &&
                     counter.rows.map((r, idx) => (
                         <RowItem

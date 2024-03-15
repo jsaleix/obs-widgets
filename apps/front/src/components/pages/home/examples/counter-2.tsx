@@ -42,9 +42,9 @@ const counterData = {
         // Make a Call of duty warzone reference
         optionalText: "King of BR 🎮",
         optionalTextColor: "#ff8000",
-        bgOpacity: 85,
-        bgImage:
-            "",
+        bgOpacity: 100,
+        bgImageOpacity: 85,
+        bgImage: "",
     },
 };
 

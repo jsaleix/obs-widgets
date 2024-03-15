@@ -85,7 +85,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                         placeholder="Background opacity"
                         register={register("bgOpacity", {
                             required: true,
-                            value: initValues.bgOpacity ?? 85,
+                            value: initValues.bgOpacity ?? 100,
                             valueAsNumber: true,
                         })}
                         step={5}
@@ -113,6 +113,26 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     {errors.bgColor?.message && (
                         <span className="text-red-500">
                             {errors.bgColor.message}
+                        </span>
+                    )}
+                </FormField>
+                <FormField label="Image opacity">
+                    <Input
+                        placeholder="Image opacity"
+                        register={register("bgImageOpacity", {
+                            required: true,
+                            value: initValues.bgImageOpacity ?? 85,
+                            valueAsNumber: true,
+                        })}
+                        step={5}
+                        type="number"
+                        defaultValue={initValues.bgImageOpacity}
+                        min={0}
+                        max={100}
+                    />
+                    {errors.bgImageOpacity?.message && (
+                        <span className="text-red-500">
+                            {errors.bgImageOpacity.message}
                         </span>
                     )}
                 </FormField>
