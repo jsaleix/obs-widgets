@@ -6,7 +6,7 @@ import { CounterPublicI } from "@/lib/interfaces/counter";
 import { useState } from "react";
 
 const PRIMARY_COLOR = "#f2bb05";
-const BG_COLOR = "#00990f";
+const BG_COLOR = "#000FFF";
 
 const counterData = {
     id: "id",
@@ -16,7 +16,7 @@ const counterData = {
         {
             id: crypto.randomUUID(),
             icon: IconsValues.star,
-            fontColor: "#43f507",
+            fontColor: "#FFFFFF",
             label: "label",
             value: 0,
         },
@@ -26,6 +26,10 @@ const counterData = {
         iconsColor: PRIMARY_COLOR,
         optionalText: "",
         optionalTextColor: "#FFFFFF",
+        bgOpacity: 100,
+        bgImageOpacity: 60,
+        bgImage:
+            "https://plus.unsplash.com/premium_photo-1670876808488-db44fb4a12d3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
 };
 
