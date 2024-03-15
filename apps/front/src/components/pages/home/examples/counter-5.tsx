@@ -26,6 +26,9 @@ const counterData = {
         iconsColor: PRIMARY_COLOR,
         optionalText: "",
         optionalTextColor: "#FFFFFF",
+        bgOpacity: 40,
+        bgImageOpacity: 85,
+        bgImage: "",
     },
 };
 

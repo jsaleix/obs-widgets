@@ -6,6 +6,9 @@ const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
 export const CounterGeneralSettingsSchema = z.object({
     bgColor: z.string().length(7).regex(hexColorRegex),
     iconsColor: z.string().length(7).regex(hexColorRegex, "Invalid color"),
+    bgImage: z.string().optional(),
+    bgImageOpacity: z.number().min(0).max(100).default(85),
+    bgOpacity: z.number().min(0).max(100).default(100),
     optionalText: z.string().max(20),
     optionalTextColor: z
         .string()
