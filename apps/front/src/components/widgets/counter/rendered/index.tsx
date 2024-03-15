@@ -9,15 +9,34 @@ interface Props {
 
 export default function Counter({ counter }: Props) {
     if (counter?.rows === undefined || counter?.id === undefined) return null;
-    const bgColor = counter.general.bgColor;
+    const { bgColor, bgImage, bgOpacity } = counter.general;
     const classes = classNames(
-        "flex flex-col h-5rem w-fit rounded-md opacity-90 select-none bg-opacity-85",
-        // "bg-[#1da1f2]",
+        "relative flex flex-col h-5rem w-fit min-w-80 min-h-24 rounded-md opacity-90 select-none overflow-hidden",
         `bg-[${bgColor}]`
     );
+
     return (
-        <div className={classes} style={{ backgroundColor: bgColor }}>
-            <div className="flex flex-col items-start gap-4 p-5 w-90">
+        <div
+            className={classes}
+            style={{
+                backgroundColor: bgColor,
+            }}
+        >
+            <div
+                id="bg-image"
+                className={classNames(
+                    "absolute top-0 left-0 w-full h-full",
+                    ``
+                )}
+                style={{
+                    opacity: bgOpacity > 0 ? bgOpacity / 100 : 0,
+                    backgroundImage: bgImage ? `url(${bgImage})` : "",
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    zIndex: -1,
+                }}
+            />
+            <div className="flex flex-col items-start gap-4 p-5 min-w-100 ">
                 {counter.rows.length > 0 &&
                     counter.rows.map((r, idx) => (
                         <RowItem

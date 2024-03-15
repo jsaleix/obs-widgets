@@ -14,8 +14,6 @@ interface Props {
     onChangeAction: (data: GeneralFormInputs) => void;
 }
 
-const fieldClasses = "flex flex-col md:flex-row items-center";
-
 const FormField = ({
     label,
     children,
@@ -75,6 +73,42 @@ export default function GeneralPart({ onChangeAction }: Props) {
                         defaultValue={initValues.bgColor}
                         maxLength={7}
                         minLength={7}
+                    />
+                    {errors.bgColor?.message && (
+                        <span className="text-red-500">
+                            {errors.bgColor.message}
+                        </span>
+                    )}
+                </FormField>
+                <FormField label="Background opacity">
+                    <Input
+                        placeholder="Background opacity"
+                        register={register("bgOpacity", {
+                            required: true,
+                            value: initValues.bgOpacity ?? 85,
+                            valueAsNumber: true,
+                        })}
+                        step={5}
+                        type="number"
+                        defaultValue={initValues.bgOpacity}
+                        min={0}
+                        max={100}
+                    />
+                    {errors.bgOpacity?.message && (
+                        <span className="text-red-500">
+                            {errors.bgOpacity.message}
+                        </span>
+                    )}
+                </FormField>
+                <FormField label="Background image">
+                    <Input
+                        placeholder="Background image"
+                        register={register("bgImage", {
+                            required: true,
+                            value: initValues.bgImage ?? "",
+                        })}
+                        type="text"
+                        defaultValue={initValues.bgImage ?? ""}
                     />
                     {errors.bgColor?.message && (
                         <span className="text-red-500">
