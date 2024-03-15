@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const PRIMARY_COLOR = "#03fc41";
 const SECONDARY_COLOR = "#03adfc";
-const BG_COLOR = "#232329";
+const BG_COLOR = "#000000";
 
 const counterData = {
     id: "id",
@@ -17,14 +17,14 @@ const counterData = {
         {
             id: crypto.randomUUID(),
             icon: IconsValues.controller,
-            fontColor: PRIMARY_COLOR,
+            fontColor: "#FFFFFF",
             label: "Steps",
             value: 0,
         },
         {
             id: crypto.randomUUID(),
             icon: IconsValues.controller,
-            fontColor: SECONDARY_COLOR,
+            fontColor: "#FFFFFF",
             label: "Km",
             value: 0,
         },
@@ -35,6 +35,8 @@ const counterData = {
         iconsColor: PRIMARY_COLOR,
         optionalText: "Walking 🚶‍♂️",
         optionalTextColor: "#FFFFFF",
+        bgOpacity: 55,
+        bgImage: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
 };
 
