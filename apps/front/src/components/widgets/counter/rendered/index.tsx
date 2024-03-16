@@ -34,6 +34,7 @@ export default function Counter({ counter }: Props) {
                     opacity: bgImageOpacity > 0 ? bgImageOpacity / 100 : 0,
                     backgroundImage: bgImage ? `url(${bgImage})` : "",
                     backgroundSize: "cover",
+                    backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     zIndex: 1,
                 }}
