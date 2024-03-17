@@ -4,6 +4,7 @@ import Link from "next/link";
 import AuthPart from "./auth-part-desktop";
 import { Session } from "next-auth";
 import { Roles } from "@/lib/config/users";
+import ActiveLink from "../common/active-link";
 
 interface Props {
     user: Session["user"] | null | undefined;
@@ -27,13 +28,13 @@ export default function HeaderDesktop({ user }: Props) {
                     </div>
                     <nav className="flex items-center gap-10">
                         {navLinks.map((item, index) => (
-                            <Link
+                            <ActiveLink
                                 key={index}
                                 href={item.path}
-                                target={item?.target ?? "_self"}
+                                activeClassName="underline"
                             >
                                 {item.name}
-                            </Link>
+                            </ActiveLink>
                         ))}
                         {user?.role === Roles.admin && (
                             <Link href="/admin">Admin</Link>

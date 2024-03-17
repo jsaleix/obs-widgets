@@ -1,7 +1,6 @@
 interface NavLinkI {
     name: string;
     path: string;
-    target?: string;
 }
 
 export const navLinks: Array<NavLinkI> = [
