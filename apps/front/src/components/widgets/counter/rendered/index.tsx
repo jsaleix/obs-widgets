@@ -21,7 +21,7 @@ export default function Counter({ counter }: Props) {
     return (
         <div
             className={
-                "relative flex flex-col h-5rem w-fit min-w-80 min-h-24 rounded-md select-none overflow-hidden"
+                "relative flex flex-col h-5rem w-fit min-w-24 min-h-24 rounded-md select-none overflow-hidden"
             }
             style={{
                 backgroundColor: bgColorToRgba(bgColor, bgOpacity),
