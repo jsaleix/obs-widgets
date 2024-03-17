@@ -1,7 +1,7 @@
-import { NextRequest } from "next/server";
+import { protectedPaths } from "./lib/config/routes";
 
 export { default } from "next-auth/middleware";
 
 export const config = {
-    matcher: ["/widgets", "/admin"],
+    matcher: protectedPaths,
 };

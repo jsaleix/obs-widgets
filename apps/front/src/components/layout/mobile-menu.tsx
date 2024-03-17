@@ -40,7 +40,6 @@ export default function MobileMenu({ open, setOpen, user }: Props) {
                                     className="text-3xl"
                                     onClick={closeMenu}
                                     href={item.path}
-                                    target={item?.target ?? "_self"}
                                 >
                                     {item.name}
                                 </Link>
