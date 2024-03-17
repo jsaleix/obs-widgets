@@ -24,7 +24,7 @@ export default function CounterListItem({ item }: { item: CounterPublicI }) {
                     className="w-1/2"
                 >
                     <Button className="gap-3">
-                        Show <ExternalIcon />
+                        Overlay <ExternalIcon />
                     </Button>
                 </Link>
             </div>

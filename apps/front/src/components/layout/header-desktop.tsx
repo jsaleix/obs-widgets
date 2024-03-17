@@ -4,6 +4,8 @@ import Link from "next/link";
 import AuthPart from "./auth-part-desktop";
 import { Session } from "next-auth";
 import { Roles } from "@/lib/config/users";
+import ActiveLink from "../common/active-link";
+import React from "react";
 
 interface Props {
     user: Session["user"] | null | undefined;
@@ -25,23 +27,38 @@ export default function HeaderDesktop({ user }: Props) {
                             />
                         </Link>
                     </div>
-                    <nav className="flex items-center gap-10">
-                        {navLinks.map((item, index) => (
-                            <Link
-                                key={index}
-                                href={item.path}
-                                target={item?.target ?? "_self"}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
-                        {user?.role === Roles.admin && (
-                            <Link href="/admin">Admin</Link>
-                        )}
-                    </nav>
                 </div>
+                <nav className="w-fit">
+                    <LinksSection userRole={user?.role} />
+                </nav>
                 <AuthPart user={user} />
             </div>
         </header>
+    );
+}
+
+export function LinksSection({ userRole }: { userRole: string | undefined }) {
+    return (
+        <div className="rounded-full flex p-2 gap-4 border border-grey-400 items-center text-xs">
+            {navLinks.map((item, index) => (
+                <ActiveLink
+                    key={index}
+                    href={item.path}
+                    className="p-2 hover:bg-gray-200 text-white hover:text-black rounded-full transition-colors duration-200"
+                    activeClassName="bg-red-800 !hover:bg-red-800 !hover:text-white"
+                >
+                    {item.name}
+                </ActiveLink>
+            ))}
+            {userRole === Roles.admin && (
+                <ActiveLink
+                    href="/admin"
+                    className="p-2 hover:bg-gray-200 text-white hover:text-black rounded-full transition-colors duration-200"
+                    activeClassName="bg-red-800 !hover:bg-red-800 !hover:text-white"
+                >
+                    Admin
+                </ActiveLink>
+            )}
+        </div>
     );
 }

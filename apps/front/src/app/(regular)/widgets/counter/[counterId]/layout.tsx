@@ -1,6 +1,7 @@
 import ActiveLink from "@/components/common/active-link";
 import Button from "@/components/common/button";
 import ExternalIcon from "@/components/icons/external";
+import { LinksSection } from "@/components/pages/widgets/counter/links-section";
 import { checkPermission } from "@/lib/auth";
 import counterService from "@/lib/services/counter.service";
 import Link from "next/link";
@@ -30,41 +31,8 @@ export default async function Layout({
 
     return (
         <div className="w-full flex flex-col md:gap-5">
-            <div className="w-full border-b-2 border-gray-600 flex flex-col gap-3 md:gap-0 md:flex-row md:items-center justify-start py-3 mb-5 px-5">
-                <ul className={"flex align-center gap-5 h-fit"}>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/overview`}
-                            activeClassName="underline"
-                        >
-                            Overview
-                        </ActiveLink>
-                    </li>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/edit`}
-                            activeClassName="underline"
-                        >
-                            Edit
-                        </ActiveLink>
-                    </li>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/controls`}
-                            activeClassName="underline"
-                        >
-                            Controls
-                        </ActiveLink>
-                    </li>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/settings`}
-                            activeClassName="underline"
-                        >
-                            Settings
-                        </ActiveLink>
-                    </li>
-                </ul>
+            <div className="px-5 md:px-0 w-full border-b-2 border-gray-600 flex flex-col gap-3 md:gap-0 md:flex-row md:items-center justify-start py-3 mb-5">
+                <LinksSection baseUrl={baseUrl} />
                 <Link
                     target="_blank"
                     href={`/viewer/counter/${counterId}`}
@@ -75,7 +43,7 @@ export default async function Layout({
                     </Button>
                 </Link>
             </div>
-            <div className="px-0 w-full">{children}</div>
+            <div className="px-5 md:px-0 w-full">{children}</div>
         </div>
     );
 }
