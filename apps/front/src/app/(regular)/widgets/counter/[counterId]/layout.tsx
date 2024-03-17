@@ -30,41 +30,8 @@ export default async function Layout({
 
     return (
         <div className="w-full flex flex-col md:gap-5">
-            <div className="w-full border-b-2 border-gray-600 flex flex-col gap-3 md:gap-0 md:flex-row md:items-center justify-start py-3 mb-5 px-5">
-                <ul className={"flex align-center gap-5 h-fit"}>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/overview`}
-                            activeClassName="underline"
-                        >
-                            Overview
-                        </ActiveLink>
-                    </li>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/edit`}
-                            activeClassName="underline"
-                        >
-                            Edit
-                        </ActiveLink>
-                    </li>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/controls`}
-                            activeClassName="underline"
-                        >
-                            Controls
-                        </ActiveLink>
-                    </li>
-                    <li>
-                        <ActiveLink
-                            href={`${baseUrl}/settings`}
-                            activeClassName="underline"
-                        >
-                            Settings
-                        </ActiveLink>
-                    </li>
-                </ul>
+            <div className="px-5 md:px-0 w-full border-b-2 border-gray-600 flex flex-col gap-3 md:gap-0 md:flex-row md:items-center justify-start py-3 mb-5">
+                <LinksSection baseUrl={baseUrl} />
                 <Link
                     target="_blank"
                     href={`/viewer/counter/${counterId}`}
@@ -77,5 +44,43 @@ export default async function Layout({
             </div>
             <div className="px-5 md:px-0 w-full">{children}</div>
         </div>
+    );
+}
+
+export function LinksSection({ baseUrl }: { baseUrl: string }) {
+    const navLinks = [
+        {
+            name: "Overview",
+            path: `${baseUrl}/overview`,
+        },
+        {
+            name: "Edit",
+            path: `${baseUrl}/edit`,
+        },
+        {
+            name: "Controls",
+            path: `${baseUrl}/controls`,
+        },
+        {
+            name: "Settings",
+            path: `${baseUrl}/settings`,
+        },
+    ];
+
+    return (
+        <ul className="md:w-fit w-full rounded-xl md:rounded-full overflow-hidden flex flex-row p-2 gap-4 border border-grey-400 items-center text-md overflow-x-scroll hideScrollBar">
+            {navLinks.map((item, index) => (
+                <li>
+                    <ActiveLink
+                        key={index}
+                        href={item.path}
+                        className="py-1 px-4 hover:bg-gray-200 text-white hover:text-black rounded-full transition-colors duration-200"
+                        activeClassName="bg-red-800 !hover:bg-red-800 !hover:text-white"
+                    >
+                        {item.name}
+                    </ActiveLink>
+                </li>
+            ))}
+        </ul>
     );
 }

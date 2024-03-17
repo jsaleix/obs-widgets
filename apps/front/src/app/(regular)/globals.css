@@ -21,3 +21,12 @@ body {
         text-wrap: balance;
     }
 }
+
+.hideScrollBar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hideScrollBar::-webkit-scrollbar {
+    display: none;
+}
