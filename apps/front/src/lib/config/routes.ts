@@ -9,11 +9,9 @@ export const navLinks: Array<NavLinkI> = [
         path: "/",
     },
     {
-        name: "Widgets",
+        name: "Manage Widgets",
         path: "/widgets",
     },
 ];
 
-export const protectedPaths = [
-    "/widgets", "/account"
-]
+export const protectedPaths = ["/widgets", "/admin"];
