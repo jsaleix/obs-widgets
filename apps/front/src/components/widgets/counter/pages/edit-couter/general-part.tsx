@@ -22,9 +22,9 @@ const FormField = ({
     children: React.ReactNode;
 }) => {
     return (
-        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+        <div className="min-h-12 flex flex-col md:flex-row items-center gap-2 md:gap-4 py-2 md:py-0">
             <h3 className="w-full md:w-1/3">{label}:</h3>
-            {children}
+            <div className="w-full flex flex-col">{children}</div>
         </div>
     );
 };
@@ -60,7 +60,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 onChange={handleSubmit(onChangeAction)}
-                className={"w-full flex flex-col gap-1"}
+                className={"w-full flex flex-col gap-2"}
             >
                 <FormField label="Background color">
                     <Input
@@ -69,6 +69,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                             required: true,
                             value: initValues.bgColor,
                         })}
+                        onChange={() => console.log("Ok")}
                         type="color"
                         defaultValue={initValues.bgColor}
                         maxLength={7}
@@ -76,7 +77,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     />
                     {errors.bgColor?.message && (
                         <span className="text-red-500">
-                            {errors.bgColor.message}
+                            ⚠️{errors.bgColor.message}
                         </span>
                     )}
                 </FormField>
@@ -96,7 +97,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     />
                     {errors.bgOpacity?.message && (
                         <span className="text-red-500">
-                            {errors.bgOpacity.message}
+                            ⚠️{errors.bgOpacity.message}
                         </span>
                     )}
                 </FormField>
@@ -104,15 +105,15 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     <Input
                         placeholder="Background image"
                         register={register("bgImage", {
-                            required: true,
+                            required: false,
                             value: initValues.bgImage ?? "",
                         })}
                         type="text"
                         defaultValue={initValues.bgImage ?? ""}
                     />
-                    {errors.bgColor?.message && (
+                    {errors.bgImage?.message && (
                         <span className="text-red-500">
-                            {errors.bgColor.message}
+                            ⚠️{errors.bgImage.message}
                         </span>
                     )}
                 </FormField>
@@ -132,7 +133,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     />
                     {errors.bgImageOpacity?.message && (
                         <span className="text-red-500">
-                            {errors.bgImageOpacity.message}
+                            ⚠️{errors.bgImageOpacity.message}
                         </span>
                     )}
                 </FormField>
@@ -150,7 +151,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     />
                     {errors.iconsColor?.message && (
                         <span className="text-red-500">
-                            {errors.iconsColor.message}
+                            ⚠️{errors.iconsColor.message}
                         </span>
                     )}
                 </FormField>
@@ -165,7 +166,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     />
                     {errors.optionalText?.message && (
                         <span className="text-red-500">
-                            {errors.optionalText.message}
+                            ⚠️{errors.optionalText.message}
                         </span>
                     )}
                 </FormField>
@@ -183,7 +184,7 @@ export default function GeneralPart({ onChangeAction }: Props) {
                     />
                     {errors.optionalTextColor?.message && (
                         <span className="text-red-500">
-                            {errors.optionalTextColor.message}
+                            ⚠️{errors.optionalTextColor.message}
                         </span>
                     )}
                 </FormField>
