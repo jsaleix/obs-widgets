@@ -35,7 +35,7 @@ export default async function Page() {
                 {counters.length > 0 && (
                     <div
                         className={
-                            "w-full grid sm:grid-cols-1 md:grid-cols-4 gap-4"
+                            "w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
                         }
                     >
                         {counters.map((c, idx) => (
