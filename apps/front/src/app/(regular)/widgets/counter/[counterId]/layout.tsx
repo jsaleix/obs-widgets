@@ -75,7 +75,7 @@ export default async function Layout({
                     </Button>
                 </Link>
             </div>
-            <div className="px-0 w-full">{children}</div>
+            <div className="px-5 md:px-0 w-full">{children}</div>
         </div>
     );
 }
