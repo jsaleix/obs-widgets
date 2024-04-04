@@ -1,5 +1,5 @@
 export const APP_TITLE =
-    process.env.NEXT_PUBLIC_APP_TITLE ?? "Impera's widgets";
+    process.env.NEXT_PUBLIC_APP_TITLE ?? "Widgets";
 
 export const HOSTNAME =
     process.env.NEXT_PUBLIC_HOSTNAME ?? "http://localhost:3000";
