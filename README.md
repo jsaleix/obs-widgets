@@ -1,6 +1,6 @@
 # WIDGETS
 
-A project using NextJS with the recent AppRouter, it main purpose is to provide various widgets overlay to implement on a stream using web browser.
+A project using NextJS with the recent AppRouter, its main purpose is to provide various widgets overlay to implement on as a livestream overlay using the web browser.
 
 ## Stack
 
@@ -15,7 +15,7 @@ A project using NextJS with the recent AppRouter, it main purpose is to provide 
 -   Jest
 -   Firebase admin sdk
 -   Github Actions
--   Vercel (it may changes)
+-   Vercel (it may change)
 
 ## Requirements
 
@@ -24,11 +24,11 @@ A project using NextJS with the recent AppRouter, it main purpose is to provide 
 
 ## Starting the project
 
-First you need to set up a .env file based on .env.example as:
+First you need to set up an .env file based on .env.example as follows:
 
     cp apps/front/.env.example apps/front/.env
 
-In the .env.example file the var `FIRESTORE_EMULATOR_HOST` is disabled, if you plan to use the project fully in local, enable it in order for the app to use the firebase emulator.
+In the .env.example file, the var `FIRESTORE_EMULATOR_HOST` is disabled, if you plan to use the project fully in local, enable it in order for the app to use the firebase emulator.
 However you must fill the remaining fields such as `TWITCH_CLIENT_ID` and `TWITCH_CLIENT_SECRET`, you can do it in https://dev.twitch.tv/console/apps. If you don't you won't be able to use authentication.
 
 After all that, run the following commands at the root of the project:
