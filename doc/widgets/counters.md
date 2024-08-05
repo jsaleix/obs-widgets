@@ -19,7 +19,7 @@ It's possible to control it from the web app or via api requests.
 
 ## Api requests
 
-It is possible to increment or decrement a row from a counter without using the web app by sending http request.
+It is possible to increment or decrement a row from a counter without using the web app by sending an http request.
 
 From the Controls Panels it is possible to directly copy the url related to the row and already including the secret mandatory to update it.
 
@@ -38,7 +38,7 @@ Types allowed: `increment`, `decrement`
 ![App control panel of a widget](../images/widgets/counters/secret.png)
 
 ## Live view
-Once you've created an customized a counteryou can use it as overlay with realtime changes by symply copying the url provided at the top right corner of the panel.
+Once you've created an customized a counter, you can overlay it with real-time changes by symply copying the url provided at the top right-hand corner of the panel.
 
 ![App control panel of a widget](../images/widgets/counters/overlay.png)
 
@@ -60,4 +60,4 @@ Using curl in a terminal, by copying the request of a row:
 
   
 
-This request will increment the value related to the row `0d8cf3aa-a8ea-48a5-b072-3c1929b7dcc0` from the counter `eee007fa-81f3-4b92-8b00-4.
+This request will increment the value related to the row `0d8cf3aa-a8ea-48a5-b072-3c1929b7dcc0` from the counter `eee007fa-81f3-4b92-8b00-44d65e017bb7`.
